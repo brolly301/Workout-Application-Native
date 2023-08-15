@@ -5,9 +5,10 @@ export default function ExerciseList() {
   return (
     <View>
       <Text>ExerciseList</Text>
-      <Button title="Hey" onPress={() => console.log(results)} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  title: {},
+});

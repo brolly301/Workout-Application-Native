@@ -1,14 +1,30 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { FontAwesome5 } from "@expo/vector-icons";
+import React, { useState } from "react";
+import SearchBar from "../components/SearchBar";
+import RoutineList from "../components/Routines/RoutineList";
 
 export default function RoutineScreen() {
+  const [text, setText] = useState();
+
   return (
-    <View>
-      <Text>RoutineScreen</Text>
-      <FontAwesome5 name="clipboard-list" size={24} color="black" />
+    <View style={styles.container}>
+      <Text style={styles.title}>Routine</Text>
+      <SearchBar setText={setText} placeholder={"routines"} />
+      <Text style={styles.subTitle}>All Routines</Text>
+      <RoutineList />
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 15,
+  },
+  title: {
+    fontSize: 36,
+    marginTop: 10,
+  },
+  subTitle: {
+    fontSize: 18,
+  },
+});

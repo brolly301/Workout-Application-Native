@@ -12,6 +12,8 @@ import {
   FontAwesome5,
   Feather,
   MaterialIcons,
+  Ionicons,
+  EvilIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
@@ -26,6 +28,12 @@ export default function App() {
           name="Routines"
           component={RoutineScreen}
           options={{
+            headerRight: () => (
+              <View style={styles.exerciseHeaderRight}>
+                <Text>Edit</Text>
+                <Feather name="plus" size={24} color="black" />
+              </View>
+            ),
             tabBarLabel: () => <Text>Routines</Text>,
             tabBarIcon: ({ focused }) => (
               <FontAwesome5
@@ -41,6 +49,9 @@ export default function App() {
           component={HistoryScreen}
           plus
           options={{
+            headerRight: () => (
+              <EvilIcons name="calendar" size={24} color="black" />
+            ),
             tabBarLabel: () => <Text>History</Text>,
             tabBarIcon: ({ focused }) => (
               <MaterialIcons
@@ -69,6 +80,12 @@ export default function App() {
           name="Exercise"
           component={ExerciseScreen}
           options={{
+            headerRight: () => (
+              <View style={styles.exerciseHeaderRight}>
+                <Text>Sort By</Text>
+                <Feather name="plus" size={24} color="black" />
+              </View>
+            ),
             tabBarLabel: () => <Text>Exercises</Text>,
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons
@@ -83,6 +100,9 @@ export default function App() {
           name="Profile"
           component={ProfileScreen}
           options={{
+            headerRight: () => (
+              <Ionicons name="settings-sharp" size={24} color="black" />
+            ),
             tabBarLabel: () => <Text>Profile</Text>,
             tabBarIcon: ({ focused }) => (
               <FontAwesome5
@@ -97,3 +117,10 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  exerciseHeaderRight: {
+    display: "flex",
+    flexDirection: "row",
+  },
+});
