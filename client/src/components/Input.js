@@ -11,17 +11,17 @@ export default function Input({ field, setText }) {
 }
 
 const styles = StyleSheet.create({
-  container: { display: "flex", alignItems: "center" },
+  container: { display: "flex", alignItems: "center", paddingVertical: 5 },
   label: {
     alignSelf: "flex-start",
     fontSize: 18,
-    marginLeft: 20,
+    paddingBottom: 5,
   },
   input: {
     borderWidth: 1,
     borderColor: "black",
     borderRadius: "5%",
-    width: "90%",
+    width: "100%",
     paddingVertical: 7,
     paddingLeft: 7,
   },

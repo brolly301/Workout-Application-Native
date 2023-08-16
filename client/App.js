@@ -23,6 +23,7 @@ import ExerciseCreate from "./src/components/Exercises/ExerciseCreate";
 import SplashScreen from "./src/screens/Auth/SplashScreen";
 import LoginScreen from "./src/screens/Auth/LoginScreen";
 import RegisterScreen from "./src/screens/Auth/RegisterScreen";
+import ExerciseShowScreen from "./src/screens/ExerciseShowScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,11 +32,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name='Splash' component={SplashScreen} />
-        <Stack.Screen name='Login' component={LoginScreen} />
-        <Stack.Screen name='Register' component={RegisterScreen} />
-        <Stack.Screen name='ExerciseCreate' component={ExerciseCreate} />
-        <Stack.Screen name='Home' component={TabNavigation} />
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="ExerciseCreate" component={ExerciseCreate} />
+        <Stack.Screen name="ExerciseShow" component={ExerciseShowScreen} />
+        <Stack.Screen name="Home" component={TabNavigation} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -45,19 +47,19 @@ const TabNavigation = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name='Routines'
+        name="Routines"
         component={RoutineScreen}
         options={({ navigation }) => ({
           headerRight: () => (
             <View style={styles.exerciseHeaderRight}>
               <Text>Edit</Text>
-              <Feather name='plus' size={24} color='black' />
+              <Feather name="plus" size={24} color="black" />
             </View>
           ),
           tabBarLabel: () => <Text>Routines</Text>,
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
-              name='clipboard-list'
+              name="clipboard-list"
               size={30}
               color={focused ? "#D5A8F8" : "black"}
             />
@@ -65,17 +67,17 @@ const TabNavigation = () => {
         })}
       />
       <Tab.Screen
-        name='History'
+        name="History"
         component={HistoryScreen}
         plus
         options={{
           headerRight: () => (
-            <EvilIcons name='calendar' size={24} color='black' />
+            <EvilIcons name="calendar" size={24} color="black" />
           ),
           tabBarLabel: () => <Text>History</Text>,
           tabBarIcon: ({ focused }) => (
             <MaterialIcons
-              name='history'
+              name="history"
               size={30}
               color={focused ? "#D5A8F8" : "black"}
             />
@@ -83,13 +85,13 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name='Workout'
+        name="Workout"
         component={WorkoutDashboardScreen}
         options={{
           tabBarLabel: () => <Text>Workout</Text>,
           tabBarIcon: ({ focused }) => (
             <Feather
-              name='plus-square'
+              name="plus-square"
               size={30}
               color={focused ? "#D5A8F8" : "black"}
             />
@@ -98,7 +100,7 @@ const TabNavigation = () => {
       />
 
       <Tab.Screen
-        name='Exercise'
+        name="Exercise"
         component={ExerciseScreen}
         options={({ navigation }) => ({
           headerRight: () => (
@@ -106,9 +108,8 @@ const TabNavigation = () => {
               <Text>Sort By</Text>
               <GestureHandlerRootView>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("ExerciseCreate")}
-                >
-                  <Feather name='plus' size={24} color='black' />
+                  onPress={() => navigation.navigate("ExerciseCreate")}>
+                  <Feather name="plus" size={24} color="black" />
                 </TouchableOpacity>
               </GestureHandlerRootView>
             </View>
@@ -116,7 +117,7 @@ const TabNavigation = () => {
           tabBarLabel: () => <Text>Exercises</Text>,
           tabBarIcon: ({ focused }) => (
             <MaterialCommunityIcons
-              name='weight-lifter'
+              name="weight-lifter"
               size={30}
               color={focused ? "#D5A8F8" : "black"}
             />
@@ -124,16 +125,16 @@ const TabNavigation = () => {
         })}
       />
       <Tab.Screen
-        name='Profile'
+        name="Profile"
         component={ProfileScreen}
         options={{
           headerRight: () => (
-            <Ionicons name='settings-sharp' size={24} color='black' />
+            <Ionicons name="settings-sharp" size={24} color="black" />
           ),
           tabBarLabel: () => <Text>Profile</Text>,
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
-              name='user'
+              name="user"
               size={30}
               color={focused ? "#D5A8F8" : "black"}
             />

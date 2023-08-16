@@ -6,8 +6,8 @@ export default function LoginScreen({ navigation }) {
   const [formData, setFormData] = useState();
 
   return (
-    <View>
-      <Text>LoginScreen</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
       <Input field={"Email Address"} setText={setFormData} />
       <Input field={"Password"} setText={setFormData} />
       <TouchableOpacity style={styles.login} setText={setFormData}>
@@ -16,8 +16,7 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity
         style={styles.forgotPassword}
         setText={setFormData}
-        onPress={() => navigation.navigate("Home")}
-      >
+        onPress={() => navigation.navigate("Home")}>
         <Text style={styles.buttonText}>Forgot Password?</Text>
       </TouchableOpacity>
     </View>
@@ -25,18 +24,22 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 15,
+  },
   title: {
     fontSize: 40,
+    fontWeight: "bold",
   },
   login: {
-    width: "90%",
+    width: "100%",
     backgroundColor: "#D5A8F8",
     borderWidth: 1,
     borderRadius: "5%",
     paddingVertical: 10,
   },
   forgotPassword: {
-    width: "90%",
+    width: "100%",
     borderWidth: 1,
     borderRadius: "5%",
     paddingVertical: 10,
