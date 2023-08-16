@@ -6,17 +6,16 @@ export default useResult = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const searchAPI = async () => {
+      try {
+        const res = await Exercise.get("/exercises");
+        setResults(res.data);
+      } catch (err) {
+        setError("Something went wrong");
+      }
+    };
     searchAPI();
   }, []);
 
-  const searchAPI = async () => {
-    try {
-      const res = await Exercise.get("/exercises");
-      setResults(res.data);
-    } catch (err) {
-      setError("Something went wrong");
-    }
-  };
-
-  return [results, error, searchAPI];
+  return [results, error];
 };

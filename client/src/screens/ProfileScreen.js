@@ -7,11 +7,11 @@ export default function ProfileScreen() {
   return (
     <View>
       <Text>Profile</Text>
-      <ProfileDetails />
+      {/* <ProfileDetails /> */}
       <Text>Activity</Text>
-      //Chart component
+      {/* Chart component */}
       <Text>Recent Workouts</Text>
-      <HistoryList />
+      {/* <HistoryList /> */}
     </View>
   );
 }
