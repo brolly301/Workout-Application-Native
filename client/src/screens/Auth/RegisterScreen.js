@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useState } from "react";
-import AuthInput from "../../components/AuthInput";
+import Input from "../../components/Input";
 
 export default function RegisterScreen() {
   const [formData, setFormData] = useState();
@@ -8,11 +8,11 @@ export default function RegisterScreen() {
   return (
     <View>
       <Text>RegisterScreen</Text>
-      <AuthInput field={"First Name"} setText={setFormData} />
-      <AuthInput field={"Last Name"} setText={setFormData} />
-      <AuthInput field={"Email Address"} setText={setFormData} />
-      <AuthInput field={"Password"} setText={setFormData} />
-      <Button title="Register" />
+      <Input field={"First Name"} setText={setFormData} />
+      <Input field={"Last Name"} setText={setFormData} />
+      <Input field={"Email Address"} setText={setFormData} />
+      <Input field={"Password"} setText={setFormData} />
+      <Button title='Register' />
     </View>
   );
 }
