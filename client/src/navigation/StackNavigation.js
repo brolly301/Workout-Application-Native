@@ -8,7 +8,9 @@ import ProfileScreen from "../screens/ProfileScreen";
 import ExerciseShowScreen from "../screens/ExerciseShowScreen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import React from "react";
-
+import SplashScreen from "../screens/Auth/SplashScreen";
+import LoginScreen from "../screens/Auth/LoginScreen";
+import RegisterScreen from "../screens/Auth/RegisterScreen";
 import {
   FontAwesome5,
   Feather,
@@ -100,12 +102,27 @@ const ProfileStack = () => {
   );
 };
 
+const AuthStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Splash"
+        component={SplashScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
+  );
+};
+
 export {
   WorkoutStack,
   HistoryStack,
   RoutinesStack,
   ExercisesStack,
   ProfileStack,
+  AuthStack,
 };
 
 const styles = StyleSheet.create({
