@@ -1,24 +1,30 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Input from "../../components/Input";
+import useUserContext from "../../hooks/useUserContext";
 
 export default function RegisterScreen() {
-  const [formData, setFormData] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const { register } = useUserContext();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
-      <Input field={"First Name"} setText={setFormData} />
-      <Input field={"Last Name"} setText={setFormData} />
-      <Input field={"Email Address"} setText={setFormData} />
-      <Input field={"Password"} setText={setFormData} />
-      <TouchableOpacity style={styles.register}>
+      <Input field={"First Name"} setText={setFirstName} />
+      <Input field={"Last Name"} setText={setLastName} />
+      <Input field={"Email Address"} setText={setEmail} />
+      <Input field={"Password"} setText={setPassword} />
+      <TouchableOpacity
+        style={styles.register}
+        onPress={() => register({ email, password })}>
         <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 15,

@@ -1,21 +1,25 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Input from "../../components/Input";
+import useUserContext from "../../hooks/useUserContext";
 
 export default function LoginScreen({ navigation }) {
-  const [formData, setFormData] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const { login } = useUserContext();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-      <Input field={"Email Address"} setText={setFormData} />
-      <Input field={"Password"} setText={setFormData} />
-      <TouchableOpacity style={styles.login} setText={setFormData}>
+      <Input field={"Email Address"} setText={setEmail} />
+      <Input field={"Password"} setText={setPassword} />
+      <TouchableOpacity
+        style={styles.login}
+        onPress={() => login({ email, password })}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.forgotPassword}
-        setText={setFormData}
         onPress={() => navigation.navigate("Home")}>
         <Text style={styles.buttonText}>Forgot Password?</Text>
       </TouchableOpacity>
