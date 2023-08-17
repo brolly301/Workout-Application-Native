@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const app = express();
 const requireAuth = require("./middlewares/requireAuth");
+const expressValidator = require("express-validator");
 
 //DB Connection
 const mongoUri =
@@ -24,6 +25,7 @@ app.listen(3000, () => {
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(expressValidator());
 
 //Routes
 const authRoutes = require("./routes/authRoutes");

@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const { registerValidator } = require("../middlewares/validation");
 
-router.post("/register", async (req, res) => {
+router.post("/register", registerValidator, async (req, res) => {
   const emailExists = await User.findOne({ email: req.body.email });
 
   if (emailExists) {
