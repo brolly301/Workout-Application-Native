@@ -17,8 +17,12 @@ export default function RegisterScreen() {
   };
 
   const handleSubmit = () => {
-    handleValidation();
-    register({ firstName, lastName, email, password });
+    if (!handleValidation())
+      try {
+        register({ firstName, lastName, email, password });
+      } catch (e) {
+        console.log(e);
+      }
   };
 
   return (
