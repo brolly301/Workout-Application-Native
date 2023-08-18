@@ -4,12 +4,19 @@ import React from "react";
 export default function ExerciseAbout({ name, image, instructions }) {
   return (
     <View>
-      <Text>{name}</Text>
-      {/* <Image source={image}/> */}
+      <Text>Chest Press</Text>
+      <Image
+        style={styles.image}
+        source={require("../../images/exercise.jpg")}
+      />
       <Text>Instructions</Text>
-      {/* <Text>{instructions}</Text> */}
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  title: {},
+  image: {},
+  subTitle: {},
+  instructions: {},
+});

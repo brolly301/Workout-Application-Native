@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-import Exercise from "../../images/exercise.jpg";
 
 export default function ExerciseShow({ name, type, image }) {
   return (

@@ -4,9 +4,8 @@ import React from "react";
 export default function ExerciseHistory() {
   return (
     <View>
-      <Text>{date}</Text>
+      <Text></Text>
       <View style={styles.hr} />
-      //Library for table
     </View>
   );
 }
