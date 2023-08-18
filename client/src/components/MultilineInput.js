@@ -1,26 +1,21 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import React from "react";
 
-export default function Input({
-  field,
-  setText,
-  error,
-  multiline,
-  numberOfLines,
-}) {
+const MultilineInput = ({ field, setText, error }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{field}</Text>
       {error && <Text style={styles.error}>{error}</Text>}
       <TextInput
-        multiline={multiline}
-        numberOfLines={numberOfLines}
+        multiline={true}
         style={styles.input}
         onChangeText={(text) => setText(text)}
       />
     </View>
   );
-}
+};
+
+export default MultilineInput;
 
 const styles = StyleSheet.create({
   container: { display: "flex", alignItems: "center", paddingVertical: 5 },
@@ -33,7 +28,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
-
+    height: 60,
     width: "100%",
     paddingVertical: 7,
     paddingLeft: 7,

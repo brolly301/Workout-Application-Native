@@ -22,6 +22,7 @@ import {
 import CreateWorkoutScreen from "../screens/CreateWorkoutScreen";
 import CreateTrackScreen from "../screens/CreateTrackScreen";
 import ExerciseCreate from "../components/Exercises/ExerciseCreate";
+import CreateRoutineScreen from "../screens/CreateRoutineScreen";
 
 const Stack = createStackNavigator();
 
@@ -59,11 +60,15 @@ const RoutinesStack = () => {
           headerRight: () => (
             <View style={styles.headerRight}>
               <Text>Edit</Text>
-              <Feather name="plus" size={24} color="black" />
+              <TouchableOpacity
+                onPress={() => navigation.navigate("CreateRoutine")}>
+                <Feather name="plus" size={24} color="black" />
+              </TouchableOpacity>
             </View>
           ),
         })}
       />
+      <Stack.Screen name="CreateRoutine" component={CreateRoutineScreen} />
     </Stack.Navigator>
   );
 };
