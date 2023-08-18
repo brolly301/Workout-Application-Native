@@ -19,12 +19,17 @@ const login = (dispatch) => {
   };
 };
 const register = (dispatch) => {
-  return async ({ email, password }) => {
+  return async ({ firstName, lastName, email, password }) => {
     try {
-      const res = await Server.post("/register", { email, password });
+      const res = await Server.post("/register", {
+        firstName,
+        lastName,
+        email,
+        password,
+      });
       console.log(res);
     } catch (e) {
-      console.log(e);
+      console.log(e.error);
     }
   };
 };
