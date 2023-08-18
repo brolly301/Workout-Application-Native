@@ -19,6 +19,9 @@ import {
   EvilIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import CreateWorkoutScreen from "../screens/CreateWorkoutScreen";
+import CreateTrackScreen from "../screens/CreateTrackScreen";
+import ExerciseCreate from "../components/Exercises/ExerciseCreate";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +29,8 @@ const WorkoutStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Workout" component={WorkoutDashboard} />
+      <Stack.Screen name="CreateWorkout" component={CreateWorkoutScreen} />
+      <Stack.Screen name="CreateTrack" component={CreateTrackScreen} />
     </Stack.Navigator>
   );
 };
@@ -83,6 +88,7 @@ const ExercisesStack = () => {
         })}
       />
       <Stack.Screen name="ExerciseShow" component={ExerciseShowScreen} />
+      <Stack.Screen name="ExerciseCreate" component={ExerciseCreate} />
     </Stack.Navigator>
   );
 };

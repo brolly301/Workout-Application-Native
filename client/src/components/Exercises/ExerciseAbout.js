@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Image, StyleSheet, Text, View, Button } from "react-native";
+import React, { useState } from "react";
 
 export default function ExerciseAbout({ name, image, instructions }) {
   return (
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 300,
+    height: "300",
     marginVertical: 20,
   },
   subTitle: {
