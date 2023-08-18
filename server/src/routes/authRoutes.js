@@ -13,13 +13,17 @@ router.post("/register", registerValidator, async (req, res) => {
     });
   }
 
-  const user = new User(req.body);
-  await user.save();
-  const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
-  res.status(201).json({
-    message: "Sign up successful.",
-    token,
-  });
+  try {
+    const user = new User(req.body);
+    await user.save();
+    const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
+    res.status(201).json({
+      message: "Sign up successful.",
+      token,
+    });
+  } catch (e) {
+    return res.status(422).send(err.message);
+  }
 });
 
 router.post("/login", async (req, res) => {

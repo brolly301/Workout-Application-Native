@@ -6,13 +6,16 @@ import useUserContext from "../../hooks/useUserContext";
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const { login } = useUserContext();
+  const { state, login } = useUserContext();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
       <Input field={"Email Address"} setText={setEmail} />
       <Input field={"Password"} setText={setPassword} />
+      {state.errorMessage && (
+        <Text style={styles.error}>{state.errorMessage}</Text>
+      )}
       <TouchableOpacity
         style={styles.login}
         onPress={() => login({ email, password })}>
@@ -53,5 +56,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     justifyContent: "flex-end",
+  },
+  error: {
+    color: "red",
+    fontSize: 14,
+    alignSelf: "flex-start",
+    marginBottom: 5,
   },
 });

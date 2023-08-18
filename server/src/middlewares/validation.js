@@ -11,9 +11,16 @@ const errors = (req, res, next) => {
 };
 
 exports.registerValidator = (req, res, next) => {
+  const nameRegex = /^[a-zA-Z]{1,30}$/;
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const passwordRegex =
     /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,20}$/;
+
+  req.check("firstName", "First Name is required!").notEmpty();
+  req.check("firstName", "First Name incorrect format").matches(nameRegex);
+
+  req.check("lastName", "Last Name is required!").notEmpty();
+  req.check("lastName", "Last Name incorrect format").matches(nameRegex);
 
   req.check("email", "Email is required").notEmpty();
   req.check("email", "Email incorrect format").matches(emailRegex);

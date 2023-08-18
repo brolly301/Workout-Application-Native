@@ -3,6 +3,8 @@ import createDataContext from "./createDataContext";
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "add_error":
+      return { ...state, errorMessage: action.payload };
     default:
       return state;
   }
@@ -14,7 +16,7 @@ const login = (dispatch) => {
       const res = await Server.post("/login", { email, password });
       console.log(res);
     } catch (e) {
-      console.log(e);
+      dispatch({ type: "add_error", payload: e.response.data.error });
     }
   };
 };
@@ -27,9 +29,9 @@ const register = (dispatch) => {
         email,
         password,
       });
-      console.log(res);
+      console.log(res.data);
     } catch (e) {
-      console.log(e.error);
+      console.log(e.response.data);
     }
   };
 };
