@@ -3,8 +3,6 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function ExerciseShow({ exercise }) {
-  console.log(exercise);
-
   return (
     <View style={styles.container}>
       <Image

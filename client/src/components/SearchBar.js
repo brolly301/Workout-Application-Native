@@ -1,15 +1,21 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
+import ExerciseList from "./Exercises/ExerciseList";
+import useExerciseContext from "../hooks/useExerciseContext";
+import { useEffect, useState } from "react";
 
-export default function SearchBar({ setText, placeholder }) {
+export default function SearchBar({ placeholder, setText, search, onSubmit }) {
   return (
-    <View style={styles.container}>
-      <EvilIcons style={styles.icon} name="search" size={24} color="black" />
-      <TextInput
-        style={styles.input}
-        placeholder={`Search ${placeholder}...`}
-        onChangeText={(text) => setText(text)}
-      />
+    <View>
+      <View style={styles.container}>
+        <EvilIcons style={styles.icon} name="search" size={24} color="black" />
+        <TextInput
+          style={styles.input}
+          placeholder={`Search ...${placeholder}`}
+          onChangeText={(text) => setText(text)}
+          value={search}
+        />
+      </View>
     </View>
   );
 }

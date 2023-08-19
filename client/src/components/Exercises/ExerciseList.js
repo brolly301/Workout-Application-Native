@@ -9,19 +9,12 @@ import {
 import React, { useEffect, useState } from "react";
 import ExerciseShow from "../../components/Exercises/ExerciseShow";
 import { useNavigation } from "@react-navigation/native";
-import useExerciseContext from "../../hooks/useExerciseContext";
 
 const upperCaseChar = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export default function ExerciseList() {
-  const { state, getExercises } = useExerciseContext();
-
-  useEffect(() => {
-    getExercises();
-  }, []);
-
+export default function ExerciseList({ state, search }) {
   const navigation = useNavigation();
 
   return (

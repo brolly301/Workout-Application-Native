@@ -11,8 +11,6 @@ export default function ExerciseCreate() {
   const [bodyPart, setBodyPart] = useState("");
   const [category, setCategory] = useState("");
 
-  console.log(state);
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Exercises</Text>
