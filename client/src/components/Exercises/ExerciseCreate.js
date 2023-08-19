@@ -2,24 +2,29 @@ import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Input from "../Input";
 import Spacer from "../Spacer";
+import useExerciseContext from "../../hooks/useExerciseContext";
 
 export default function ExerciseCreate() {
-  const [formData, setFormData] = useState({
-    name: "",
-    type: "",
-    category: "",
-  });
+  const { addExercise, state } = useExerciseContext();
+
+  const [name, setName] = useState("");
+  const [bodyPart, setBodyPart] = useState("");
+  const [category, setCategory] = useState("");
+
+  console.log(state);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Exercises</Text>
       <Text style={styles.subTitle}>Create New Exercise</Text>
-      <Input field={"Exercise Name"} setText={setFormData} />
+      <Input field={"Exercise Name"} setText={setName} />
       <Spacer />
-      <Input field={"Body Part"} setText={setFormData} />
+      <Input field={"Body Part"} setText={setBodyPart} />
       <Spacer />
-      <Input field={"Category"} setText={setFormData} />
-      <TouchableOpacity style={styles.button}>
+      <Input field={"Category"} setText={setCategory} />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => addExercise(name, bodyPart, category)}>
         <Text style={styles.buttonText}>Save Exercise</Text>
       </TouchableOpacity>
     </View>
