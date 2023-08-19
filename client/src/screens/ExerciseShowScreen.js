@@ -1,23 +1,23 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import useResult from "../hooks/useResult";
 import ExerciseAbout from "../components/Exercises/ExerciseAbout";
 import ExerciseHistory from "../components/Exercises/ExerciseHistory";
+import useExerciseContext from "../hooks/useExerciseContext";
 
 const ExerciseShowScreen = ({ route }) => {
   const [selected, setSelected] = useState(true);
 
-  const [results] = useResult();
+  const { state } = useExerciseContext();
   const id = route.params.id;
 
-  const exercise = results.find((result) => result.id === id);
+  const exercise = state.find((result) => result.id === id);
 
   const handleSelected = (boolean) => {
     setSelected(boolean);
   };
 
-  let content = <ExerciseAbout />;
+  let content = <ExerciseAbout exercise={exercise} />;
   if (!selected) {
     content = <ExerciseHistory />;
   }

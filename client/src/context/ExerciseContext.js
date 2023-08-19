@@ -1,4 +1,5 @@
 import createDataContext from "./createDataContext";
+import Server from "../api/Server";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -18,6 +19,8 @@ const reducer = (state, action) => {
       });
     case "delete_exercise":
       return state.filter((exercise) => exercise.id !== action.payload);
+    case "get_exercises":
+      return action.payload;
     default:
       return state;
   }
@@ -38,8 +41,17 @@ const deleteExercise = (dispatch) => (id) => {
   dispatch({ type: "delete_exercise", payload: id });
 };
 
+const getExercises = (dispatch) => async () => {
+  try {
+    const res = await Server.get("/exercises/allExercises");
+    dispatch({ type: "get_exercises", payload: res.data });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   reducer,
-  { addExercise, editExercise, deleteExercise },
+  { addExercise, editExercise, deleteExercise, getExercises },
   []
 );

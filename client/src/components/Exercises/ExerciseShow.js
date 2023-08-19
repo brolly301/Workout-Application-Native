@@ -2,16 +2,20 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function ExerciseShow({ name, type, image }) {
+export default function ExerciseShow({ exercise }) {
+  console.log(exercise);
+
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require("../../images/exercise.jpg")}
+        source={{
+          uri: "https://res.cloudinary.com/dtcoefjmm/image/upload/v1692471110/exercises/images/3_4_Sit-Up/images/0_y0xzyp.jpg",
+        }}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.type}>{type}</Text>
+        <Text style={styles.name}>{exercise.name}</Text>
+        <Text style={styles.type}>{exercise.primaryMuscles[0]}</Text>
       </View>
       <AntDesign
         style={styles.icon}

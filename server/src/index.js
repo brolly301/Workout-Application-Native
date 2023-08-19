@@ -29,7 +29,9 @@ app.use(expressValidator());
 
 //Routes
 const authRoutes = require("./routes/authRoutes");
+const exerciseRoutes = require("./routes/exerciseRoutes");
 app.use("/", authRoutes);
+app.use("/exercises", exerciseRoutes);
 
 app.get("", requireAuth, (req, res) => {
   res.send(req.body.email);
