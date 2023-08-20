@@ -4,13 +4,35 @@ import {
   Text,
   View,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Input from "../Input";
 import Spacer from "../Spacer";
+import AddSet from "./AddSet";
 
 const WorkoutExercise = ({ exerciseData }) => {
-  console.log(exerciseData);
+  const [set, setSet] = useState([
+    {
+      set: 1,
+      previous: "60 x 10",
+      kg: 60,
+      reps: 10,
+    },
+  ]);
+
+  const handleAddSet = () => {
+    setSet([
+      ...set,
+      {
+        set: 2,
+        previous: "60 x 10",
+        kg: 60,
+        reps: 10,
+      },
+    ]);
+  };
+
   return (
     <View>
       <FlatList
@@ -26,26 +48,17 @@ const WorkoutExercise = ({ exerciseData }) => {
               </Text>
               <Spacer />
               <View style={styles.setHeaderContainer}>
-                <View>
-                  <Text style={styles.header}>Set</Text>
-                  <Text style={styles.set}>1</Text>
-                </View>
-                <View>
-                  <Text style={styles.header}>Previous</Text>
-                  <Text style={styles.set}>60 x 10</Text>
-                </View>
-                <View>
-                  <Text style={styles.header}>kg</Text>
-                  <Text style={styles.set}>60</Text>
-                </View>
-                <View>
-                  <Text style={styles.header}>Reps</Text>
-                  <Text style={styles.set}>10</Text>
-                </View>
+                <Text style={styles.header}>Set</Text>
+                <Text style={styles.header}>Previous</Text>
+                <Text style={styles.header}>kg</Text>
+                <Text style={styles.header}>Reps</Text>
               </View>
+              <AddSet set={set} />
               <Spacer />
               <Input field={"Exercise Notes"} />
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleAddSet()}>
                 <Text style={styles.buttonText}>Add Set</Text>
               </TouchableOpacity>
             </View>
@@ -74,6 +87,17 @@ const styles = StyleSheet.create({
   },
   set: {
     alignSelf: "center",
+    marginTop: 10,
+    paddingBottom: 3,
+  },
+  setInput: {
+    textAlign: "center",
+    paddingBottom: 3,
+    alignSelf: "center",
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+    width: "80%",
+    marginTop: 10,
   },
   button: {
     width: "100%",

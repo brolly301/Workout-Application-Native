@@ -84,7 +84,7 @@ const RoutinesStack = () => {
     </Stack.Navigator>
   );
 };
-const ExercisesStack = () => {
+const ExercisesStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -105,7 +105,17 @@ const ExercisesStack = () => {
         })}
       />
       <Stack.Screen name="ExerciseShow" component={ExerciseShowScreen} />
-      <Stack.Screen name="ExerciseCreate" component={ExerciseCreate} />
+      <Stack.Screen
+        name="ExerciseCreate"
+        component={ExerciseCreate}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.navigate("Exercises")}>
+              <Text style={styles.cancelButton}>Cancel</Text>
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 };
