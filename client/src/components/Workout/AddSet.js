@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, FlatList, TextInput } from "react-native";
 import React from "react";
 
 const AddSet = ({ set }) => {
-  console.log(set);
   return (
     <View>
       <FlatList

@@ -11,33 +11,34 @@ import Input from "../Input";
 import Spacer from "../Spacer";
 import AddSet from "./AddSet";
 
-const WorkoutExercise = ({ exerciseData }) => {
-  const [set, setSet] = useState([
-    {
-      set: 1,
-      previous: "60 x 10",
-      kg: 60,
-      reps: 10,
-    },
-  ]);
-
-  const handleAddSet = () => {
-    setSet([
-      ...set,
-      {
-        set: 2,
-        previous: "60 x 10",
-        kg: 60,
-        reps: 10,
-      },
-    ]);
+const WorkoutExercise = ({ exerciseData, setExerciseData }) => {
+  const handleAddSet = (index) => {
+    const updatedSet = exerciseData.map((exercise, idx) => {
+      if (index === idx) {
+        return {
+          ...exerciseData[index],
+          sets: [
+            ...exerciseData[index].sets,
+            {
+              id: Math.floor(Math.random() * 100000),
+              set: exerciseData[index].sets.length + 1,
+              previous: "60 x 10",
+              kg: 60,
+              reps: 10,
+            },
+          ],
+        };
+      }
+      return exercise;
+    });
+    setExerciseData(updatedSet);
   };
 
   return (
     <View>
       <FlatList
         data={exerciseData}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => {
           return (
             <View>
@@ -53,12 +54,27 @@ const WorkoutExercise = ({ exerciseData }) => {
                 <Text style={styles.header}>kg</Text>
                 <Text style={styles.header}>Reps</Text>
               </View>
-              <AddSet set={set} />
+              <FlatList
+                data={item.sets}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={styles.setHeaderContainer}>
+                      <Text style={styles.header}>{item.set}</Text>
+                      <Text style={styles.header}>{item.previous}</Text>
+                      <Text style={styles.header}>{item.kg}</Text>
+                      <Text style={styles.header}>{item.reps}</Text>
+                    </View>
+                  );
+                }}
+              />
+
+              {/* <AddSet set={exerciseData.set} /> */}
               <Spacer />
               <Input field={"Exercise Notes"} />
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => handleAddSet()}>
+                onPress={() => handleAddSet(index)}>
                 <Text style={styles.buttonText}>Add Set</Text>
               </TouchableOpacity>
             </View>

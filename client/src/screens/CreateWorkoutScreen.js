@@ -19,12 +19,24 @@ const CreateWorkoutScreen = () => {
     setExerciseData([
       ...exerciseData,
       {
+        id: Math.floor(Math.random() * 100000),
         name,
         category,
         level,
+        sets: [
+          {
+            id: Math.floor(Math.random() * 100000),
+            set: 1,
+            previous: "60 x 10",
+            kg: 60,
+            reps: 10,
+          },
+        ],
       },
     ]);
   };
+
+  console.log(exerciseData);
 
   return (
     <View style={styles.container}>
@@ -40,7 +52,10 @@ const CreateWorkoutScreen = () => {
             <Timer />
           </View>
           <MultilineInput field={"Description"} />
-          <WorkoutExercise exerciseData={exerciseData} />
+          <WorkoutExercise
+            exerciseData={exerciseData}
+            setExerciseData={setExerciseData}
+          />
 
           <TouchableOpacity
             style={styles.button}

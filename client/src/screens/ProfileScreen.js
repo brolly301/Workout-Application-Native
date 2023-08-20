@@ -5,15 +5,27 @@ import HistoryList from "../components/History/HistoryList";
 
 export default function ProfileScreen() {
   return (
-    <View>
-      <Text>Profile</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Profile</Text>
       {/* <ProfileDetails /> */}
-      <Text>Activity</Text>
+      <Text style={styles.subTitle}>Activity</Text>
       {/* Chart component */}
-      <Text>Recent Workouts</Text>
+      <Text style={styles.subTitle}>Recent Workouts</Text>
       {/* <HistoryList /> */}
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: "bold",
+  },
+  subTitle: {
+    fontSize: 28,
+    fontWeight: "500",
+  },
+});
