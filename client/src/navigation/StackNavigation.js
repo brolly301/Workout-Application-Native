@@ -26,11 +26,23 @@ import CreateRoutineScreen from "../screens/CreateRoutineScreen";
 
 const Stack = createStackNavigator();
 
-const WorkoutStack = () => {
+const WorkoutStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Workout" component={WorkoutDashboard} />
-      <Stack.Screen name="CreateWorkout" component={CreateWorkoutScreen} />
+      <Stack.Screen
+        name="CreateWorkout"
+        component={CreateWorkoutScreen}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.navigate("Workout")}>
+              <Text style={styles.cancelButton}>Cancel</Text>
+            </TouchableOpacity>
+          ),
+          headerTitle: () => <Text style={styles.resetButton}>Reset</Text>,
+          headerRight: () => <Text style={styles.finishButton}>Finish</Text>,
+        }}
+      />
       <Stack.Screen name="CreateTrack" component={CreateTrackScreen} />
     </Stack.Navigator>
   );
@@ -140,5 +152,19 @@ const styles = StyleSheet.create({
   headerRight: {
     display: "flex",
     flexDirection: "row",
+  },
+  cancelButton: {
+    color: "red",
+    fontSize: 18,
+    marginLeft: 20,
+  },
+  resetButton: {
+    color: "#D5A8F8",
+    fontSize: 18,
+  },
+  finishButton: {
+    color: "lightgreen",
+    fontSize: 18,
+    marginRight: 20,
   },
 });
