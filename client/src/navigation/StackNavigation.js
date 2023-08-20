@@ -55,7 +55,12 @@ const HistoryStack = () => {
         component={HistoryScreen}
         options={{
           headerRight: () => (
-            <EvilIcons name="calendar" size={24} color="black" />
+            <EvilIcons
+              style={styles.headerRight}
+              name="calendar"
+              size={30}
+              color="#D5A8F8"
+            />
           ),
         }}
       />
@@ -71,10 +76,10 @@ const RoutinesStack = () => {
         options={({ navigation }) => ({
           headerRight: () => (
             <View style={styles.headerRight}>
-              <Text>Edit</Text>
+              <Text style={styles.headerRightText}>Edit</Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate("CreateRoutine")}>
-                <Feather name="plus" size={24} color="black" />
+                <Feather name="plus" size={24} color="#D5A8F8" />
               </TouchableOpacity>
             </View>
           ),
@@ -93,11 +98,11 @@ const ExercisesStack = ({ navigation }) => {
         options={({ navigation }) => ({
           headerRight: () => (
             <View style={styles.headerRight}>
-              <Text>Sort By</Text>
+              <Text style={styles.headerRightText}>Sort By</Text>
               <GestureHandlerRootView>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("ExerciseCreate")}>
-                  <Feather name="plus" size={24} color="black" />
+                  <Feather name="plus" size={24} color="#D5A8F8" />
                 </TouchableOpacity>
               </GestureHandlerRootView>
             </View>
@@ -127,7 +132,12 @@ const ProfileStack = () => {
         component={ProfileScreen}
         options={{
           headerRight: () => (
-            <Ionicons name="settings-sharp" size={24} color="black" />
+            <Ionicons
+              style={styles.headerRight}
+              name="settings-sharp"
+              size={24}
+              color="#D5A8F8"
+            />
           ),
         }}
       />
@@ -162,6 +172,12 @@ const styles = StyleSheet.create({
   headerRight: {
     display: "flex",
     flexDirection: "row",
+    marginRight: 10,
+  },
+  headerRightText: {
+    marginRight: 10,
+    alignSelf: "center",
+    fontSize: 18,
   },
   cancelButton: {
     color: "red",
