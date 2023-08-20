@@ -23,7 +23,7 @@ export default function ExerciseScreen() {
       <Text style={styles.title}>Exercises</Text>
       <SearchBar setText={setSearch} placeholder={"exercises"} />
       <Text style={styles.subTitle}>All Exercises</Text>
-      <ExerciseList state={updatedState} search={search} />
+      <ExerciseList state={updatedState(search)} search={search} />
     </View>
   );
 }

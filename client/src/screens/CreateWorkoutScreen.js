@@ -5,21 +5,50 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Timer from "../components/Workout/Timer";
 import MultilineInput from "../components/MultilineInput";
+import AddExercise from "../components/Workout/AddExercise";
+import WorkoutExercise from "../components/Workout/WorkoutExercise";
 
 const CreateWorkoutScreen = () => {
+  const [addExercise, setAddExercise] = useState(false);
+  const [exerciseData, setExerciseData] = useState([]);
+
+  const handleSubmit = (name, category, level) => {
+    setExerciseData([
+      ...exerciseData,
+      {
+        name,
+        category,
+        level,
+      },
+    ]);
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.timerContainer}>
-        <Text style={styles.title}>Workout - 1</Text>
-        <Timer />
-      </View>
-      <MultilineInput field={"Description"} />
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Add Exercise</Text>
-      </TouchableOpacity>
+      {addExercise ? (
+        <AddExercise
+          setAddExercise={setAddExercise}
+          handleSubmit={handleSubmit}
+        />
+      ) : (
+        <>
+          <View style={styles.timerContainer}>
+            <Text style={styles.title}>Workout - 1</Text>
+            <Timer />
+          </View>
+          <MultilineInput field={"Description"} />
+          <WorkoutExercise exerciseData={exerciseData} />
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setAddExercise(true)}>
+            <Text style={styles.buttonText}>Add Exercise</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };
