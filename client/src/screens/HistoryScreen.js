@@ -1,13 +1,22 @@
 import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
+import HistoryList from "../components/History/HistoryList";
+import useWorkoutContext from "../hooks/useWorkoutContext";
 
 export default function HistoryScreen() {
+  const { getWorkouts } = useWorkoutContext();
+
+  useEffect(() => {
+    getWorkouts();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>History</Text>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Workouts</Text>
       </TouchableOpacity>
+      <HistoryList />
     </View>
   );
 }

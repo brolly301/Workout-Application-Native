@@ -4,39 +4,53 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import Timer from "../components/Workout/Timer";
 import MultilineInput from "../components/MultilineInput";
 import AddExercise from "../components/Workout/AddExercise";
 import WorkoutExercise from "../components/Workout/WorkoutExercise";
+import useWorkoutContext from "../hooks/useWorkoutContext";
+import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 
 const CreateWorkoutScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
-  const [exerciseData, setExerciseData] = useState([]);
+  const [exerciseData, setExerciseData] = useState({
+    userID: "12547",
+    name: "Workout 1",
+    description: "This is a test workout",
+    date: "12/08/2023",
+    time: 2,
+    exercises: [],
+  });
+
+  const { addExerciseSets } = useExerciseSetsContext();
+  const { addWorkout } = useWorkoutContext();
 
   const handleSubmit = (name, category, level) => {
-    setExerciseData([
+    setExerciseData({
       ...exerciseData,
-      {
-        id: Math.floor(Math.random() * 100000),
-        name,
-        category,
-        level,
-        sets: [
-          {
-            id: Math.floor(Math.random() * 100000),
-            set: 1,
-            previous: "60 x 10",
-            kg: 60,
-            reps: 10,
-          },
-        ],
-      },
-    ]);
+      exercises: [
+        ...exerciseData.exercises,
+        {
+          exerciseID: Math.floor(Math.random() * 100000),
+          name,
+          category,
+          level,
+          sets: [
+            {
+              setID: Math.floor(Math.random() * 100000),
+              set: 1,
+              previous: "60 x 10",
+              kg: 60,
+              reps: 10,
+            },
+          ],
+        },
+      ],
+    });
   };
-
-  console.log(exerciseData);
 
   return (
     <View style={styles.container}>
@@ -52,15 +66,31 @@ const CreateWorkoutScreen = () => {
             <Timer />
           </View>
           <MultilineInput field={"Description"} />
-          <WorkoutExercise
-            exerciseData={exerciseData}
-            setExerciseData={setExerciseData}
-          />
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <WorkoutExercise
+              exerciseData={exerciseData}
+              setExerciseData={setExerciseData}
+            />
+          </ScrollView>
 
           <TouchableOpacity
             style={styles.button}
             onPress={() => setAddExercise(true)}>
             <Text style={styles.buttonText}>Add Exercise</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              addWorkout(exerciseData);
+              for (let exercise of exerciseData.exercises) {
+                addExerciseSets({
+                  exerciseName: exercise.name,
+                  sets: exercise.sets,
+                });
+              }
+            }}>
+            <Text style={styles.buttonText}>Finish Workout</Text>
           </TouchableOpacity>
         </>
       )}
@@ -105,7 +135,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: "5%",
     paddingVertical: 8,
-    marginTop: "auto",
+    // marginTop: "auto",
     marginBottom: 15,
   },
   buttonText: {

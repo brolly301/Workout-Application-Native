@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import Input from "../Input";
@@ -13,32 +14,33 @@ import AddSet from "./AddSet";
 
 const WorkoutExercise = ({ exerciseData, setExerciseData }) => {
   const handleAddSet = (index) => {
-    const updatedSet = exerciseData.map((exercise, idx) => {
-      if (index === idx) {
-        return {
-          ...exerciseData[index],
-          sets: [
-            ...exerciseData[index].sets,
-            {
-              id: Math.floor(Math.random() * 100000),
-              set: exerciseData[index].sets.length + 1,
-              previous: "60 x 10",
-              kg: 60,
-              reps: 10,
-            },
-          ],
-        };
-      }
-      return exercise;
-    });
-    setExerciseData(updatedSet);
+    // Create a shallow copy of exerciseData
+    const newExerciseData = { ...exerciseData };
+
+    // Create a shallow copy of the exercises array
+    const newExercises = [...newExerciseData.exercises];
+
+    // Create a shallow copy of the sets array within an exercise
+    const newSets = [...newExercises[index].sets];
+
+    // Add a new set to the sets array
+    newSets.push({ set: 1, previous: "60x10", kg: 20, reps: 10 }); // Change this according to your set structure
+
+    // Update the sets array within the first exercise
+    newExercises[index].sets = newSets;
+
+    // Update the exercises array within exerciseData
+    newExerciseData.exercises = newExercises;
+
+    // Update the state with the new exerciseData
+    setExerciseData(newExerciseData);
   };
 
   return (
     <View>
       <FlatList
-        data={exerciseData}
-        keyExtractor={(item) => item.id}
+        data={exerciseData.exercises}
+        keyExtractor={(item) => item.exerciseID}
         renderItem={({ item, index }) => {
           return (
             <View>
@@ -54,6 +56,7 @@ const WorkoutExercise = ({ exerciseData, setExerciseData }) => {
                 <Text style={styles.header}>kg</Text>
                 <Text style={styles.header}>Reps</Text>
               </View>
+
               <FlatList
                 data={item.sets}
                 keyExtractor={(item) => item.id}
@@ -69,7 +72,6 @@ const WorkoutExercise = ({ exerciseData, setExerciseData }) => {
                 }}
               />
 
-              {/* <AddSet set={exerciseData.set} /> */}
               <Spacer />
               <Input field={"Exercise Notes"} />
               <TouchableOpacity

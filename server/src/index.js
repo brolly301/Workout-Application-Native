@@ -32,8 +32,12 @@ app.use(express.json({ limit: "50mb" }));
 //Routes
 const authRoutes = require("./routes/authRoutes");
 const exerciseRoutes = require("./routes/exerciseRoutes");
+const workoutRoutes = require("./routes/workoutRoutes");
+const exerciseSets = require("./routes/exerciseSetRoutes");
 app.use("/", authRoutes);
 app.use("/exercises", exerciseRoutes);
+app.use("/workouts", workoutRoutes);
+app.use("/exerciseSets", exerciseSets);
 
 app.get("", requireAuth, (req, res) => {
   res.send(req.body.email);

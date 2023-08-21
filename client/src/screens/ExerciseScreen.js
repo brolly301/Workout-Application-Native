@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ExerciseList from "../components/Exercises/ExerciseList";
 import SearchBar from "../components/SearchBar";
 import useExerciseContext from "../hooks/useExerciseContext";
+import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import { useEffect } from "react";
 
 export default function ExerciseScreen() {
