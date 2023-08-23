@@ -5,27 +5,34 @@ import SearchBar from "../components/SearchBar";
 import useExerciseContext from "../hooks/useExerciseContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import { useEffect } from "react";
+import useStateContext from "../hooks/useStateContext";
 
 export default function ExerciseScreen() {
   const { state, getExercises } = useExerciseContext();
+  const { selected } = useStateContext();
   const [search, setSearch] = useState();
 
   useEffect(() => {
     getExercises();
   }, []);
 
-  const updatedState = (term) =>
-    state?.filter((exercise) => exercise.name.match(term));
-
-  const sortA_Z = (state) => state?.sort();
-  const sortZ_A = (state) => state?.reverse();
+  const update = (sortBy) => {
+    switch (sortBy) {
+      case "search":
+        return state?.filter((exercise) => exercise.name.match(search));
+      case "reverse":
+        return state?.reverse();
+      default:
+        return state;
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Exercises</Text>
       <SearchBar setText={setSearch} placeholder={"exercises"} />
       <Text style={styles.subTitle}>All Exercises</Text>
-      <ExerciseList state={updatedState(search)} search={search} />
+      <ExerciseList state={update(selected)} search={search} />
     </View>
   );
 }

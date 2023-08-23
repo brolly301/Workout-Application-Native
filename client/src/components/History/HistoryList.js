@@ -3,13 +3,13 @@ import React, { useEffect } from "react";
 import useWorkoutContext from "../../hooks/useWorkoutContext";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export default function HistoryList() {
+export default function HistoryList({ limit }) {
   const { state } = useWorkoutContext();
 
   return (
     <View style={styles.mainContainer}>
       <FlatList
-        data={state}
+        data={state.slice(0, limit)}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return (
@@ -27,7 +27,7 @@ export default function HistoryList() {
                 </View>
                 <View style={styles.textContainer}>
                   <Text>{item.time}</Text>
-                  {/* <Text>{item.exercises.length + 1 || 0} Exercises</Text> */}
+                  <Text>{item.exercises.length + 1 || 0} Exercises</Text>
                 </View>
               </View>
             </View>
@@ -41,13 +41,14 @@ export default function HistoryList() {
 const styles = StyleSheet.create({
   mainContainer: {
     marginTop: 20,
+    flex: 1,
   },
   container: {
     display: "flex",
     flexDirection: "row",
     borderWidth: 1,
     borderColor: "black",
-
+    flex: 1,
     marginBottom: 20,
     padding: 20,
   },

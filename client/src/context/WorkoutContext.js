@@ -32,5 +32,5 @@ const addWorkout = (dispatch) => async (exerciseData) => {
 export const { Provider, Context } = createDataContext(
   reducer,
   { addWorkout, getWorkouts },
-  {}
+  []
 );

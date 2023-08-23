@@ -24,6 +24,8 @@ export default function HistoryScreen() {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
+    height: "100%",
+    flex: 1,
   },
   title: {
     fontSize: 36,

@@ -1,14 +1,21 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useExerciseContext from "../../hooks/useExerciseContext";
+import useStateContext from "../../hooks/useStateContext";
 
 const ExerciseSortBy = () => {
   const [active, setActive] = useState(false);
-  const { state } = useExerciseContext();
+  const { selected, setSelected } = useStateContext();
 
   const handlePress = () => {
     setActive(!active);
   };
+
+  useEffect(() => {
+    if (selected) {
+      console.log(selected);
+    }
+  }, [selected]);
 
   return (
     <View>
@@ -18,12 +25,19 @@ const ExerciseSortBy = () => {
       {active ? (
         <>
           <View style={styles.dropdownContainer}>
-            <TouchableOpacity onPress={() => state.reverse()}>
-              <Text>A to Z</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>Z to A</Text>
-            </TouchableOpacity>
+            {selected === "reverse" ? (
+              <>
+                <TouchableOpacity onPress={() => setSelected("search")}>
+                  <Text>Z to A</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <>
+                <TouchableOpacity onPress={() => setSelected("reverse")}>
+                  <Text>A to Z</Text>
+                </TouchableOpacity>
+              </>
+            )}
           </View>
         </>
       ) : null}
@@ -44,5 +58,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
     alignSelf: "center",
     fontSize: 18,
+  },
+  dropdownText: {
+    fontSize: 20,
+    marginVertical: 20,
   },
 });

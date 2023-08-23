@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ProfileDetails from "../components/Profile/ProfileDetails";
+
 import HistoryList from "../components/History/HistoryList";
 
 export default function ProfileScreen() {
@@ -11,7 +12,9 @@ export default function ProfileScreen() {
       <Text style={styles.subTitle}>Activity</Text>
       {/* Chart component */}
       <Text style={styles.subTitle}>Recent Workouts</Text>
-      {/* <HistoryList /> */}
+      <View style={styles.recentWorkoutsContainer}>
+        <HistoryList limit={2} />
+      </View>
     </View>
   );
 }
@@ -19,6 +22,8 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
+    height: "100%",
+    display: "flex",
   },
   title: {
     fontSize: 36,
@@ -27,5 +32,8 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 28,
     fontWeight: "500",
+  },
+  recentWorkoutsContainer: {
+    flex: 1,
   },
 });
