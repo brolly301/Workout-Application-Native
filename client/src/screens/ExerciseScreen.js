@@ -9,6 +9,7 @@ import { useEffect } from "react";
 export default function ExerciseScreen() {
   const { state, getExercises } = useExerciseContext();
   const [search, setSearch] = useState();
+
   useEffect(() => {
     getExercises();
   }, []);
@@ -31,7 +32,9 @@ export default function ExerciseScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 15,
+    flex: 1,
+    height: "100%",
+    marginHorizontal: 20,
   },
   title: {
     fontSize: 36,

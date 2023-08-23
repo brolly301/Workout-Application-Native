@@ -23,6 +23,7 @@ import CreateWorkoutScreen from "../screens/CreateWorkoutScreen";
 import CreateTrackScreen from "../screens/CreateTrackScreen";
 import ExerciseCreate from "../components/Exercises/ExerciseCreate";
 import CreateRoutineScreen from "../screens/CreateRoutineScreen";
+import ExerciseSortBy from "../components/Exercises/ExerciseSortBy";
 
 const Stack = createStackNavigator();
 
@@ -98,7 +99,7 @@ const ExercisesStack = ({ navigation }) => {
         options={({ navigation }) => ({
           headerRight: () => (
             <View style={styles.headerRight}>
-              <Text style={styles.headerRightText}>Sort By</Text>
+              <ExerciseSortBy />
               <GestureHandlerRootView>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("ExerciseCreate")}>

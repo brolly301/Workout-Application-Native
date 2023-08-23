@@ -66,12 +66,11 @@ const CreateWorkoutScreen = () => {
             <Timer />
           </View>
           <MultilineInput field={"Description"} />
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <WorkoutExercise
-              exerciseData={exerciseData}
-              setExerciseData={setExerciseData}
-            />
-          </ScrollView>
+
+          <WorkoutExercise
+            exerciseData={exerciseData}
+            setExerciseData={setExerciseData}
+          />
 
           <TouchableOpacity
             style={styles.button}

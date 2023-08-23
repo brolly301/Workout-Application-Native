@@ -23,7 +23,7 @@ export default function ExerciseList({
   const navigation = useNavigation();
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={state}
         keyExtractor={(item) => item.id}
@@ -44,5 +44,8 @@ export default function ExerciseList({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+  },
   title: {},
 });

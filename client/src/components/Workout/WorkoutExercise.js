@@ -37,7 +37,7 @@ const WorkoutExercise = ({ exerciseData, setExerciseData }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={exerciseData.exercises}
         keyExtractor={(item) => item.exerciseID}
@@ -90,6 +90,9 @@ const WorkoutExercise = ({ exerciseData, setExerciseData }) => {
 export default WorkoutExercise;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   setHeaderContainer: {
     display: "flex",
     flexDirection: "row",
