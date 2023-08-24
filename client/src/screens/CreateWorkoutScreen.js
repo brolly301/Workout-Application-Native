@@ -10,9 +10,9 @@ import React, { useState } from "react";
 import Timer from "../components/Workout/Timer";
 import MultilineInput from "../components/MultilineInput";
 import AddExercise from "../components/Workout/AddExercise";
-import WorkoutExercise from "../components/Workout/WorkoutExercise";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
+import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 
 const CreateWorkoutScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
@@ -66,18 +66,16 @@ const CreateWorkoutScreen = () => {
             <Timer />
           </View>
           <MultilineInput field={"Description"} />
-
-          <WorkoutExercise
+          <WorkoutExerciseList
             exerciseData={exerciseData}
             setExerciseData={setExerciseData}
           />
-
           <TouchableOpacity
             style={styles.button}
-            onPress={() => setAddExercise(true)}>
+            onPress={() => setAddExercise(true)}
+          >
             <Text style={styles.buttonText}>Add Exercise</Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
@@ -88,7 +86,8 @@ const CreateWorkoutScreen = () => {
                   sets: exercise.sets,
                 });
               }
-            }}>
+            }}
+          >
             <Text style={styles.buttonText}>Finish Workout</Text>
           </TouchableOpacity>
         </>
