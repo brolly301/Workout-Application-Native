@@ -1,21 +1,28 @@
 import {
   StyleSheet,
+  TextInput,
   Text,
   View,
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Spacer from "../Spacer";
 import Input from "../Input";
 
-const WorkoutExerciseShow = ({ item, index, handleAddSet }) => {
+const WorkoutExerciseShow = ({
+  item,
+  exerciseIndex,
+  handleExerciseInputChange,
+  addSetToExercise,
+  handleExerciseNotesChange,
+}) => {
   return (
     <View>
       <Spacer />
       <Spacer />
       <Text style={styles.title}>
-        Exercise {index + 1} - {item.name}
+        Exercise {exerciseIndex + 1} - {item.name}
       </Text>
       <Spacer />
       <View style={styles.setHeaderContainer}>
@@ -24,32 +31,69 @@ const WorkoutExerciseShow = ({ item, index, handleAddSet }) => {
         <Text style={styles.header}>kg</Text>
         <Text style={styles.header}>Reps</Text>
       </View>
-
-      <FlatList
-        data={item.sets}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-          return (
-            <View style={styles.setHeaderContainer}>
-              <Text style={styles.header}>{item.set}</Text>
-              <Text style={styles.header}>{item.previous}</Text>
-              <Text style={styles.header}>{item.kg}</Text>
-              <Text style={styles.header}>{item.reps}</Text>
-            </View>
-          );
-        }}
-      />
+      {item.sets?.map((item, index) => {
+        return (
+          <View style={styles.setHeaderContainer}>
+            <Text style={styles.header}>{item.set}</Text>
+            <Text style={styles.header}>{item.previous}</Text>
+            <TextInput
+              placeholder='0'
+              onChangeText={(text) =>
+                handleExerciseInputChange(exerciseIndex, index, "kg", text)
+              }
+            />
+            <TextInput
+              placeholder='0'
+              onChangeText={(text) =>
+                handleExerciseInputChange(exerciseIndex, index, "reps", text)
+              }
+            />
+          </View>
+        );
+      })}
       <Spacer />
-      <Input field={"Exercise Notes"} />
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) =>
+          handleExerciseNotesChange(exerciseIndex, "notes", text)
+        }
+      />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => handleAddSet(index)}
+        onPress={() => addSetToExercise(exerciseIndex)}
       >
         <Text style={styles.buttonText}>Add Set</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
+{
+  /* <FlatList
+        data={item.sets}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) => {
+          return (
+            <View style={styles.setHeaderContainer}>
+              <Text style={styles.header}>{item.set}</Text>
+              <Text style={styles.header}>{item.previous}</Text>
+              <TextInput
+                placeholder='0'
+                onChangeText={(text) =>
+                  handleExerciseInputChange(exerciseIndex, index, "kg", text)
+                }
+              />
+              <TextInput
+                placeholder='0'
+                onChangeText={(text) =>
+                  handleExerciseInputChange(exerciseIndex, index, "reps", text)
+                }
+              />
+            </View>
+          );
+        }}
+      /> */
+}
 
 export default WorkoutExerciseShow;
 
@@ -75,14 +119,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingBottom: 3,
   },
-  setInput: {
-    textAlign: "center",
-    paddingBottom: 3,
-    alignSelf: "center",
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-    width: "80%",
-    marginTop: 10,
+  input: {
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 5,
+    width: "100%",
+    height: 40,
+    paddingVertical: 7,
+    paddingLeft: 7,
   },
   button: {
     width: "100%",

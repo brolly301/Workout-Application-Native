@@ -31,6 +31,9 @@ const WorkoutSchema = new Schema({
       level: {
         type: String,
       },
+      notes: {
+        type: String,
+      },
       sets: [
         {
           setID: {

@@ -16,40 +16,57 @@ import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 
 const CreateWorkoutScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
-  const [exerciseData, setExerciseData] = useState({
+  const [workoutData, setWorkoutData] = useState({
     userID: "12547",
-    name: "Workout 1",
-    description: "This is a test workout",
-    date: "12/08/2023",
+    name: "",
+    description: "",
+    date: new Date(),
     time: 2,
     exercises: [],
   });
 
+  console.log(workoutData.exercises);
+
   const { addExerciseSets } = useExerciseSetsContext();
   const { addWorkout } = useWorkoutContext();
 
-  const handleSubmit = (name, category, level) => {
-    setExerciseData({
-      ...exerciseData,
-      exercises: [
-        ...exerciseData.exercises,
-        {
-          exerciseID: Math.floor(Math.random() * 100000),
-          name,
-          category,
-          level,
-          sets: [
-            {
-              setID: Math.floor(Math.random() * 100000),
-              set: 1,
-              previous: "60 x 10",
-              kg: 60,
-              reps: 10,
-            },
-          ],
-        },
-      ],
+  //Take copy of state, push the exercise into the exercises array and give default set values
+  const handleSubmit = (name, level, category) => {
+    const updatedWorkout = { ...workoutData };
+    updatedWorkout.exercises.push({
+      name,
+      level,
+      category,
+
+      sets: [{ set: 1, kg: "", reps: "" }],
     });
+    setWorkoutData(updatedWorkout);
+  };
+
+  //Take copy of state, use the exercises index to choose that exercise
+  //Use set index to specify that exact set then field to update a specific field
+  //Then spcify the value to update and use this as an onChangeText event
+  const handleExerciseInputChange = (exerciseIndex, setIndex, field, value) => {
+    const updatedWorkout = { ...workoutData };
+    updatedWorkout.exercises[exerciseIndex].sets[setIndex][field] = value;
+    setWorkoutData(updatedWorkout);
+  };
+
+  const handleExerciseNotesChange = (exerciseIndex, field, value) => {
+    const updatedWorkout = { ...workoutData };
+    updatedWorkout.exercises[exerciseIndex][field] = value;
+    setWorkoutData(updatedWorkout);
+  };
+
+  //
+  const addSetToExercise = (exerciseIndex) => {
+    const updatedWorkout = { ...workoutData };
+    updatedWorkout.exercises[exerciseIndex].sets.push({
+      set: updatedWorkout.exercises[exerciseIndex].sets.length + 1,
+      kg: "",
+      reps: "",
+    });
+    setWorkoutData(updatedWorkout);
   };
 
   return (
@@ -62,13 +79,29 @@ const CreateWorkoutScreen = () => {
       ) : (
         <>
           <View style={styles.timerContainer}>
-            <Text style={styles.title}>Workout - 1</Text>
+            <TextInput
+              placeholder='Workout 1'
+              value={workoutData.name}
+              style={styles.title}
+              onChangeText={(text) =>
+                setWorkoutData({ ...workoutData, name: text })
+              }
+            />
             <Timer />
           </View>
-          <MultilineInput field={"Description"} />
+          <Text style={styles.label}>Description</Text>
+          <TextInput
+            style={styles.input}
+            value={workoutData.description}
+            onChangeText={(text) =>
+              setWorkoutData({ ...workoutData, description: text })
+            }
+          />
           <WorkoutExerciseList
-            exerciseData={exerciseData}
-            setExerciseData={setExerciseData}
+            workoutData={workoutData}
+            handleExerciseInputChange={handleExerciseInputChange}
+            handleExerciseNotesChange={handleExerciseNotesChange}
+            addSetToExercise={addSetToExercise}
           />
           <TouchableOpacity
             style={styles.button}
@@ -79,8 +112,8 @@ const CreateWorkoutScreen = () => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              addWorkout(exerciseData);
-              for (let exercise of exerciseData.exercises) {
+              addWorkout(workoutData);
+              for (let exercise of workoutData.exercises) {
                 addExerciseSets({
                   exerciseName: exercise.name,
                   sets: exercise.sets,
@@ -106,6 +139,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: "bold",
+    color: "black",
   },
   timerContainer: {
     display: "flex",
