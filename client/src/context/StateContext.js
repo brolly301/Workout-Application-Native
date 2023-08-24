@@ -28,7 +28,25 @@ export const StateProvider = ({ children }) => {
     setTimer(0);
   };
 
-  const values = { selected, setSelected, time, resetTimer, startStopTimer };
+  //Workout Data
+  const [workoutData, setWorkoutData] = useState({
+    userID: "12547",
+    name: "",
+    description: "",
+    date: new Date(),
+    time: 2,
+    exercises: [],
+  });
+
+  const values = {
+    selected,
+    setSelected,
+    time,
+    resetTimer,
+    startStopTimer,
+    workoutData,
+    setWorkoutData,
+  };
 
   return (
     <StateContext.Provider value={values}>{children}</StateContext.Provider>

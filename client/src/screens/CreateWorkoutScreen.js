@@ -13,17 +13,11 @@ import AddExercise from "../components/Workout/AddExercise";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
+import useStateContext from "../hooks/useStateContext";
 
 const CreateWorkoutScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
-  const [workoutData, setWorkoutData] = useState({
-    userID: "12547",
-    name: "",
-    description: "",
-    date: new Date(),
-    time: 2,
-    exercises: [],
-  });
+  const { workoutData, setWorkoutData } = useStateContext();
 
   const { addExerciseSets } = useExerciseSetsContext();
   const { addWorkout } = useWorkoutContext();
@@ -78,7 +72,7 @@ const CreateWorkoutScreen = () => {
         <>
           <View style={styles.timerContainer}>
             <TextInput
-              placeholder='Workout 1'
+              placeholder="Workout 1"
               value={workoutData.name}
               style={styles.title}
               onChangeText={(text) =>
@@ -103,8 +97,7 @@ const CreateWorkoutScreen = () => {
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => setAddExercise(true)}
-          >
+            onPress={() => setAddExercise(true)}>
             <Text style={styles.buttonText}>Add Exercise</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -117,8 +110,7 @@ const CreateWorkoutScreen = () => {
                   sets: exercise.sets,
                 });
               }
-            }}
-          >
+            }}>
             <Text style={styles.buttonText}>Finish Workout</Text>
           </TouchableOpacity>
         </>
