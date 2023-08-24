@@ -24,15 +24,17 @@ import CreateTrackScreen from "../screens/CreateTrackScreen";
 import ExerciseCreate from "../components/Exercises/ExerciseCreate";
 import CreateRoutineScreen from "../screens/CreateRoutineScreen";
 import ExerciseSortBy from "../components/Exercises/ExerciseSortBy";
+import useStateContext from "../hooks/useStateContext";
 
 const Stack = createStackNavigator();
 
 const WorkoutStack = ({ navigation }) => {
+  const { resetTimer } = useStateContext();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Workout" component={WorkoutDashboard} />
+      <Stack.Screen name='Workout' component={WorkoutDashboard} />
       <Stack.Screen
-        name="CreateWorkout"
+        name='CreateWorkout'
         component={CreateWorkoutScreen}
         options={{
           headerLeft: () => (
@@ -40,11 +42,15 @@ const WorkoutStack = ({ navigation }) => {
               <Text style={styles.cancelButton}>Cancel</Text>
             </TouchableOpacity>
           ),
-          headerTitle: () => <Text style={styles.resetButton}>Reset</Text>,
+          headerTitle: () => (
+            <TouchableOpacity onPress={() => resetTimer()}>
+              <Text style={styles.resetButton}>Reset</Text>
+            </TouchableOpacity>
+          ),
           headerRight: () => <Text style={styles.finishButton}>Finish</Text>,
         }}
       />
-      <Stack.Screen name="CreateTrack" component={CreateTrackScreen} />
+      <Stack.Screen name='CreateTrack' component={CreateTrackScreen} />
     </Stack.Navigator>
   );
 };
@@ -52,15 +58,15 @@ const HistoryStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="History"
+        name='History'
         component={HistoryScreen}
         options={{
           headerRight: () => (
             <EvilIcons
               style={styles.headerRight}
-              name="calendar"
+              name='calendar'
               size={30}
-              color="#D5A8F8"
+              color='#D5A8F8'
             />
           ),
         }}
@@ -72,21 +78,22 @@ const RoutinesStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Routines"
+        name='Routines'
         component={RoutineScreen}
         options={({ navigation }) => ({
           headerRight: () => (
             <View style={styles.headerRight}>
               <Text style={styles.headerRightText}>Edit</Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate("CreateRoutine")}>
-                <Feather name="plus" size={24} color="#D5A8F8" />
+                onPress={() => navigation.navigate("CreateRoutine")}
+              >
+                <Feather name='plus' size={24} color='#D5A8F8' />
               </TouchableOpacity>
             </View>
           ),
         })}
       />
-      <Stack.Screen name="CreateRoutine" component={CreateRoutineScreen} />
+      <Stack.Screen name='CreateRoutine' component={CreateRoutineScreen} />
     </Stack.Navigator>
   );
 };
@@ -94,7 +101,7 @@ const ExercisesStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Exercises"
+        name='Exercises'
         component={ExerciseScreen}
         options={({ navigation }) => ({
           headerRight: () => (
@@ -102,17 +109,18 @@ const ExercisesStack = ({ navigation }) => {
               <ExerciseSortBy />
               <GestureHandlerRootView>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("ExerciseCreate")}>
-                  <Feather name="plus" size={24} color="#D5A8F8" />
+                  onPress={() => navigation.navigate("ExerciseCreate")}
+                >
+                  <Feather name='plus' size={24} color='#D5A8F8' />
                 </TouchableOpacity>
               </GestureHandlerRootView>
             </View>
           ),
         })}
       />
-      <Stack.Screen name="ExerciseShow" component={ExerciseShowScreen} />
+      <Stack.Screen name='ExerciseShow' component={ExerciseShowScreen} />
       <Stack.Screen
-        name="ExerciseCreate"
+        name='ExerciseCreate'
         component={ExerciseCreate}
         options={{
           headerLeft: () => (
@@ -129,15 +137,15 @@ const ProfileStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Profile"
+        name='Profile'
         component={ProfileScreen}
         options={{
           headerRight: () => (
             <Ionicons
               style={styles.headerRight}
-              name="settings-sharp"
+              name='settings-sharp'
               size={24}
-              color="#D5A8F8"
+              color='#D5A8F8'
             />
           ),
         }}
@@ -150,12 +158,12 @@ const AuthStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Splash"
+        name='Splash'
         component={SplashScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name='Login' component={LoginScreen} />
+      <Stack.Screen name='Register' component={RegisterScreen} />
     </Stack.Navigator>
   );
 };

@@ -25,8 +25,6 @@ const CreateWorkoutScreen = () => {
     exercises: [],
   });
 
-  console.log(workoutData.exercises);
-
   const { addExerciseSets } = useExerciseSetsContext();
   const { addWorkout } = useWorkoutContext();
 

@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import Spacer from "../Spacer";
 import Input from "../Input";
+import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
 
 const WorkoutExerciseShow = ({
   item,
@@ -17,6 +18,8 @@ const WorkoutExerciseShow = ({
   addSetToExercise,
   handleExerciseNotesChange,
 }) => {
+  const { state } = useExerciseSetsContext();
+
   return (
     <View>
       <Spacer />
@@ -35,7 +38,7 @@ const WorkoutExerciseShow = ({
         return (
           <View style={styles.setHeaderContainer}>
             <Text style={styles.header}>{item.set}</Text>
-            <Text style={styles.header}>{item.previous}</Text>
+            <Text style={styles.header}>-</Text>
             <TextInput
               placeholder='0'
               onChangeText={(text) =>
@@ -53,6 +56,7 @@ const WorkoutExerciseShow = ({
       })}
       <Spacer />
       <TextInput
+        value={item.notes}
         style={styles.input}
         onChangeText={(text) =>
           handleExerciseNotesChange(exerciseIndex, "notes", text)
@@ -67,33 +71,6 @@ const WorkoutExerciseShow = ({
     </View>
   );
 };
-
-{
-  /* <FlatList
-        data={item.sets}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => {
-          return (
-            <View style={styles.setHeaderContainer}>
-              <Text style={styles.header}>{item.set}</Text>
-              <Text style={styles.header}>{item.previous}</Text>
-              <TextInput
-                placeholder='0'
-                onChangeText={(text) =>
-                  handleExerciseInputChange(exerciseIndex, index, "kg", text)
-                }
-              />
-              <TextInput
-                placeholder='0'
-                onChangeText={(text) =>
-                  handleExerciseInputChange(exerciseIndex, index, "reps", text)
-                }
-              />
-            </View>
-          );
-        }}
-      /> */
-}
 
 export default WorkoutExerciseShow;
 

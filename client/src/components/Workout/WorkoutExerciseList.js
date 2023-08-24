@@ -32,6 +32,7 @@ const WorkoutExerciseList = ({
               handleExerciseInputChange={handleExerciseInputChange}
               addSetToExercise={addSetToExercise}
               handleExerciseNotesChange={handleExerciseNotesChange}
+              key={item.exerciseID}
             />
           );
         }}

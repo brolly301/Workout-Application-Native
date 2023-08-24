@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ProfileDetails from "../components/Profile/ProfileDetails";
-
 import HistoryList from "../components/History/HistoryList";
+import ProfileCharts from "../components/Profile/ProfileCharts";
 
 export default function ProfileScreen() {
   return (
@@ -10,7 +10,7 @@ export default function ProfileScreen() {
       <Text style={styles.title}>Profile</Text>
       {/* <ProfileDetails /> */}
       <Text style={styles.subTitle}>Activity</Text>
-      {/* Chart component */}
+      <ProfileCharts />
       <Text style={styles.subTitle}>Recent Workouts</Text>
       <View style={styles.recentWorkoutsContainer}>
         <HistoryList limit={2} />
