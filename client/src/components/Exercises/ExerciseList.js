@@ -14,7 +14,7 @@ const upperCaseChar = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export default function ExerciseList({ state, search }) {
+export default function ExerciseList({ state }) {
   const navigation = useNavigation();
 
   return (
@@ -27,7 +27,8 @@ export default function ExerciseList({ state, search }) {
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("ExerciseShow", { id: item.id })
-              }>
+              }
+            >
               <ExerciseShow exercise={item} />
             </TouchableOpacity>
           );

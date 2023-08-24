@@ -1,29 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
+import useStateContext from "../../hooks/useStateContext";
 
 const Timer = () => {
-  //State to store time
-  const [time, setTimer] = useState(0);
-  //State to start & stop timer
-  const [isRunning, setIsRunning] = useState(false);
-
-  useEffect(() => {
-    let intervalID;
-    if (isRunning) {
-      intervalID = setInterval(() => setTimer(time + 1), 10);
-    }
-    return () => clearInterval(intervalID);
-  }, [isRunning, time]);
-
-  //Start and stop timer
-  const startStopTimer = () => {
-    setIsRunning(!isRunning);
-  };
-
-  //Reset timer
-  const resetTimer = () => {
-    setTimer(0);
-  };
+  const { time } = useStateContext();
 
   // Hours calculation
   const hours = Math.floor(time / 360000);
@@ -39,7 +19,7 @@ const Timer = () => {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => startStopTimer()}>
+      <TouchableOpacity>
         <Text style={styles.timer}>
           {hours}:{minutes.toString().padStart(2, "0")}:
           {seconds.toString().padStart(2, "0")}:

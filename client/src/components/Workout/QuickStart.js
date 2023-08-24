@@ -1,21 +1,28 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import useStateContext from "../../hooks/useStateContext";
 
 export default function QuickStart() {
   const navigation = useNavigation();
+  const { startStopTimer } = useStateContext();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Quick Start</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("CreateWorkout")}>
+        onPress={() => {
+          startStopTimer();
+          navigation.navigate("CreateWorkout");
+        }}
+      >
         <Text style={styles.buttonText}>New Workout</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("CreateTrack")}>
+        onPress={() => navigation.navigate("CreateTrack")}
+      >
         <Text style={styles.buttonText}>Track Run</Text>
       </TouchableOpacity>
     </View>

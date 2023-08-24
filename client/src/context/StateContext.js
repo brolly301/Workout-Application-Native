@@ -6,7 +6,29 @@ const StateContext = createContext();
 export const StateProvider = ({ children }) => {
   const [selected, setSelected] = useState();
 
-  const values = { selected, setSelected };
+  const [time, setTimer] = useState(0);
+  //State to start & stop timer
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    let intervalID;
+    if (isRunning) {
+      intervalID = setInterval(() => setTimer(time + 1), 10);
+    }
+    return () => clearInterval(intervalID);
+  }, [isRunning, time]);
+
+  //Start and stop timer
+  const startStopTimer = () => {
+    setIsRunning(!isRunning);
+  };
+
+  //Reset timer
+  const resetTimer = () => {
+    setTimer(0);
+  };
+
+  const values = { selected, setSelected, time, resetTimer, startStopTimer };
 
   return (
     <StateContext.Provider value={values}>{children}</StateContext.Provider>

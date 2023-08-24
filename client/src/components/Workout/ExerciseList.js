@@ -14,14 +14,7 @@ const upperCaseChar = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export default function ExerciseList({
-  state,
-  search,
-  setAddExercise,
-  handleSubmit,
-}) {
-  const navigation = useNavigation();
-
+export default function ExerciseList({ state, setAddExercise, handleSubmit }) {
   return (
     <View style={styles.container}>
       <FlatList
@@ -33,7 +26,8 @@ export default function ExerciseList({
               onPress={() => {
                 setAddExercise(false);
                 handleSubmit(item.name, item.category, item.level);
-              }}>
+              }}
+            >
               <ExerciseShow exercise={item} />
             </TouchableOpacity>
           );

@@ -1,9 +1,11 @@
 import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HistoryList from "../components/History/HistoryList";
 import useWorkoutContext from "../hooks/useWorkoutContext";
+import TrackList from "../components/History/TrackList";
 
 export default function HistoryScreen() {
+  const [active, setActive] = useState(true);
   const { getWorkouts } = useWorkoutContext();
 
   useEffect(() => {
@@ -13,10 +15,18 @@ export default function HistoryScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>History</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Workouts</Text>
-      </TouchableOpacity>
-      <HistoryList />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={() => setActive(true)}>
+          <Text style={styles.buttonText}>Workouts</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setActive(false)}
+        >
+          <Text style={styles.buttonText}>Runs</Text>
+        </TouchableOpacity>
+      </View>
+      {active ? <HistoryList /> : <TrackList />}
     </View>
   );
 }
@@ -47,5 +57,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",
+  },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
