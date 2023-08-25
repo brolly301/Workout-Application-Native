@@ -11,14 +11,7 @@ import React from "react";
 import SplashScreen from "../screens/Auth/SplashScreen";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import RegisterScreen from "../screens/Auth/RegisterScreen";
-import {
-  FontAwesome5,
-  Feather,
-  MaterialIcons,
-  Ionicons,
-  EvilIcons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { Feather, Ionicons, EvilIcons } from "@expo/vector-icons";
 import CreateWorkoutScreen from "../screens/CreateWorkoutScreen";
 import CreateTrackScreen from "../screens/CreateTrackScreen";
 import ExerciseCreate from "../components/Exercises/ExerciseCreate";
@@ -27,13 +20,15 @@ import ExerciseSortBy from "../components/Exercises/ExerciseSortBy";
 import useStateContext from "../hooks/useStateContext";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
+import useRoutineContext from "../hooks/useRoutineContext";
 
 const Stack = createStackNavigator();
 
 const WorkoutStack = ({ navigation }) => {
   const { addWorkout } = useWorkoutContext();
   const { addExerciseSets } = useExerciseSetsContext();
-  const { resetTimer, workoutData } = useStateContext();
+  const { startStopTimer, resetTimer, workoutData, setWorkoutData } =
+    useStateContext();
   return (
     <Stack.Navigator>
       <Stack.Screen name="Workout" component={WorkoutDashboard} />
@@ -42,7 +37,13 @@ const WorkoutStack = ({ navigation }) => {
         component={CreateWorkoutScreen}
         options={{
           headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.navigate("Workout")}>
+            <TouchableOpacity
+              onPress={() => {
+                resetTimer();
+                startStopTimer(false);
+                // setWorkoutData([]);
+                navigation.navigate("Workout");
+              }}>
               <Text style={styles.cancelButton}>Cancel</Text>
             </TouchableOpacity>
           ),
@@ -61,6 +62,10 @@ const WorkoutStack = ({ navigation }) => {
                     sets: exercise.sets,
                   });
                   navigation.navigate("Workout");
+
+                  startStopTimer(false);
+                  resetTimer();
+                  // setWorkoutData([]);
                 }
               }}>
               <Text style={styles.finishButton}>Finish</Text>
@@ -92,7 +97,8 @@ const HistoryStack = () => {
     </Stack.Navigator>
   );
 };
-const RoutinesStack = () => {
+const RoutinesStack = ({ navigation }) => {
+  const { addRoutine, routine } = useRoutineContext();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -110,7 +116,31 @@ const RoutinesStack = () => {
           ),
         })}
       />
-      <Stack.Screen name="CreateRoutine" component={CreateRoutineScreen} />
+      <Stack.Screen
+        name="CreateRoutine"
+        component={CreateRoutineScreen}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Routines");
+              }}>
+              <Text style={styles.cancelButton}>Cancel</Text>
+            </TouchableOpacity>
+          ),
+          headerTitle: "",
+
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => {
+                addRoutine(routine);
+                navigation.navigate("Routines");
+              }}>
+              <Text style={styles.finishButton}>Save</Text>
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 };

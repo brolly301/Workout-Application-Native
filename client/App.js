@@ -5,20 +5,23 @@ import { Provider as WorkoutProvider } from "./src/context/WorkoutContext";
 import { Provider as ExerciseSetProvider } from "./src/context/ExerciseSetContext";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { StateProvider } from "./src/context/StateContext";
+import { RoutineProvider } from "./src/context/RoutineContext";
 
 export default function App() {
   return (
-    <StateProvider>
-      <UserProvider>
-        <WorkoutProvider>
-          <ExerciseProvider>
-            <ExerciseSetProvider>
-              <MainNavigation />
-              <Toast />
-            </ExerciseSetProvider>
-          </ExerciseProvider>
-        </WorkoutProvider>
-      </UserProvider>
-    </StateProvider>
+    <RoutineProvider>
+      <StateProvider>
+        <UserProvider>
+          <WorkoutProvider>
+            <ExerciseProvider>
+              <ExerciseSetProvider>
+                <MainNavigation />
+                <Toast />
+              </ExerciseSetProvider>
+            </ExerciseProvider>
+          </WorkoutProvider>
+        </UserProvider>
+      </StateProvider>
+    </RoutineProvider>
   );
 }

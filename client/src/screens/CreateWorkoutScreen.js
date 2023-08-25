@@ -4,23 +4,16 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import Timer from "../components/Workout/Timer";
-import MultilineInput from "../components/MultilineInput";
 import AddExercise from "../components/Workout/AddExercise";
-import useWorkoutContext from "../hooks/useWorkoutContext";
-import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import useStateContext from "../hooks/useStateContext";
 
 const CreateWorkoutScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
   const { workoutData, setWorkoutData } = useStateContext();
-
-  const { addExerciseSets } = useExerciseSetsContext();
-  const { addWorkout } = useWorkoutContext();
 
   //Take copy of state, push the exercise into the exercises array and give default set values
   const handleSubmit = (name, level, category) => {
@@ -29,7 +22,6 @@ const CreateWorkoutScreen = () => {
       name,
       level,
       category,
-
       sets: [{ set: 1, kg: "", reps: "" }],
     });
     setWorkoutData(updatedWorkout);
@@ -72,8 +64,7 @@ const CreateWorkoutScreen = () => {
         <>
           <View style={styles.timerContainer}>
             <TextInput
-              placeholder="Workout 1"
-              value={workoutData.name}
+              value={workoutData.name || "Workout 1 "}
               style={styles.title}
               onChangeText={(text) =>
                 setWorkoutData({ ...workoutData, name: text })
@@ -99,19 +90,6 @@ const CreateWorkoutScreen = () => {
             style={styles.button}
             onPress={() => setAddExercise(true)}>
             <Text style={styles.buttonText}>Add Exercise</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              addWorkout(workoutData);
-              for (let exercise of workoutData.exercises) {
-                addExerciseSets({
-                  exerciseName: exercise.name,
-                  sets: exercise.sets,
-                });
-              }
-            }}>
-            <Text style={styles.buttonText}>Finish Workout</Text>
           </TouchableOpacity>
         </>
       )}

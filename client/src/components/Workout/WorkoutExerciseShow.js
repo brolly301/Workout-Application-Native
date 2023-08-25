@@ -3,13 +3,10 @@ import {
   TextInput,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import Spacer from "../Spacer";
-import Input from "../Input";
-import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
 
 const WorkoutExerciseShow = ({
   item,
@@ -18,8 +15,6 @@ const WorkoutExerciseShow = ({
   addSetToExercise,
   handleExerciseNotesChange,
 }) => {
-  const { state } = useExerciseSetsContext();
-
   return (
     <View>
       <Spacer />
@@ -30,23 +25,23 @@ const WorkoutExerciseShow = ({
       <Spacer />
       <View style={styles.setHeaderContainer}>
         <Text style={styles.header}>Set</Text>
-        <Text style={styles.header}>Previous</Text>
+
         <Text style={styles.header}>kg</Text>
         <Text style={styles.header}>Reps</Text>
       </View>
       {item.sets?.map((item, index) => {
         return (
-          <View style={styles.setHeaderContainer}>
+          <View style={styles.setHeaderContainer} key={item.index}>
             <Text style={styles.header}>{item.set}</Text>
-            <Text style={styles.header}>-</Text>
+
             <TextInput
-              placeholder='0'
+              placeholder="0"
               onChangeText={(text) =>
                 handleExerciseInputChange(exerciseIndex, index, "kg", text)
               }
             />
             <TextInput
-              placeholder='0'
+              placeholder="0"
               onChangeText={(text) =>
                 handleExerciseInputChange(exerciseIndex, index, "reps", text)
               }
@@ -64,8 +59,7 @@ const WorkoutExerciseShow = ({
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => addSetToExercise(exerciseIndex)}
-      >
+        onPress={() => addSetToExercise(exerciseIndex)}>
         <Text style={styles.buttonText}>Add Set</Text>
       </TouchableOpacity>
     </View>

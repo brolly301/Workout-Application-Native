@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import WorkoutCalendar from "../components/Workout/WorkoutCalender";
 import QuickStart from "../components/Workout/QuickStart";
+import RoutineList from "../components/Routines/RoutineList";
 
 export default function WorkoutDashboard() {
   return (
@@ -10,6 +11,8 @@ export default function WorkoutDashboard() {
       <Text style={styles.subTitle}>Welcome back, Marc!</Text>
       <WorkoutCalendar />
       <QuickStart />
+      <Text>Recent Routines</Text>
+      <RoutineList limit={1} />
     </View>
   );
 }

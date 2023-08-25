@@ -1,16 +1,5 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-} from "react-native";
-import React, { useState } from "react";
-import Input from "../Input";
-import Spacer from "../Spacer";
-import AddSet from "./AddSet";
+import { FlatList, StyleSheet, View } from "react-native";
+import React from "react";
 import WorkoutExerciseShow from "./WorkoutExerciseShow";
 
 const WorkoutExerciseList = ({
@@ -32,7 +21,7 @@ const WorkoutExerciseList = ({
               handleExerciseInputChange={handleExerciseInputChange}
               addSetToExercise={addSetToExercise}
               handleExerciseNotesChange={handleExerciseNotesChange}
-              key={item.exerciseID}
+              key={Math.floor(Math.random() * 100000)}
             />
           );
         }}

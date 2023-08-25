@@ -1,10 +1,22 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, FlatList, Text, View } from "react-native";
 import React from "react";
+import useRoutineContext from "../../hooks/useRoutineContext";
+import RoutineShow from "./RoutineShow";
 
-export default function RoutineList() {
+export default function RoutineList({ limit }) {
+  const { allRoutines } = useRoutineContext();
+
+  console.log(allRoutines);
+
   return (
     <View>
-      <Text>RoutineList</Text>
+      <FlatList
+        data={allRoutines.slice(0, limit)}
+        key={(item) => item._id}
+        renderItem={({ item }) => {
+          return <RoutineShow routine={item} />;
+        }}
+      />
     </View>
   );
 }

@@ -13,16 +13,14 @@ export default function QuickStart() {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          startStopTimer();
+          startStopTimer(true);
           navigation.navigate("CreateWorkout");
-        }}
-      >
+        }}>
         <Text style={styles.buttonText}>New Workout</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("CreateTrack")}
-      >
+        onPress={() => navigation.navigate("CreateTrack")}>
         <Text style={styles.buttonText}>Track Run</Text>
       </TouchableOpacity>
     </View>

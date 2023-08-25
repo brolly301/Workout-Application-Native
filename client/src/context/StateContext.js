@@ -13,14 +13,14 @@ export const StateProvider = ({ children }) => {
   useEffect(() => {
     let intervalID;
     if (isRunning) {
-      intervalID = setInterval(() => setTimer(time + 1), 1000);
+      intervalID = setInterval(() => setTimer(time + 1), 900);
     }
     return () => clearInterval(intervalID);
   }, [isRunning, time]);
 
   //Start and stop timer
-  const startStopTimer = () => {
-    setIsRunning(!isRunning);
+  const startStopTimer = (isActive) => {
+    setIsRunning(isActive);
   };
 
   //Reset timer
@@ -34,7 +34,7 @@ export const StateProvider = ({ children }) => {
     name: "",
     description: "",
     date: new Date(),
-    time: 2,
+    time: time,
     exercises: [],
   });
 
