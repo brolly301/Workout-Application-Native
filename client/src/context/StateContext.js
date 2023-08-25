@@ -13,7 +13,7 @@ export const StateProvider = ({ children }) => {
   useEffect(() => {
     let intervalID;
     if (isRunning) {
-      intervalID = setInterval(() => setTimer(time + 1), 10);
+      intervalID = setInterval(() => setTimer(time + 1), 1000);
     }
     return () => clearInterval(intervalID);
   }, [isRunning, time]);
