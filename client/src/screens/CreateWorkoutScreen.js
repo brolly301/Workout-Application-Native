@@ -28,6 +28,8 @@ const CreateWorkoutScreen = ({ route }) => {
     exercises: [],
   });
 
+  console.log(workoutData);
+
   const { state, addWorkout } = useWorkoutContext();
   const { addExerciseSets } = useExerciseSetsContext();
 
@@ -49,7 +51,7 @@ const CreateWorkoutScreen = ({ route }) => {
         </TouchableOpacity>
       ),
     });
-  }, []);
+  }, [workoutData.name]);
 
   const handleValidation = () => {
     setErrors(validation(workoutData));

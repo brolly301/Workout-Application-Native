@@ -3,7 +3,7 @@ export default validation = (workoutData) => {
 
   console.log(workoutData);
 
-  if (!workoutData.name) {
+  if (workoutData.name === "") {
     errors.name = "Name is required.";
   }
 
