@@ -4,16 +4,20 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Timer from "../components/Workout/Timer";
 import AddExercise from "../components/Workout/AddExercise";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import useStateContext from "../hooks/useStateContext";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
+import { useNavigation } from "@react-navigation/native";
+import validation from "../components/Workout/WorkoutValidation";
 
-const CreateWorkoutScreen = () => {
+const CreateWorkoutScreen = ({ route }) => {
+  const navigation = useNavigation();
   const [addExercise, setAddExercise] = useState(false);
   const [workoutData, setWorkoutData] = useState({
     userID: "12547",
@@ -27,8 +31,42 @@ const CreateWorkoutScreen = () => {
   const { state, addWorkout } = useWorkoutContext();
   const { addExerciseSets } = useExerciseSetsContext();
 
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            if (!handleValidation())
+              try {
+                handleSubmit();
+              } catch (e) {
+                console.log(e);
+              }
+          }}>
+          <Text style={styles.finishButton}>Finish</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
+  const handleValidation = () => {
+    setErrors(validation(workoutData));
+  };
+
+  const handleSubmit = () => {
+    addWorkout(workoutData);
+    for (let exercise of workoutData.exercises) {
+      addExerciseSets({
+        exerciseName: exercise.name,
+        sets: exercise.sets,
+      });
+    }
+  };
+
   //Take copy of state, push the exercise into the exercises array and give default set values
-  const handleSubmit = (name, level, category) => {
+  const handleExerciseInput = (name, level, category) => {
     const updatedWorkout = { ...workoutData };
     updatedWorkout.exercises.push({
       name,
@@ -70,13 +108,14 @@ const CreateWorkoutScreen = () => {
       {addExercise ? (
         <AddExercise
           setAddExercise={setAddExercise}
-          handleSubmit={handleSubmit}
+          handleSubmit={handleExerciseInput}
         />
       ) : (
         <>
           <View style={styles.timerContainer}>
             <TextInput
-              value={workoutData.name || "Workout 1 "}
+              placeholder="Workout 1"
+              value={workoutData.name}
               style={styles.title}
               onChangeText={(text) =>
                 setWorkoutData({ ...workoutData, name: text })
@@ -84,6 +123,9 @@ const CreateWorkoutScreen = () => {
             />
             <Timer />
           </View>
+          {errors.name && <Text>{errors.name}</Text>}
+          {errors.exercises && <Text>{errors.exercises}</Text>}
+          {errors.sets && <Text>{errors.sets}</Text>}
           <Text style={styles.label}>Description</Text>
           <TextInput
             style={styles.input}
@@ -102,19 +144,6 @@ const CreateWorkoutScreen = () => {
             style={styles.button}
             onPress={() => setAddExercise(true)}>
             <Text style={styles.buttonText}>Add Exercise</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              addWorkout(workoutData);
-              for (let exercise of workoutData.exercises) {
-                addExerciseSets({
-                  exerciseName: exercise.name,
-                  sets: exercise.sets,
-                });
-              }
-            }}>
-            <Text style={styles.finishButton}>Finish</Text>
-            {state.errorMessage && <Text>{state.errorMessage}</Text>}
           </TouchableOpacity>
         </>
       )}
@@ -168,5 +197,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",
+  },
+  finishButton: {
+    color: "lightgreen",
+    fontSize: 18,
+    marginRight: 20,
   },
 });

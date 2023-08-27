@@ -49,11 +49,6 @@ const WorkoutStack = ({ navigation }) => {
               <Text style={styles.resetButton}>Reset</Text>
             </TouchableOpacity>
           ),
-          headerRight: () => (
-            <TouchableOpacity onPress={() => {}}>
-              <Text style={styles.finishButton}>Finish</Text>
-            </TouchableOpacity>
-          ),
         }}
       />
       <Stack.Screen name="CreateTrack" component={CreateTrackScreen} />
