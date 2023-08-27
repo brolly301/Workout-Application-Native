@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 export default function HistoryShow({ item }) {
   return (
-    <View>
+    <View style={styles.mainContainer}>
       <View style={styles.hr} />
       {item?.exercises.map((exercise) => {
         return (
@@ -31,36 +31,28 @@ export default function HistoryShow({ item }) {
 }
 
 const styles = StyleSheet.create({
-  subContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "space-around",
-    width: "100%",
+  mainContainer: {
+    paddingBottom: 10,
   },
-  textContainer: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  icon: {},
   hr: {
     borderBottomColor: "black",
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginVertical: 10,
-    // marginHorizontal: 10,
-    // marginRight: 40,
   },
   headerContainer: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
+    marginVertical: 5,
   },
   setHeaderText: {
     textAlign: "center",
-    fontWeight: "bold",
+    fontWeight: "600",
   },
   exerciseName: {
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 17,
+    marginVertical: 10,
+    fontWeight: "bold",
   },
 });

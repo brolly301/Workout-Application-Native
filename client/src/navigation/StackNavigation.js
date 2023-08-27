@@ -25,10 +25,7 @@ import useRoutineContext from "../hooks/useRoutineContext";
 const Stack = createStackNavigator();
 
 const WorkoutStack = ({ navigation }) => {
-  const { addWorkout } = useWorkoutContext();
-  const { addExerciseSets } = useExerciseSetsContext();
-  const { startStopTimer, resetTimer, workoutData, setWorkoutData } =
-    useStateContext();
+  const { startStopTimer, resetTimer } = useStateContext();
   return (
     <Stack.Navigator>
       <Stack.Screen name="Workout" component={WorkoutDashboard} />
@@ -53,21 +50,7 @@ const WorkoutStack = ({ navigation }) => {
             </TouchableOpacity>
           ),
           headerRight: () => (
-            <TouchableOpacity
-              onPress={() => {
-                addWorkout(workoutData);
-                for (let exercise of workoutData.exercises) {
-                  addExerciseSets({
-                    exerciseName: exercise.name,
-                    sets: exercise.sets,
-                  });
-                  navigation.navigate("Workout");
-
-                  startStopTimer(false);
-                  resetTimer();
-                  // setWorkoutData([]);
-                }
-              }}>
+            <TouchableOpacity onPress={() => {}}>
               <Text style={styles.finishButton}>Finish</Text>
             </TouchableOpacity>
           ),

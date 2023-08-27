@@ -36,12 +36,14 @@ const WorkoutExerciseShow = ({
 
             <TextInput
               placeholder="0"
+              value={item.kg}
               onChangeText={(text) =>
                 handleExerciseInputChange(exerciseIndex, index, "kg", text)
               }
             />
             <TextInput
               placeholder="0"
+              value={item.reps}
               onChangeText={(text) =>
                 handleExerciseInputChange(exerciseIndex, index, "reps", text)
               }

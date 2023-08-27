@@ -9,7 +9,7 @@ const Timer = () => {
   const hours = Math.floor(time / 36000);
 
   // Minutes calculation
-  const minutes = Math.floor((time % 36000) / 600);
+  const minutes = Math.floor((time % 36000) / 6000);
 
   // Seconds calculation
   const seconds = Math.floor((time % 600) / 60);

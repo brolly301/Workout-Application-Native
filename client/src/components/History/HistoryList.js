@@ -29,6 +29,12 @@ export default function HistoryList({ limit }) {
         data={state?.slice(0, limit)}
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => {
+          const date = new Date(item.date).toLocaleDateString("en-gb", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            weekday: "short",
+          });
           const isExpanded = index === isActive;
           return (
             <View style={styles.container}>
@@ -41,7 +47,7 @@ export default function HistoryList({ limit }) {
                 />
                 <View style={styles.subContainer}>
                   <View style={styles.textContainer}>
-                    <Text>{item.date}</Text>
+                    <Text>{date}</Text>
                     <Text>{item.name}</Text>
                   </View>
                   <View style={styles.textContainer}>
@@ -67,40 +73,39 @@ const styles = StyleSheet.create({
   mainContainer: {
     marginTop: 20,
     flex: 1,
+    borderRadius: "5%",
   },
   container: {
     display: "flex",
     flexDirection: "row",
     borderWidth: 1,
     borderColor: "black",
-    flex: 1,
     marginBottom: 20,
-
-    // padding: 20,
+    paddingTop: 20,
+    borderRadius: "5%",
   },
   subContainer: {
     display: "flex",
     flexDirection: "row",
     alignItems: "baseline",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     width: "100%",
   },
   textContainer: {
     display: "flex",
     flexDirection: "column",
   },
-  icon: {},
+  icon: {
+    position: "absolute",
+  },
   hr: {
     borderBottomColor: "black",
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginVertical: 10,
-    // marginHorizontal: 10,
-    // marginRight: 40,
   },
   headerContainer: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
   },
   setHeaderText: {
     textAlign: "center",

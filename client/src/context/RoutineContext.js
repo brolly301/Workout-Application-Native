@@ -36,12 +36,23 @@ export function RoutineProvider({ children }) {
     }
   };
 
+  const [workoutData, setWorkoutData] = useState({
+    userID: "12547",
+    name: "",
+    description: "",
+    date: new Date(),
+    time: 0,
+    exercises: [],
+  });
+
   const values = {
     routine,
     setRoutine,
     addRoutine,
     allRoutines,
     setAllRoutines,
+    workoutData,
+    setWorkoutData,
   };
 
   return (

@@ -3,6 +3,8 @@ import createDataContext from "./createDataContext";
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "add_error":
+      return { ...state, errorMessage: action.payload };
     case "get_workouts":
       return action.payload;
     case "add_workout":
@@ -25,12 +27,12 @@ const addWorkout = (dispatch) => async (exerciseData) => {
     console.log(res);
     dispatch({ type: "add_workout", payload: exerciseData });
   } catch (e) {
-    console.log(e);
+    dispatch({ type: "add_error", payload: e.response.data.error });
   }
 };
 
 export const { Provider, Context } = createDataContext(
   reducer,
   { addWorkout, getWorkouts },
-  []
+  { errorMessage: "" }
 );

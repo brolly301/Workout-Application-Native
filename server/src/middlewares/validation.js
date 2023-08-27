@@ -30,3 +30,25 @@ exports.registerValidator = (req, res, next) => {
 
   errors(req, res, next);
 };
+
+exports.workoutValidator = (req, res, next) => {
+  req.check("name", "Workout name is required").notEmpty();
+
+  req.check("exercises", "At least one exercise is required").notEmpty();
+
+  req.check("exercises.*.sets.*.kg", "weight must not be empty").notEmpty();
+
+  req.check("exercises.*.sets.*.reps", "Reps must not be empty").notEmpty();
+
+  errors(req, res, next);
+};
+
+exports.exerciseSetsValidator = (req, res, next) => {
+  req.check("exerciseName", "Exercise name is required.").notEmpty();
+
+  req.check("sets.*.kg", "Weight must not be empty").notEmpty();
+
+  req.check("sets.*.reps", "Reps must not be empty").notEmpty();
+
+  errors(req, res, next);
+};

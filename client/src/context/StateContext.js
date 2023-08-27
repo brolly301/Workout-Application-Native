@@ -34,7 +34,7 @@ export const StateProvider = ({ children }) => {
     name: "",
     description: "",
     date: new Date(),
-    time: time,
+    time: 0,
     exercises: [],
   });
 

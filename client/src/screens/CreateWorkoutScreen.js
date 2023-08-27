@@ -10,10 +10,22 @@ import Timer from "../components/Workout/Timer";
 import AddExercise from "../components/Workout/AddExercise";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import useStateContext from "../hooks/useStateContext";
+import useWorkoutContext from "../hooks/useWorkoutContext";
+import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 
 const CreateWorkoutScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
-  const { workoutData, setWorkoutData } = useStateContext();
+  const [workoutData, setWorkoutData] = useState({
+    userID: "12547",
+    name: "",
+    description: "",
+    date: new Date(),
+    time: 0,
+    exercises: [],
+  });
+
+  const { state, addWorkout } = useWorkoutContext();
+  const { addExerciseSets } = useExerciseSetsContext();
 
   //Take copy of state, push the exercise into the exercises array and give default set values
   const handleSubmit = (name, level, category) => {
@@ -90,6 +102,19 @@ const CreateWorkoutScreen = () => {
             style={styles.button}
             onPress={() => setAddExercise(true)}>
             <Text style={styles.buttonText}>Add Exercise</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              addWorkout(workoutData);
+              for (let exercise of workoutData.exercises) {
+                addExerciseSets({
+                  exerciseName: exercise.name,
+                  sets: exercise.sets,
+                });
+              }
+            }}>
+            <Text style={styles.finishButton}>Finish</Text>
+            {state.errorMessage && <Text>{state.errorMessage}</Text>}
           </TouchableOpacity>
         </>
       )}

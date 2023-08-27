@@ -6,8 +6,6 @@ import RoutineShow from "./RoutineShow";
 export default function RoutineList({ limit }) {
   const { allRoutines } = useRoutineContext();
 
-  console.log(allRoutines);
-
   return (
     <View>
       <FlatList
