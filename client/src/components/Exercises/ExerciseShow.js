@@ -13,7 +13,9 @@ export default function ExerciseShow({ exercise }) {
       />
       <View style={styles.textContainer}>
         <Text style={styles.name}>{exercise.name}</Text>
-        <Text style={styles.type}>{exercise.primaryMuscles[0]}</Text>
+        <Text style={styles.type}>
+          {exercise.primaryMuscles ? exercise.primaryMuscles[0] : null}
+        </Text>
       </View>
       <AntDesign
         style={styles.icon}

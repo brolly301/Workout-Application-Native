@@ -3,26 +3,63 @@ import React, { useState } from "react";
 import Input from "../Input";
 import Spacer from "../Spacer";
 import useExerciseContext from "../../hooks/useExerciseContext";
+import validation from "./ExerciseValidation";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ExerciseCreate() {
   const { addExercise, state } = useExerciseContext();
+  const navigation = useNavigation();
 
   const [name, setName] = useState("");
-  const [bodyPart, setBodyPart] = useState("");
+  const [primaryMuscle, setPrimaryMuscle] = useState("");
+  const [secondaryMuscle, setSecondaryMuscle] = useState("");
+  const [equipment, setEquipment] = useState("");
   const [category, setCategory] = useState("");
+
+  const [errors, setErrors] = useState({});
+
+  const handleValidation = () => {
+    setErrors(
+      validation(name, primaryMuscle, secondaryMuscle, equipment, category)
+    );
+  };
+
+  const handleSubmit = () => {
+    if (!handleValidation())
+      try {
+        addExercise(name, primaryMuscle, secondaryMuscle, equipment, category);
+        navigation.navigate("Exercises");
+      } catch (e) {
+        console.log("error");
+      }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Exercises</Text>
       <Text style={styles.subTitle}>Create New Exercise</Text>
-      <Input field={"Exercise Name"} setText={setName} />
+      <Input field={"Exercise Name"} setText={setName} error={errors.name} />
       <Spacer />
-      <Input field={"Body Part"} setText={setBodyPart} />
+      <Input
+        field={"Primary Muscle"}
+        setText={setPrimaryMuscle}
+        error={errors.primaryMuscle}
+      />
       <Spacer />
-      <Input field={"Category"} setText={setCategory} />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => addExercise(name, bodyPart, category)}>
+      <Input
+        field={"Secondary Muscle"}
+        setText={setSecondaryMuscle}
+        error={errors.secondaryMuscle}
+      />
+      <Spacer />
+      <Input
+        field={"Equipment"}
+        setText={setEquipment}
+        error={errors.equipment}
+      />
+      <Spacer />
+      <Input field={"Category"} setText={setCategory} error={errors.category} />
+      <TouchableOpacity style={styles.button} onPress={() => handleSubmit()}>
         <Text style={styles.buttonText}>Save Exercise</Text>
       </TouchableOpacity>
     </View>

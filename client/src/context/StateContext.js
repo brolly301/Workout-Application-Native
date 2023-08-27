@@ -13,7 +13,7 @@ export const StateProvider = ({ children }) => {
   useEffect(() => {
     let intervalID;
     if (isRunning) {
-      intervalID = setInterval(() => setTimer(time + 1), 900);
+      intervalID = setInterval(() => setTimer((prevTime) => prevTime + 1), 900);
     }
     return () => clearInterval(intervalID);
   }, [isRunning, time]);
@@ -28,24 +28,12 @@ export const StateProvider = ({ children }) => {
     setTimer(0);
   };
 
-  //Workout Data
-  const [workoutData, setWorkoutData] = useState({
-    userID: "12547",
-    name: "",
-    description: "",
-    date: new Date(),
-    time: 0,
-    exercises: [],
-  });
-
   const values = {
     selected,
     setSelected,
     time,
     resetTimer,
     startStopTimer,
-    workoutData,
-    setWorkoutData,
   };
 
   return (

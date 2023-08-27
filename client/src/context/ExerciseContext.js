@@ -10,7 +10,9 @@ const reducer = (state, action) => {
         {
           id: Math.floor(Math.random() * 9999),
           name: action.payload.name,
-          bodyPart: action.payload.bodyPart,
+          primaryMuscle: action.payload.primaryMuscle,
+          secondaryMuscle: action.payload.secondaryMuscle,
+          equipment: action.payload.equipment,
           category: action.payload.category,
         },
       ];
@@ -27,16 +29,38 @@ const reducer = (state, action) => {
   }
 };
 
-const addExercise = (dispatch) => (name, bodyPart, category) => {
-  dispatch({ type: "add_exercise", payload: { name, bodyPart, category } });
-};
+const addExercise =
+  (dispatch) =>
+  async (name, primaryMuscle, secondaryMuscle, equipment, category) => {
+    const res = await Server.post("/exercises/addExercise", {
+      name,
+      primaryMuscle,
+      secondaryMuscle,
+      equipment,
+      category,
+    });
+    console.log(res);
+    dispatch({
+      type: "add_exercise",
+      payload: { name, primaryMuscle, secondaryMuscle, equipment, category },
+    });
+  };
 
-const editExercise = (dispatch) => (id, name, bodyPart, category) => {
-  dispatch({
-    type: "edit_exercise",
-    payload: { id, name, bodyPart, category },
-  });
-};
+const editExercise =
+  (dispatch) =>
+  (id, name, primaryMuscle, secondaryMuscle, equipment, category) => {
+    dispatch({
+      type: "edit_exercise",
+      payload: {
+        id,
+        name,
+        primaryMuscle,
+        secondaryMuscle,
+        equipment,
+        category,
+      },
+    });
+  };
 
 const deleteExercise = (dispatch) => (id) => {
   dispatch({ type: "delete_exercise", payload: id });
