@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Routine = require("../models/routine");
+const { routineValidator } = require("../middlewares/validation");
 
-router.post("/addRoutine", async (req, res) => {
+router.post("/addRoutine", routineValidator, async (req, res) => {
   const routine = new Routine({ ...req.body });
   await routine.save();
   res.send(routine);

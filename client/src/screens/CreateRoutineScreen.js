@@ -5,16 +5,47 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddExercise from "../components/Workout/AddExercise";
 import useRoutineContext from "../hooks/useRoutineContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
+import { useNavigation } from "@react-navigation/native";
+import validation from "../components/Routines/RoutineValidation";
 
 const CreateRoutineScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
-  const { routine, setRoutine } = useRoutineContext();
+  const { routine, setRoutine, addRoutine } = useRoutineContext();
+  const [errors, setErrors] = useState({});
+  const navigation = useNavigation();
 
-  const handleSubmit = (name, level, category) => {
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            if (!handleValidation()) {
+              try {
+                handleSubmit();
+              } catch (e) {
+                console.log(e);
+              }
+            }
+          }}>
+          <Text style={styles.finishButton}>Save</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [routine.name]);
+
+  const handleValidation = () => {
+    setErrors(validation(routine));
+  };
+
+  const handleSubmit = () => {
+    addRoutine(routine);
+  };
+
+  const handleExerciseInput = (name, level, category) => {
     const updatedRoutine = { ...routine };
     updatedRoutine.exercises.push({
       name,
@@ -58,12 +89,21 @@ const CreateRoutineScreen = () => {
       {addExercise ? (
         <AddExercise
           setAddExercise={setAddExercise}
-          handleSubmit={handleSubmit}
+          handleSubmit={handleExerciseInput}
         />
       ) : (
         <>
+          {errors.name && <Text>{errors.name}</Text>}
+          {errors.exercises && <Text>{errors.exercises}</Text>}
           <Text style={styles.title}>Routines</Text>
           <Text style={styles.subTitle}>Create Routine</Text>
+          <Text style={styles.fieldText}>Name</Text>
+          <TextInput
+            style={styles.input}
+            value={routine.name}
+            onChangeText={(text) => setRoutine({ ...routine, name: text })}
+          />
+          <Text style={styles.fieldText}>Description</Text>
           <TextInput
             style={styles.input}
             value={routine.description}
@@ -105,6 +145,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 15,
   },
+  fieldText: {
+    fontSize: 18,
+    marginVertical: 2,
+  },
   button: {
     width: "100%",
     backgroundColor: "#D5A8F8",
@@ -125,8 +169,13 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 5,
     width: "100%",
-    height: 60,
+    height: 35,
     paddingVertical: 7,
     paddingLeft: 7,
+  },
+  finishButton: {
+    color: "lightgreen",
+    fontSize: 18,
+    marginRight: 20,
   },
 });

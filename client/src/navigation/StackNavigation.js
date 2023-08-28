@@ -76,7 +76,6 @@ const HistoryStack = () => {
   );
 };
 const RoutinesStack = ({ navigation }) => {
-  const { addRoutine, routine } = useRoutineContext();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -107,16 +106,6 @@ const RoutinesStack = ({ navigation }) => {
             </TouchableOpacity>
           ),
           headerTitle: "",
-
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => {
-                addRoutine(routine);
-                navigation.navigate("Routines");
-              }}>
-              <Text style={styles.finishButton}>Save</Text>
-            </TouchableOpacity>
-          ),
         }}
       />
     </Stack.Navigator>

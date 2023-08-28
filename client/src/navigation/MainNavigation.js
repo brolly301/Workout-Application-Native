@@ -12,7 +12,7 @@ const MainNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {state.token ? (
+        {true ? (
           <Stack.Screen name="Tabs" component={TabNavigation} />
         ) : (
           <Stack.Screen name="Auth" component={AuthStack} />

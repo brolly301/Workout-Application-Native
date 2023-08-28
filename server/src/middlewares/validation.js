@@ -68,3 +68,11 @@ exports.exerciseValidator = (req, res, next) => {
 
   errors(req, res, next);
 };
+
+exports.routineValidator = (req, res, next) => {
+  req.check("name", "Workout name is required").notEmpty();
+
+  req.check("exercises", "At least one exercise is required").notEmpty();
+
+  errors(req, res, next);
+};
