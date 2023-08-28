@@ -1,14 +1,35 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
 import ProfileDetails from "../components/Profile/ProfileDetails";
 import HistoryList from "../components/History/HistoryList";
 import ProfileCharts from "../components/Profile/ProfileCharts";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import ProfileSettings from "../components/Profile/ProfileSettings";
 
 export default function ProfileScreen() {
+  const navigation = useNavigation();
+
+  const [activeSettings, setActiveSettings] = useState(false);
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => setActiveSettings(!activeSettings)}>
+          <Ionicons
+            style={styles.headerRight}
+            name="settings-sharp"
+            size={24}
+            color="#D5A8F8"
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [activeSettings]);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
+      {activeSettings ? <ProfileSettings /> : null}
       <Text style={styles.title}>Profile</Text>
-      {/* <ProfileDetails /> */}
       <Text style={styles.subTitle}>Activity</Text>
       <ProfileCharts />
       <Text style={styles.subTitle}>Recent Workouts</Text>

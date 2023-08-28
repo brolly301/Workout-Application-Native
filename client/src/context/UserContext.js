@@ -18,6 +18,8 @@ const reducer = (state, action) => {
       return { errorMessage: "", token: action.payload };
     case "login":
       return { errorMessage: "", token: action.payload };
+    case "logout":
+      return { token: "" };
     default:
       return state;
   }
@@ -53,7 +55,9 @@ const register = (dispatch) => {
   };
 };
 const logout = (dispatch) => {
-  return () => {};
+  return () => {
+    dispatch({ type: "logout" });
+  };
 };
 
 export const { Provider, Context } = createDataContext(
