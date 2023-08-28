@@ -3,44 +3,28 @@ import React, { useEffect, useState } from "react";
 import useExerciseContext from "../../hooks/useExerciseContext";
 import useStateContext from "../../hooks/useStateContext";
 
-const ExerciseSortBy = () => {
+const ExerciseSortBy = ({ selected, setSelected }) => {
   const [active, setActive] = useState(false);
-  const { selected, setSelected } = useStateContext();
 
   const handlePress = () => {
     setActive(!active);
   };
-
-  useEffect(() => {
-    if (selected) {
-      console.log(selected);
-    }
-  }, [selected]);
 
   return (
     <View>
       <TouchableOpacity onPress={handlePress}>
         <Text style={styles.sortByText}>Sort By</Text>
       </TouchableOpacity>
-      {active ? (
-        <>
-          <View style={styles.dropdownContainer}>
-            {selected === "reverse" ? (
-              <>
-                <TouchableOpacity onPress={() => setSelected("search")}>
-                  <Text>Z to A</Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <>
-                <TouchableOpacity onPress={() => setSelected("reverse")}>
-                  <Text>A to Z</Text>
-                </TouchableOpacity>
-              </>
-            )}
-          </View>
-        </>
-      ) : null}
+
+      <View style={styles.dropdownContainer}>
+        <TouchableOpacity onPress={() => setSelected("reverse")}>
+          <Text>Z to A</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => setSelected("search")}>
+          <Text>A to Z</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

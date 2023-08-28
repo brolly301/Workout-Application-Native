@@ -128,19 +128,7 @@ const ExercisesStack = ({ navigation }) => {
       <Stack.Screen
         name="Exercises"
         component={ExerciseScreen}
-        options={({ navigation }) => ({
-          headerRight: () => (
-            <View style={styles.headerRight}>
-              <ExerciseSortBy />
-              <GestureHandlerRootView>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("ExerciseCreate")}>
-                  <Feather name="plus" size={24} color="#D5A8F8" />
-                </TouchableOpacity>
-              </GestureHandlerRootView>
-            </View>
-          ),
-        })}
+        options={({ navigation }) => ({})}
       />
       <Stack.Screen name="ExerciseShow" component={ExerciseShowScreen} />
       <Stack.Screen
