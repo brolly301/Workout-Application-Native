@@ -8,7 +8,7 @@ const reducer = (state, action) => {
     case "get_workouts":
       return action.payload;
     case "add_workout":
-      return action.payload;
+      return [...state, { ...action.payload }];
     default:
       return state;
   }

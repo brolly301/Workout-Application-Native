@@ -30,7 +30,7 @@ export function RoutineProvider({ children }) {
   const addRoutine = async (routine) => {
     try {
       const res = await Server.post("/routines/addRoutine", routine);
-      console.log(res);
+      setAllRoutines([...allRoutines, { routine }]);
     } catch (e) {
       console.log(e);
     }

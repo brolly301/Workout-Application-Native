@@ -26,7 +26,7 @@ export default function HistoryList({ limit }) {
   return (
     <View style={styles.mainContainer}>
       <FlatList
-        data={state?.slice(0, limit)}
+        data={state}
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => {
           const date = new Date(item.date).toLocaleDateString("en-gb", {
