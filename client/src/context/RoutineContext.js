@@ -30,7 +30,18 @@ export function RoutineProvider({ children }) {
   const addRoutine = async (routine) => {
     try {
       const res = await Server.post("/routines/addRoutine", routine);
-      setAllRoutines([...allRoutines, { routine }]);
+      setAllRoutines([...allRoutines, { ...routine }]);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const deleteRoutine = async (id) => {
+    try {
+      const res = await Server.delete("/routines/deleteRoutine", {
+        data: { id },
+      });
+      console.log(res);
     } catch (e) {
       console.log(e);
     }
@@ -53,6 +64,7 @@ export function RoutineProvider({ children }) {
     setAllRoutines,
     workoutData,
     setWorkoutData,
+    deleteRoutine,
   };
 
   return (

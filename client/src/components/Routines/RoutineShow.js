@@ -1,35 +1,46 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import RoutineStart from "./RoutineStart";
 
 export default function RoutineShow({ routine }) {
+  const [isActive, setIsActive] = useState(false);
+
   return (
-    <View style={styles.container}>
-      <MaterialCommunityIcons name="dumbbell" size={24} color="black" />
-      <View style={styles.textContainer}>
-        <Text style={styles.name}>{routine?.name}</Text>
-        <Text style={styles.type}>{routine?.description}</Text>
+    <TouchableOpacity onPress={() => setIsActive(!isActive)}>
+      <View style={styles.container}>
+        <MaterialCommunityIcons name="dumbbell" size={24} color="black" />
+        <View style={styles.textContainer}>
+          <Text style={styles.name}>{routine?.name}</Text>
+          <Text style={styles.type}>{routine?.description}</Text>
+        </View>
+        <AntDesign
+          name="arrowright"
+          size={24}
+          color="black"
+          style={styles.icon}
+        />
       </View>
-      <AntDesign
-        name="arrowright"
-        size={24}
-        color="black"
-        style={styles.icon}
-      />
-    </View>
+      {isActive ? (
+        <View style={{ display: "flex", flexDirection: "column" }}>
+          <RoutineStart routine={routine} />
+        </View>
+      ) : null}
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "black",
     display: "flex",
     flexDirection: "row",
     marginVertical: 5,
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "black",
     borderRadius: "5%",
   },
+
   textContainer: {
     padding: 15,
   },

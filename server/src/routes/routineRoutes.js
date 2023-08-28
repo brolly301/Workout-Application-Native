@@ -14,4 +14,9 @@ router.get("/allRoutines", async (req, res) => {
   res.send(routines);
 });
 
+router.delete("/deleteRoutine", async (req, res) => {
+  const routine = await Routine.deleteOne({ _id: req.body.id });
+  res.send(routine);
+});
+
 module.exports = router;
