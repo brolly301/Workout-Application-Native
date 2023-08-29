@@ -58,7 +58,7 @@ const CreateWorkoutScreen = ({ route }) => {
     setErrors(validation(workoutData));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (callback) => {
     addWorkout(workoutData);
     for (let exercise of workoutData.exercises) {
       addExerciseSets({
@@ -72,6 +72,22 @@ const CreateWorkoutScreen = ({ route }) => {
     const updatedExercises = workoutData.exercises.filter(
       (exercise, idx) => index !== idx
     );
+    setWorkoutData({
+      ...workoutData,
+      exercises: updatedExercises,
+    });
+  };
+
+  const removeSet = (exerciseIndex, setIndex) => {
+    const updatedExercises = workoutData.exercises.map((exercise, idx) => {
+      if (idx === exerciseIndex) {
+        return {
+          ...exercise,
+          sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
+        };
+      }
+      return exercise;
+    });
 
     setWorkoutData({
       ...workoutData,
@@ -154,6 +170,7 @@ const CreateWorkoutScreen = ({ route }) => {
             handleExerciseNotesChange={handleExerciseNotesChange}
             addSetToExercise={addSetToExercise}
             removeExercise={removeExercise}
+            removeSet={removeSet}
           />
           <TouchableOpacity
             style={styles.button}

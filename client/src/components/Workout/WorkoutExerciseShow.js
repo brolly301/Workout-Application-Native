@@ -18,6 +18,7 @@ const WorkoutExerciseShow = ({
   addSetToExercise,
   handleExerciseNotesChange,
   removeExercise,
+  removeSet,
 }) => {
   const renderRightActions = (
     progress: Animated.AnimatedInterpolation,
@@ -30,9 +31,6 @@ const WorkoutExerciseShow = ({
     });
     return (
       <View style={styles.swipedRow}>
-        <View style={styles.swipedConfirmationContainer}>
-          <Text style={styles.deleteConfirmationText}>Are you sure?</Text>
-        </View>
         <Animated.View style={[styles.deleteButton, { opacity }]}>
           <TouchableOpacity>
             <Text style={styles.deleteButtonText}>Delete</Text>
@@ -66,7 +64,9 @@ const WorkoutExerciseShow = ({
           <Swipeable renderRightActions={renderRightActions}>
             <View style={styles.setHeaderContainer} key={item.index}>
               <Text style={styles.header}>{item.set}</Text>
-
+              <TouchableOpacity onPress={() => removeSet(exerciseIndex, index)}>
+                <Text>Kepp</Text>
+              </TouchableOpacity>
               <TextInput
                 placeholder='0'
                 value={item.kg}
