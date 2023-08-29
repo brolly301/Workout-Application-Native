@@ -30,7 +30,8 @@ const CreateRoutineScreen = () => {
                 console.log(e);
               }
             }
-          }}>
+          }}
+        >
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       ),
@@ -54,6 +55,33 @@ const CreateRoutineScreen = () => {
       sets: [{ set: 1, kg: "", reps: "" }],
     });
     setRoutine(updatedRoutine);
+  };
+
+  const removeExercise = (index) => {
+    const updatedExercises = routine.exercises.filter(
+      (exercise, idx) => index !== idx
+    );
+    setRoutine({
+      ...routine,
+      exercises: updatedExercises,
+    });
+  };
+
+  const removeSet = (exerciseIndex, setIndex) => {
+    const updatedExercises = routine.exercises.map((exercise, idx) => {
+      if (idx === exerciseIndex) {
+        return {
+          ...exercise,
+          sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
+        };
+      }
+      return exercise;
+    });
+
+    setRoutine({
+      ...routine,
+      exercises: updatedExercises,
+    });
   };
 
   //Take copy of state, use the exercises index to choose that exercise
@@ -116,10 +144,13 @@ const CreateRoutineScreen = () => {
             handleExerciseInputChange={handleExerciseInputChange}
             handleExerciseNotesChange={handleExerciseNotesChange}
             addSetToExercise={addSetToExercise}
+            removeExercise={removeExercise}
+            removeSet={removeSet}
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => setAddExercise(true)}>
+            onPress={() => setAddExercise(true)}
+          >
             <Text style={styles.buttonText}>Add Exercise</Text>
           </TouchableOpacity>
         </>
