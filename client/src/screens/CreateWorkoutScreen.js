@@ -46,7 +46,8 @@ const CreateWorkoutScreen = ({ route }) => {
               } catch (e) {
                 console.log(e);
               }
-          }}>
+          }}
+        >
           <Text style={styles.finishButton}>Finish</Text>
         </TouchableOpacity>
       ),
@@ -65,6 +66,17 @@ const CreateWorkoutScreen = ({ route }) => {
         sets: exercise.sets,
       });
     }
+  };
+
+  const removeExercise = (index) => {
+    const updatedExercises = workoutData.exercises.filter(
+      (exercise, idx) => index !== idx
+    );
+
+    setWorkoutData({
+      ...workoutData,
+      exercises: updatedExercises,
+    });
   };
 
   //Take copy of state, push the exercise into the exercises array and give default set values
@@ -116,7 +128,7 @@ const CreateWorkoutScreen = ({ route }) => {
         <>
           <View style={styles.timerContainer}>
             <TextInput
-              placeholder="Workout 1"
+              placeholder='Workout 1'
               value={workoutData.name}
               style={styles.title}
               onChangeText={(text) =>
@@ -141,10 +153,12 @@ const CreateWorkoutScreen = ({ route }) => {
             handleExerciseInputChange={handleExerciseInputChange}
             handleExerciseNotesChange={handleExerciseNotesChange}
             addSetToExercise={addSetToExercise}
+            removeExercise={removeExercise}
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => setAddExercise(true)}>
+            onPress={() => setAddExercise(true)}
+          >
             <Text style={styles.buttonText}>Add Exercise</Text>
           </TouchableOpacity>
         </>

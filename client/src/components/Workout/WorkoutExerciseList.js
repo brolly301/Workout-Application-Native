@@ -7,6 +7,7 @@ const WorkoutExerciseList = ({
   handleExerciseInputChange,
   addSetToExercise,
   handleExerciseNotesChange,
+  removeExercise,
 }) => {
   return (
     <View style={styles.container}>
@@ -21,6 +22,7 @@ const WorkoutExerciseList = ({
               handleExerciseInputChange={handleExerciseInputChange}
               addSetToExercise={addSetToExercise}
               handleExerciseNotesChange={handleExerciseNotesChange}
+              removeExercise={removeExercise}
               key={Math.floor(Math.random() * 100000)}
             />
           );

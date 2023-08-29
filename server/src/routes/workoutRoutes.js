@@ -19,4 +19,9 @@ router.get("/allWorkouts", async (req, res) => {
   res.send(workouts);
 });
 
+router.delete("/deleteWorkout", async (req, res) => {
+  const workout = await Workout.deleteOne({ _id: req.body.id });
+  res.send(workout);
+});
+
 module.exports = router;

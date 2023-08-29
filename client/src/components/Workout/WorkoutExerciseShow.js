@@ -4,9 +4,12 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import React from "react";
 import Spacer from "../Spacer";
+import { Ionicons } from "@expo/vector-icons";
+import { Swipeable } from "react-native-gesture-handler";
 
 const WorkoutExerciseShow = ({
   item,
@@ -14,14 +17,43 @@ const WorkoutExerciseShow = ({
   handleExerciseInputChange,
   addSetToExercise,
   handleExerciseNotesChange,
+  removeExercise,
 }) => {
+  const renderRightActions = (
+    progress: Animated.AnimatedInterpolation,
+    dragAnimatedValue: Animated.AnimatedInterpolation
+  ) => {
+    const opacity = dragAnimatedValue.interpolate({
+      inputRange: [-150, 0],
+      outputRange: [1, 0],
+      extrapolate: "clamp",
+    });
+    return (
+      <View style={styles.swipedRow}>
+        <View style={styles.swipedConfirmationContainer}>
+          <Text style={styles.deleteConfirmationText}>Are you sure?</Text>
+        </View>
+        <Animated.View style={[styles.deleteButton, { opacity }]}>
+          <TouchableOpacity>
+            <Text style={styles.deleteButtonText}>Delete</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
+    );
+  };
+
   return (
     <View>
       <Spacer />
       <Spacer />
-      <Text style={styles.title}>
-        Exercise {exerciseIndex + 1} - {item.name}
-      </Text>
+      <View style={styles.exerciseNameContainer}>
+        <Text style={styles.title}>
+          Exercise {exerciseIndex + 1} - {item.name}
+        </Text>
+        <TouchableOpacity onPress={() => removeExercise(exerciseIndex)}>
+          <Ionicons name='remove-circle-outline' size={24} color='black' />
+        </TouchableOpacity>
+      </View>
       <Spacer />
       <View style={styles.setHeaderContainer}>
         <Text style={styles.header}>Set</Text>
@@ -31,24 +63,26 @@ const WorkoutExerciseShow = ({
       </View>
       {item.sets?.map((item, index) => {
         return (
-          <View style={styles.setHeaderContainer} key={item.index}>
-            <Text style={styles.header}>{item.set}</Text>
+          <Swipeable renderRightActions={renderRightActions}>
+            <View style={styles.setHeaderContainer} key={item.index}>
+              <Text style={styles.header}>{item.set}</Text>
 
-            <TextInput
-              placeholder="0"
-              value={item.kg}
-              onChangeText={(text) =>
-                handleExerciseInputChange(exerciseIndex, index, "kg", text)
-              }
-            />
-            <TextInput
-              placeholder="0"
-              value={item.reps}
-              onChangeText={(text) =>
-                handleExerciseInputChange(exerciseIndex, index, "reps", text)
-              }
-            />
-          </View>
+              <TextInput
+                placeholder='0'
+                value={item.kg}
+                onChangeText={(text) =>
+                  handleExerciseInputChange(exerciseIndex, index, "kg", text)
+                }
+              />
+              <TextInput
+                placeholder='0'
+                value={item.reps}
+                onChangeText={(text) =>
+                  handleExerciseInputChange(exerciseIndex, index, "reps", text)
+                }
+              />
+            </View>
+          </Swipeable>
         );
       })}
       <Spacer />
@@ -61,7 +95,8 @@ const WorkoutExerciseShow = ({
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => addSetToExercise(exerciseIndex)}>
+        onPress={() => addSetToExercise(exerciseIndex)}
+      >
         <Text style={styles.buttonText}>Add Set</Text>
       </TouchableOpacity>
     </View>
@@ -115,5 +150,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",
+  },
+  exerciseNameContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

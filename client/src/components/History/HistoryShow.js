@@ -1,9 +1,15 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
+import useWorkoutContext from "../../hooks/useWorkoutContext";
 
 export default function HistoryShow({ item }) {
+  const { deleteWorkout } = useWorkoutContext();
+
+  console.log(item._id);
   return (
     <View style={styles.mainContainer}>
+      <Button title='Remove' onPress={() => deleteWorkout(item._id)} />
+
       <View style={styles.hr} />
       {item?.exercises.map((exercise) => {
         return (

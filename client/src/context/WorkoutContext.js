@@ -9,6 +9,8 @@ const reducer = (state, action) => {
       return action.payload;
     case "add_workout":
       return [...state, { ...action.payload }];
+    case "delete_workout":
+      return state.filter((workout) => workout.id !== action.payload.id);
     default:
       return state;
   }
@@ -31,8 +33,19 @@ const addWorkout = (dispatch) => async (exerciseData) => {
   }
 };
 
+const deleteWorkout = (dispatch) => async (id) => {
+  try {
+    const res = await Server.delete("/workouts/deleteWorkout", {
+      data: { id },
+    });
+    dispatch({ type: "deleteWorkout", payload: id });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   reducer,
-  { addWorkout, getWorkouts },
+  { addWorkout, getWorkouts, deleteWorkout },
   { errorMessage: "" }
 );
