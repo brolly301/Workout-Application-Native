@@ -6,7 +6,7 @@ import TrackList from "../components/History/TrackList";
 
 export default function HistoryScreen() {
   const [active, setActive] = useState(true);
-  const { getWorkouts } = useWorkoutContext();
+  const { getWorkouts, state } = useWorkoutContext();
 
   useEffect(() => {
     getWorkouts();
@@ -21,8 +21,7 @@ export default function HistoryScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => setActive(false)}
-        >
+          onPress={() => setActive(false)}>
           <Text style={styles.buttonText}>Runs</Text>
         </TouchableOpacity>
       </View>

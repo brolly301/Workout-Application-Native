@@ -30,8 +30,7 @@ const CreateRoutineScreen = () => {
                 console.log(e);
               }
             }
-          }}
-        >
+          }}>
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       ),
@@ -43,7 +42,9 @@ const CreateRoutineScreen = () => {
   };
 
   const handleSubmit = () => {
-    addRoutine(routine);
+    addRoutine(routine, () => {
+      navigation.navigate("Routines");
+    });
   };
 
   const handleExerciseInput = (name, level, category) => {
@@ -149,8 +150,7 @@ const CreateRoutineScreen = () => {
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => setAddExercise(true)}
-          >
+            onPress={() => setAddExercise(true)}>
             <Text style={styles.buttonText}>Add Exercise</Text>
           </TouchableOpacity>
         </>

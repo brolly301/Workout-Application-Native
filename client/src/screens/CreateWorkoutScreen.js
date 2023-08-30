@@ -46,8 +46,7 @@ const CreateWorkoutScreen = ({ route }) => {
               } catch (e) {
                 console.log(e);
               }
-          }}
-        >
+          }}>
           <Text style={styles.finishButton}>Finish</Text>
         </TouchableOpacity>
       ),
@@ -58,14 +57,16 @@ const CreateWorkoutScreen = ({ route }) => {
     setErrors(validation(workoutData));
   };
 
-  const handleSubmit = (callback) => {
-    addWorkout(workoutData);
+  const handleSubmit = () => {
     for (let exercise of workoutData.exercises) {
       addExerciseSets({
         exerciseName: exercise.name,
         sets: exercise.sets,
       });
     }
+    addWorkout(workoutData, () => {
+      navigation.navigate("Workout");
+    });
   };
 
   const removeExercise = (index) => {
@@ -144,7 +145,7 @@ const CreateWorkoutScreen = ({ route }) => {
         <>
           <View style={styles.timerContainer}>
             <TextInput
-              placeholder='Workout 1'
+              placeholder="Workout 1"
               value={workoutData.name}
               style={styles.title}
               onChangeText={(text) =>
@@ -174,8 +175,7 @@ const CreateWorkoutScreen = ({ route }) => {
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => setAddExercise(true)}
-          >
+            onPress={() => setAddExercise(true)}>
             <Text style={styles.buttonText}>Add Exercise</Text>
           </TouchableOpacity>
         </>

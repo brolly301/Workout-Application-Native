@@ -5,10 +5,10 @@ import useWorkoutContext from "../../hooks/useWorkoutContext";
 export default function HistoryShow({ item }) {
   const { deleteWorkout } = useWorkoutContext();
 
-  console.log(item._id);
+  console.log(item);
   return (
     <View style={styles.mainContainer}>
-      <Button title='Remove' onPress={() => deleteWorkout(item._id)} />
+      <Button title="Remove" onPress={() => deleteWorkout(item._id)} />
 
       <View style={styles.hr} />
       {item?.exercises.map((exercise) => {

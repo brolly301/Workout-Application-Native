@@ -27,8 +27,16 @@ export default function ExerciseCreate() {
   const handleSubmit = () => {
     if (!handleValidation())
       try {
-        addExercise(name, primaryMuscle, secondaryMuscle, equipment, category);
-        navigation.navigate("Exercises");
+        addExercise(
+          name,
+          primaryMuscle,
+          secondaryMuscle,
+          equipment,
+          category,
+          () => {
+            navigation.navigate("Exercises");
+          }
+        );
       } catch (e) {
         console.log("error");
       }

@@ -27,24 +27,28 @@ export function RoutineProvider({ children }) {
     }
   };
 
-  const addRoutine = async (routine) => {
+  const addRoutine = async (routine, callback) => {
     try {
       const res = await Server.post("/routines/addRoutine", routine);
       setAllRoutines([...allRoutines, { ...routine }]);
+      if (callback) {
+        callback();
+      }
     } catch (e) {
       console.log(e);
     }
   };
 
   const deleteRoutine = async (id) => {
-    try {
-      const res = await Server.delete(`/routines/deleteRoutine/${id}`);
-      setAllRoutines((prevRoutines) =>
-        prevRoutines.filter((routine) => routine.id !== id)
-      );
-    } catch (e) {
-      console.log(e);
-    }
+    console.log(id);
+    // try {
+    //   const res = await Server.delete(`/routines/deleteRoutine/${id}`);
+    //   setAllRoutines((prevRoutines) =>
+    //     prevRoutines.filter((routine) => routine.id !== id)
+    //   );
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   const [workoutData, setWorkoutData] = useState({

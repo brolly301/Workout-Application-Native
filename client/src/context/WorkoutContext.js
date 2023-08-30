@@ -23,13 +23,16 @@ const getWorkouts = (dispatch) => async () => {
   } catch (e) {}
 };
 
-const addWorkout = (dispatch) => async (exerciseData) => {
+const addWorkout = (dispatch) => async (exerciseData, callback) => {
   try {
     const res = await Server.post("/workouts/addWorkout", exerciseData);
     console.log(res);
     dispatch({ type: "add_workout", payload: exerciseData });
+    if (callback) {
+      callback();
+    }
   } catch (e) {
-    dispatch({ type: "add_error", payload: e.response.data.error });
+    // dispatch({ type: "add_error", payload: e.response.data.error });
   }
 };
 

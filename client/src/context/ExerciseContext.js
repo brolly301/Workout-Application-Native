@@ -31,7 +31,14 @@ const reducer = (state, action) => {
 
 const addExercise =
   (dispatch) =>
-  async (name, primaryMuscle, secondaryMuscle, equipment, category) => {
+  async (
+    name,
+    primaryMuscle,
+    secondaryMuscle,
+    equipment,
+    category,
+    callback
+  ) => {
     const res = await Server.post("/exercises/addExercise", {
       name,
       primaryMuscle,
@@ -44,6 +51,9 @@ const addExercise =
       type: "add_exercise",
       payload: { name, primaryMuscle, secondaryMuscle, equipment, category },
     });
+    if (callback) {
+      callback();
+    }
   };
 
 const editExercise =
