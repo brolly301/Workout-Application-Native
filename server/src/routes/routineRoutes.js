@@ -14,8 +14,8 @@ router.get("/allRoutines", async (req, res) => {
   res.send(routines);
 });
 
-router.delete("/deleteRoutine", async (req, res) => {
-  const routine = await Routine.deleteOne({ _id: req.body.id });
+router.delete("/deleteRoutine/:id", async (req, res) => {
+  const routine = await Routine.deleteOne({ _id: req.params.id });
   res.send(routine);
 });
 

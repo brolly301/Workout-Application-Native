@@ -35,10 +35,8 @@ const addWorkout = (dispatch) => async (exerciseData) => {
 
 const deleteWorkout = (dispatch) => async (id) => {
   try {
-    const res = await Server.delete("/workouts/deleteWorkout", {
-      data: { id },
-    });
-    dispatch({ type: "deleteWorkout", payload: id });
+    const res = await Server.delete(`/workouts/deleteWorkout/${id}`);
+    dispatch({ type: "delete_workout", payload: id });
   } catch (e) {
     console.log(e);
   }
