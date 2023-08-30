@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { registerValidator } = require("../middlewares/validation");
+const requireAuth = require("../middlewares/requireAuth");
 
 router.post("/register", registerValidator, async (req, res) => {
   const emailExists = await User.findOne({ email: req.body.email });
@@ -44,6 +45,11 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     return res.status(422).send({ error: "Invalid Email or Password" });
   }
+});
+
+router.get("/userDetails", requireAuth, async (req, res) => {
+  const userDetails = await User.findById(req.user.id);
+  res.send(userDetails);
 });
 
 module.exports = router;

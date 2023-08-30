@@ -2,11 +2,13 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Input from "../../components/Input";
 import useUserContext from "../../hooks/useUserContext";
+import { useNavigation } from "@react-navigation/native";
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const { state, login } = useUserContext();
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -18,7 +20,11 @@ export default function LoginScreen({ navigation }) {
       )}
       <TouchableOpacity
         style={styles.login}
-        onPress={() => login({ email, password })}>
+        onPress={() =>
+          login({ email, password }, () => {
+            // navigation.navigate("Tabs");
+          })
+        }>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity

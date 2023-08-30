@@ -1,10 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import RoutineList from "../components/Routines/RoutineList";
+import useUserContext from "../hooks/useUserContext";
 
 export default function RoutineScreen() {
   const [text, setText] = useState();
+  const { getUserDetails, state } = useUserContext();
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
+
+  console.log(state.userDetails);
 
   return (
     <View style={styles.container}>

@@ -2,6 +2,7 @@ import Server from "../api/Server";
 import createDataContext from "./createDataContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { useNavigation } from "@react-navigation/native";
 
 const ToastMessage = (type, message) => {
   Toast.show({
@@ -20,13 +21,19 @@ const reducer = (state, action) => {
       return { errorMessage: "", token: action.payload };
     case "logout":
       return { token: "" };
+    case "get_user_details":
+      return {
+        userDetails: action.payload.userDetails,
+        token: action.payload.token,
+      };
     default:
       return state;
   }
 };
 
 const login = (dispatch) => {
-  return async ({ email, password }) => {
+  return async ({ email, password, callback }) => {
+    // const navigation = useNavigation();
     try {
       const res = await Server.post("/login", { email, password });
       await AsyncStorage.setItem("token", res.data.token);
@@ -60,8 +67,21 @@ const logout = (dispatch) => {
   };
 };
 
+const getUserDetails = (dispatch) => async () => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    const res = await Server.get("/userDetails");
+    dispatch({
+      type: "get_user_details",
+      payload: { userDetails: res.data, token: token },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   reducer,
-  { login, register, logout },
-  { token: null, errorMessage: "" }
+  { login, register, logout, getUserDetails },
+  { token: null, errorMessage: "", userDetails: {} }
 );

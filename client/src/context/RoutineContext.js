@@ -34,6 +34,7 @@ export function RoutineProvider({ children }) {
       if (callback) {
         callback();
       }
+      getRoutines();
     } catch (e) {
       console.log(e);
     }

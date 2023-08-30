@@ -49,7 +49,7 @@ const WorkoutExerciseShow = ({
           Exercise {exerciseIndex + 1} - {item.name}
         </Text>
         <TouchableOpacity onPress={() => removeExercise(exerciseIndex)}>
-          <Ionicons name='remove-circle-outline' size={24} color='black' />
+          <Ionicons name="remove-circle-outline" size={24} color="black" />
         </TouchableOpacity>
       </View>
       <Spacer />
@@ -61,21 +61,21 @@ const WorkoutExerciseShow = ({
       </View>
       {item.sets?.map((item, index) => {
         return (
-          <Swipeable renderRightActions={renderRightActions}>
-            <View style={styles.setHeaderContainer} key={item.index}>
+          <Swipeable key={item.set} renderRightActions={renderRightActions}>
+            <View style={styles.setHeaderContainer}>
               <Text style={styles.header}>{item.set}</Text>
               <TouchableOpacity onPress={() => removeSet(exerciseIndex, index)}>
                 <Text>Kepp</Text>
               </TouchableOpacity>
               <TextInput
-                placeholder='0'
+                placeholder="0"
                 value={item.kg}
                 onChangeText={(text) =>
                   handleExerciseInputChange(exerciseIndex, index, "kg", text)
                 }
               />
               <TextInput
-                placeholder='0'
+                placeholder="0"
                 value={item.reps}
                 onChangeText={(text) =>
                   handleExerciseInputChange(exerciseIndex, index, "reps", text)
@@ -95,8 +95,7 @@ const WorkoutExerciseShow = ({
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => addSetToExercise(exerciseIndex)}
-      >
+        onPress={() => addSetToExercise(exerciseIndex)}>
         <Text style={styles.buttonText}>Add Set</Text>
       </TouchableOpacity>
     </View>
