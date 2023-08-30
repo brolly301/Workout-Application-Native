@@ -6,11 +6,16 @@ import TrackList from "../components/History/TrackList";
 
 export default function HistoryScreen() {
   const [active, setActive] = useState(true);
-  const { getWorkouts, state } = useWorkoutContext();
+  const { getWorkouts, deleteWorkout, state } = useWorkoutContext();
 
   useEffect(() => {
     getWorkouts();
   }, []);
+
+  const handleDeleteWorkout = async (id) => {
+    await deleteWorkout(id);
+    getWorkouts();
+  };
 
   return (
     <View style={styles.container}>
@@ -25,7 +30,11 @@ export default function HistoryScreen() {
           <Text style={styles.buttonText}>Runs</Text>
         </TouchableOpacity>
       </View>
-      {active ? <HistoryList /> : <TrackList />}
+      {active ? (
+        <HistoryList state={state} handleDeleteWorkout={handleDeleteWorkout} />
+      ) : (
+        <TrackList />
+      )}
     </View>
   );
 }

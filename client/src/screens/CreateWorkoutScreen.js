@@ -30,7 +30,7 @@ const CreateWorkoutScreen = ({ route }) => {
 
   console.log(workoutData);
 
-  const { state, addWorkout } = useWorkoutContext();
+  const { state, addWorkout, getWorkouts } = useWorkoutContext();
   const { addExerciseSets } = useExerciseSetsContext();
 
   const [errors, setErrors] = useState({});
@@ -57,7 +57,7 @@ const CreateWorkoutScreen = ({ route }) => {
     setErrors(validation(workoutData));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     for (let exercise of workoutData.exercises) {
       addExerciseSets({
         exerciseName: exercise.name,
@@ -67,6 +67,7 @@ const CreateWorkoutScreen = ({ route }) => {
     addWorkout(workoutData, () => {
       navigation.navigate("Workout");
     });
+    getWorkouts();
   };
 
   const removeExercise = (index) => {

@@ -8,9 +8,9 @@ const reducer = (state, action) => {
     case "get_workouts":
       return action.payload;
     case "add_workout":
-      return [...state, { ...action.payload }];
+      return Array.isArray(state) ? [...state, { ...action.payload }] : state;
     case "delete_workout":
-      return state.filter((workout) => workout.id !== action.payload.id);
+      return state.filter((workout) => workout.id !== action.payload);
     default:
       return state;
   }
@@ -31,8 +31,9 @@ const addWorkout = (dispatch) => async (exerciseData, callback) => {
     if (callback) {
       callback();
     }
+    getWorkouts();
   } catch (e) {
-    // dispatch({ type: "add_error", payload: e.response.data.error });
+    dispatch({ type: "add_error", payload: e.response.data.error });
   }
 };
 
@@ -40,6 +41,7 @@ const deleteWorkout = (dispatch) => async (id) => {
   try {
     const res = await Server.delete(`/workouts/deleteWorkout/${id}`);
     dispatch({ type: "delete_workout", payload: id });
+    getWorkouts();
   } catch (e) {
     console.log(e);
   }

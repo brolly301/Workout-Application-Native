@@ -40,15 +40,15 @@ export function RoutineProvider({ children }) {
   };
 
   const deleteRoutine = async (id) => {
-    console.log(id);
-    // try {
-    //   const res = await Server.delete(`/routines/deleteRoutine/${id}`);
-    //   setAllRoutines((prevRoutines) =>
-    //     prevRoutines.filter((routine) => routine.id !== id)
-    //   );
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      const res = await Server.delete(`/routines/deleteRoutine/${id}`);
+      setAllRoutines((prevRoutines) =>
+        prevRoutines.filter((routine) => routine.id !== id)
+      );
+      getRoutines();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const [workoutData, setWorkoutData] = useState({

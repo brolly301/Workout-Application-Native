@@ -10,8 +10,8 @@ import useWorkoutContext from "../../hooks/useWorkoutContext";
 import { FontAwesome5 } from "@expo/vector-icons";
 import HistoryShow from "./HistoryShow";
 
-export default function HistoryList({ limit }) {
-  const { state } = useWorkoutContext();
+export default function HistoryList({ limit, state, handleDeleteWorkout }) {
+  // const { state } = useWorkoutContext();
   const [isActive, setIsActive] = useState(null);
 
   //Setting the expanded item based on the index of the workout
@@ -57,7 +57,10 @@ export default function HistoryList({ limit }) {
                 </View>
                 {isExpanded && (
                   <>
-                    <HistoryShow item={item} />
+                    <HistoryShow
+                      item={item}
+                      handleDeleteWorkout={handleDeleteWorkout}
+                    />
                   </>
                 )}
               </TouchableOpacity>
