@@ -3,6 +3,7 @@ const router = express.Router();
 const Workout = require("../models/workout");
 const ExerciseSets = require("../models/exerciseSets");
 const { workoutValidator } = require("../middlewares/validation");
+const requireAuth = require("../middlewares/requireAuth");
 
 router.post("/addWorkout", workoutValidator, async (req, res) => {
   try {
@@ -14,8 +15,8 @@ router.post("/addWorkout", workoutValidator, async (req, res) => {
   }
 });
 
-router.get("/allWorkouts", async (req, res) => {
-  const workouts = await Workout.find({});
+router.get("/allWorkouts", requireAuth, async (req, res) => {
+  const workouts = await Workout.find({ userID: req.user._id });
   res.send(workouts);
 });
 

@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ExerciseSetsSchema = new Schema({
+  userID: {
+    type: String,
+  },
   exerciseName: {
     type: String,
   },

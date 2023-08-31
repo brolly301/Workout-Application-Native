@@ -5,7 +5,7 @@ const RoutineContext = createContext();
 
 export function RoutineProvider({ children }) {
   const [routine, setRoutine] = useState({
-    userID: "12547",
+    userID: "",
     name: "",
     description: "",
     date: new Date(),

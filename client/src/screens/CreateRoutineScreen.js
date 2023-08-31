@@ -11,12 +11,16 @@ import useRoutineContext from "../hooks/useRoutineContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Routines/RoutineValidation";
+import useUserContext from "../hooks/useUserContext";
 
 const CreateRoutineScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
   const { routine, setRoutine, addRoutine } = useRoutineContext();
+  const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
+
+  console.log(routine);
 
   useEffect(() => {
     navigation.setOptions({
@@ -111,8 +115,6 @@ const CreateRoutineScreen = () => {
     setRoutine(updatedRoutine);
   };
 
-  console.log(routine);
-
   return (
     <View style={styles.container}>
       {addExercise ? (
@@ -130,7 +132,13 @@ const CreateRoutineScreen = () => {
           <TextInput
             style={styles.input}
             value={routine.name}
-            onChangeText={(text) => setRoutine({ ...routine, name: text })}
+            onChangeText={(text) =>
+              setRoutine({
+                ...routine,
+                name: text,
+                userID: user.userDetails._id,
+              })
+            }
           />
           <Text style={styles.fieldText}>Description</Text>
           <TextInput

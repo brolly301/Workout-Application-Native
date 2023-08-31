@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import Timer from "../components/Workout/Timer";
 import AddExercise from "../components/Workout/AddExercise";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
-import useStateContext from "../hooks/useStateContext";
+import useUserContext from "../hooks/useUserContext";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import { useNavigation } from "@react-navigation/native";
@@ -18,9 +18,10 @@ import validation from "../components/Workout/WorkoutValidation";
 
 const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
+  const { state: user } = useUserContext();
   const [addExercise, setAddExercise] = useState(false);
   const [workoutData, setWorkoutData] = useState({
-    userID: "12547",
+    userID: user.userDetails._id,
     name: "",
     description: "",
     date: new Date(),
@@ -60,6 +61,7 @@ const CreateWorkoutScreen = ({ route }) => {
   const handleSubmit = async () => {
     for (let exercise of workoutData.exercises) {
       addExerciseSets({
+        userID: user.userDetails._id,
         exerciseName: exercise.name,
         sets: exercise.sets,
       });

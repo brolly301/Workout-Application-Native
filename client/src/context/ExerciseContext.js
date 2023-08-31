@@ -8,7 +8,7 @@ const reducer = (state, action) => {
       return [
         ...state,
         {
-          id: Math.floor(Math.random() * 9999),
+          userID: action.payload.userID,
           name: action.payload.name,
           primaryMuscle: action.payload.primaryMuscle,
           secondaryMuscle: action.payload.secondaryMuscle,
@@ -32,6 +32,7 @@ const reducer = (state, action) => {
 const addExercise =
   (dispatch) =>
   async (
+    userID,
     name,
     primaryMuscle,
     secondaryMuscle,
@@ -40,6 +41,7 @@ const addExercise =
     callback
   ) => {
     const res = await Server.post("/exercises/addExercise", {
+      userID,
       name,
       primaryMuscle,
       secondaryMuscle,
@@ -49,7 +51,14 @@ const addExercise =
     console.log(res);
     dispatch({
       type: "add_exercise",
-      payload: { name, primaryMuscle, secondaryMuscle, equipment, category },
+      payload: {
+        userID,
+        name,
+        primaryMuscle,
+        secondaryMuscle,
+        equipment,
+        category,
+      },
     });
     if (callback) {
       callback();

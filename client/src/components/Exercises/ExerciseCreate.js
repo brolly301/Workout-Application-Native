@@ -5,10 +5,12 @@ import Spacer from "../Spacer";
 import useExerciseContext from "../../hooks/useExerciseContext";
 import validation from "./ExerciseValidation";
 import { useNavigation } from "@react-navigation/native";
+import useUserContext from "../../hooks/useUserContext";
 
 export default function ExerciseCreate() {
   const { addExercise, state } = useExerciseContext();
   const navigation = useNavigation();
+  const { state: user } = useUserContext();
 
   const [name, setName] = useState("");
   const [primaryMuscle, setPrimaryMuscle] = useState("");
@@ -28,6 +30,7 @@ export default function ExerciseCreate() {
     if (!handleValidation())
       try {
         addExercise(
+          user.userDetails._id,
           name,
           primaryMuscle,
           secondaryMuscle,

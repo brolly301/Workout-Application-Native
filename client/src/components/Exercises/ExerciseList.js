@@ -17,18 +17,21 @@ const upperCaseChar = (string) => {
 export default function ExerciseList({ state }) {
   const navigation = useNavigation();
 
+  const newState = state.filter((exercise) =>
+    exercise.userID ? exercise : null
+  );
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={state}
+        data={newState}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("ExerciseShow", { id: item.id })
-              }
-            >
+              }>
               <ExerciseShow exercise={item} />
             </TouchableOpacity>
           );
