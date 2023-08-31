@@ -7,12 +7,14 @@ export default function Input({
   error,
   multiline,
   numberOfLines,
+  value,
 }) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{field}</Text>
       {error && <Text style={styles.error}>{error}</Text>}
       <TextInput
+        value={value}
         multiline={multiline}
         numberOfLines={numberOfLines}
         style={styles.input}

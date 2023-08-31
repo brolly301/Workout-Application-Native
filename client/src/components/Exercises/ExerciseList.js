@@ -23,8 +23,10 @@ export default function ExerciseList({ state }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.subTitle}>All Exercises</Text>
+
       <FlatList
-        data={newState}
+        data={state}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (
@@ -44,6 +46,10 @@ export default function ExerciseList({ state }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  subTitle: {
+    fontSize: 18,
+    marginBottom: 10,
   },
 
   title: {},

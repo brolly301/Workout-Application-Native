@@ -67,7 +67,23 @@ const addExercise =
 
 const editExercise =
   (dispatch) =>
-  (id, name, primaryMuscle, secondaryMuscle, equipment, category) => {
+  async (
+    id,
+    name,
+    primaryMuscle,
+    secondaryMuscle,
+    equipment,
+    category,
+    callback
+  ) => {
+    const res = await Server.patch("/exercises/editExercise", {
+      id,
+      name,
+      primaryMuscle,
+      secondaryMuscle,
+      equipment,
+      category,
+    });
     dispatch({
       type: "edit_exercise",
       payload: {
@@ -79,6 +95,9 @@ const editExercise =
         category,
       },
     });
+    if (callback) {
+      callback();
+    }
   };
 
 const deleteExercise = (dispatch) => (id) => {

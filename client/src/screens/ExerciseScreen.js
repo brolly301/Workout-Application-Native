@@ -8,20 +8,28 @@ import { useNavigation } from "@react-navigation/native";
 import ExerciseSortBy from "../components/Exercises/ExerciseSortBy";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
+import ExerciseEdit from "../components/Exercises/ExerciseEdit";
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const { state, getExercises } = useExerciseContext();
   const [search, setSearch] = useState();
-
+  const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState("search");
+
+  const handleEdit = () => {
+    setIsActive(!isActive);
+  };
 
   useEffect(() => {
     getExercises();
     navigation.setOptions({
       headerRight: () => (
         <View style={styles.headerRight}>
-          <ExerciseSortBy selected={selected} setSelected={setSelected} />
+          <TouchableOpacity onPress={() => handleEdit()}>
+            <Text>Edit</Text>
+          </TouchableOpacity>
+          {/* <ExerciseSortBy selected={selected} setSelected={setSelected} /> */}
           <GestureHandlerRootView>
             <TouchableOpacity
               onPress={() => navigation.navigate("ExerciseCreate")}>
@@ -31,7 +39,7 @@ export default function ExerciseScreen() {
         </View>
       ),
     });
-  }, []);
+  }, [isActive]);
 
   const update = (sortBy) => {
     switch (sortBy) {
@@ -48,8 +56,11 @@ export default function ExerciseScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Exercises</Text>
       <SearchBar setText={setSearch} placeholder={"exercises"} />
-      <Text style={styles.subTitle}>All Exercises</Text>
-      <ExerciseList state={update(selected)} search={search} />
+      {isActive ? (
+        <ExerciseEdit state={update(selected)} />
+      ) : (
+        <ExerciseList state={update(selected)} search={search} />
+      )}
     </View>
   );
 }

@@ -5,10 +5,10 @@ const UserExercise = require("../models/userExercise");
 const { exerciseValidator } = require("../middlewares/validation");
 const requireAuth = require("../middlewares/requireAuth");
 
-router.get("/allExercises", async (req, res) => {
+router.get("/allExercises", requireAuth, async (req, res) => {
   const exercises = await Exercise.find({}).limit(10);
   const userExercises = await UserExercise.find({
-    userID: "64ef991f3c7f0cac474bf84d",
+    userID: req.user._id,
   });
 
   const allExercises = [...exercises, ...userExercises];
@@ -28,6 +28,13 @@ router.get("/allExercises", async (req, res) => {
 router.post("/addExercise", exerciseValidator, async (req, res) => {
   const exercise = new UserExercise(req.body);
   await exercise.save();
+  res.send(exercise);
+});
+
+router.patch("/editExercise", async (req, res) => {
+  const exercise = await UserExercise.findByIdAndUpdate(req.body.id, {
+    ...req.body,
+  });
   res.send(exercise);
 });
 

@@ -21,6 +21,7 @@ import useStateContext from "../hooks/useStateContext";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import useRoutineContext from "../hooks/useRoutineContext";
+import EditExerciseScreen from "../screens/EditExerciseScreen";
 
 const Stack = createStackNavigator();
 
@@ -120,6 +121,7 @@ const ExercisesStack = ({ navigation }) => {
         options={({ navigation }) => ({})}
       />
       <Stack.Screen name="ExerciseShow" component={ExerciseShowScreen} />
+      <Stack.Screen name="ExerciseEdit" component={EditExerciseScreen} />
       <Stack.Screen
         name="ExerciseCreate"
         component={ExerciseCreate}
