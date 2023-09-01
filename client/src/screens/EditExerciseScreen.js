@@ -12,11 +12,13 @@ export default function ExerciseEditScreen({ route }) {
   const navigation = useNavigation();
   const { state: user } = useUserContext();
 
-  const [name, setName] = useState("");
-  const [primaryMuscle, setPrimaryMuscle] = useState("");
-  const [secondaryMuscle, setSecondaryMuscle] = useState("");
-  const [equipment, setEquipment] = useState("");
-  const [category, setCategory] = useState("");
+  const [name, setName] = useState(exercise?.name);
+  const [primaryMuscle, setPrimaryMuscle] = useState(exercise?.primaryMuscle);
+  const [secondaryMuscle, setSecondaryMuscle] = useState(
+    exercise?.secondaryMuscle
+  );
+  const [equipment, setEquipment] = useState(exercise?.equipment);
+  const [category, setCategory] = useState(exercise?.category);
 
   const [errors, setErrors] = useState({});
 
@@ -57,34 +59,34 @@ export default function ExerciseEditScreen({ route }) {
       <Text style={styles.subTitle}>Edit Exercise</Text>
       <Input
         field={"Exercise Name"}
-        // value={exercise.name}
+        value={exercise.name}
         setText={setName}
         error={errors.name}
       />
       <Spacer />
       <Input
         field={"Primary Muscle"}
-        // value={exercise?.primaryMuscle}
+        value={exercise?.primaryMuscle}
         setText={setPrimaryMuscle}
         error={errors.primaryMuscle}
       />
       <Spacer />
       <Input
         field={"Secondary Muscle"}
-        // value={exercise?.secondaryMuscle}
+        value={exercise?.secondaryMuscle}
         setText={setSecondaryMuscle}
         error={errors.secondaryMuscle}
       />
       <Spacer />
       <Input
-        // value={exercise?.equipment}
+        value={exercise?.equipment}
         field={"Equipment"}
         setText={setEquipment}
         error={errors.equipment}
       />
       <Spacer />
       <Input
-        // value={exercise?.category}
+        value={exercise?.category}
         field={"Category"}
         setText={setCategory}
         error={errors.category}

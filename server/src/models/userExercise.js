@@ -23,10 +23,10 @@ const UserExerciseSchema = new Schema({
   category: {
     type: String,
   },
-  primaryMuscles: {
+  primaryMuscle: {
     type: String,
   },
-  secondaryMuscles: {
+  secondaryMuscle: {
     type: String,
   },
   instructions: {

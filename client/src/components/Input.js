@@ -9,16 +9,20 @@ export default function Input({
   numberOfLines,
   value,
 }) {
+  const handleChangeText = (text) => {
+    setText(text);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{field}</Text>
       {error && <Text style={styles.error}>{error}</Text>}
       <TextInput
-        value={value}
+        defaultValue={value}
         multiline={multiline}
         numberOfLines={numberOfLines}
         style={styles.input}
-        onChangeText={(text) => setText(text)}
+        onChangeText={handleChangeText}
       />
     </View>
   );

@@ -15,7 +15,11 @@ const RoutineStart = ({ routine }) => {
           onPress={() => deleteRoutine(routine._id)}>
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editButton}>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() =>
+            navigation.navigate("EditRoutine", { routine: routine })
+          }>
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
         <TouchableOpacity

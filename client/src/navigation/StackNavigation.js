@@ -6,7 +6,6 @@ import RoutineScreen from "../screens/RoutineScreen";
 import ExerciseScreen from "../screens/ExerciseScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ExerciseShowScreen from "../screens/ExerciseShowScreen";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import React from "react";
 import SplashScreen from "../screens/Auth/SplashScreen";
 import LoginScreen from "../screens/Auth/LoginScreen";
@@ -16,12 +15,9 @@ import CreateWorkoutScreen from "../screens/CreateWorkoutScreen";
 import CreateTrackScreen from "../screens/CreateTrackScreen";
 import ExerciseCreate from "../components/Exercises/ExerciseCreate";
 import CreateRoutineScreen from "../screens/CreateRoutineScreen";
-import ExerciseSortBy from "../components/Exercises/ExerciseSortBy";
 import useStateContext from "../hooks/useStateContext";
-import useWorkoutContext from "../hooks/useWorkoutContext";
-import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
-import useRoutineContext from "../hooks/useRoutineContext";
 import EditExerciseScreen from "../screens/EditExerciseScreen";
+import EditWorkoutScreen from "../screens/EditWorkoutScreen";
 
 const Stack = createStackNavigator();
 
@@ -118,6 +114,7 @@ const RoutinesStack = ({ navigation }) => {
         component={WorkoutStack}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="EditRoutine" component={EditWorkoutScreen} />
     </Stack.Navigator>
   );
 };
