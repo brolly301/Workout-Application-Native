@@ -19,8 +19,25 @@ const EditWorkoutScreen = ({ route }) => {
   const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
-
   const routine = route.params?.routine;
+
+  const [newRoutine, setNewRoutine] = useState(routine || {});
+  const [routineText, setRoutineText] = useState({
+    name: routine?.name,
+    description: routine?.description,
+  });
+
+  const handleUpdateText = (field, text) => {
+    setRoutineText({
+      ...routineText,
+      [field]: text,
+    });
+    setNewRoutine({
+      ...newRoutine,
+      name: routineText.name,
+      description: routineText.description,
+    });
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -46,34 +63,34 @@ const EditWorkoutScreen = ({ route }) => {
   };
 
   const handleSubmit = () => {
-    editRoutine(routine._id, routine, () => {
+    editRoutine(newRoutine._id, newRoutine, () => {
       navigation.navigate("Routines");
     });
   };
 
   const handleExerciseInput = (name, level, category) => {
-    const updatedRoutine = { ...routine };
-    updatedRoutine.exercises.push({
+    const updatedRoutine = { ...newRoutine };
+    newRoutine.exercises.push({
       name,
       level,
       category,
       sets: [{ set: 1, kg: "", reps: "" }],
     });
-    setRoutine(updatedRoutine);
+    setNewRoutine(updatedRoutine);
   };
 
   const removeExercise = (index) => {
-    const updatedExercises = routine.exercises.filter(
-      (exercise, idx) => index !== idx
-    );
-    setRoutine({
-      ...routine,
+    const updatedExercises = newRoutine.exercises.filter((exercise, idx) => {
+      return index !== idx;
+    });
+    setNewRoutine({
+      ...newRoutine,
       exercises: updatedExercises,
     });
   };
 
   const removeSet = (exerciseIndex, setIndex) => {
-    const updatedExercises = routine.exercises.map((exercise, idx) => {
+    const updatedExercises = newRoutine.exercises.map((exercise, idx) => {
       if (idx === exerciseIndex) {
         return {
           ...exercise,
@@ -83,8 +100,8 @@ const EditWorkoutScreen = ({ route }) => {
       return exercise;
     });
 
-    setRoutine({
-      ...routine,
+    setNewRoutine({
+      ...newRoutine,
       exercises: updatedExercises,
     });
   };
@@ -93,29 +110,27 @@ const EditWorkoutScreen = ({ route }) => {
   //Use set index to specify that exact set then field to update a specific field
   //Then spcify the value to update and use this as an onChangeText event
   const handleExerciseInputChange = (exerciseIndex, setIndex, field, value) => {
-    const updatedRoutine = { ...routine };
+    const updatedRoutine = { ...newRoutine };
     updatedRoutine.exercises[exerciseIndex].sets[setIndex][field] = value;
-    setRoutine(updatedRoutine);
+    setNewRoutine(updatedRoutine);
   };
 
   const handleExerciseNotesChange = (exerciseIndex, field, value) => {
-    const updatedRoutine = { ...routine };
+    const updatedRoutine = { ...newRoutine };
     updatedRoutine.exercises[exerciseIndex][field] = value;
-    setRoutine(updatedRoutine);
+    setNewRoutine(updatedRoutine);
   };
 
   //
   const addSetToExercise = (exerciseIndex) => {
-    const updatedRoutine = { ...routine };
+    const updatedRoutine = { ...newRoutine };
     updatedRoutine.exercises[exerciseIndex].sets.push({
       set: updatedRoutine.exercises[exerciseIndex].sets.length + 1,
       kg: "",
       reps: "",
     });
-    setRoutine(updatedRoutine);
+    setNewRoutine(updatedRoutine);
   };
-
-  console.log(routine);
 
   return (
     <View style={styles.container}>
@@ -133,25 +148,17 @@ const EditWorkoutScreen = ({ route }) => {
           <Text style={styles.fieldText}>Name</Text>
           <TextInput
             style={styles.input}
-            value={routine.name}
-            onChangeText={(text) =>
-              setRoutine({
-                ...routine,
-                name: text,
-                userID: user.userDetails._id,
-              })
-            }
+            value={routineText.name}
+            onChangeText={(text) => handleUpdateText("name", text)}
           />
           <Text style={styles.fieldText}>Description</Text>
           <TextInput
             style={styles.input}
-            value={routine.description}
-            onChangeText={(text) =>
-              setRoutine({ ...routine, description: text })
-            }
+            value={routineText.description}
+            onChangeText={(text) => handleUpdateText("description", text)}
           />
           <WorkoutExerciseList
-            workoutData={routine}
+            workoutData={newRoutine}
             handleExerciseInputChange={handleExerciseInputChange}
             handleExerciseNotesChange={handleExerciseNotesChange}
             addSetToExercise={addSetToExercise}

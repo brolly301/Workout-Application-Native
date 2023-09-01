@@ -27,6 +27,8 @@ export function RoutineProvider({ children }) {
     }
   };
 
+  console.log(routine);
+
   const addRoutine = async (routine, callback) => {
     try {
       const res = await Server.post("/routines/addRoutine", routine);
