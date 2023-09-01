@@ -12,7 +12,7 @@ export default function WorkoutDashboard() {
     <View style={styles.container}>
       <Text style={styles.title}>Begin Workout</Text>
       <Text style={styles.subTitle}>
-        Welcome back, {state.userDetails.firstName}
+        Welcome back, {state.userDetails?.firstName}
       </Text>
       <WorkoutCalendar />
       <QuickStart />

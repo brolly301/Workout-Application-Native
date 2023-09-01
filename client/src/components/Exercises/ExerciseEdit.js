@@ -9,9 +9,12 @@ import React from "react";
 import ExerciseEditShow from "./ExerciseEditShow";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import useExerciseContext from "../../hooks/useExerciseContext";
 
 const ExerciseEdit = ({ state }) => {
   const navigation = useNavigation();
+
+  const { deleteExercise } = useExerciseContext();
 
   const updatedState = state.filter((exercise) =>
     exercise.userID ? exercise : null
@@ -26,7 +29,7 @@ const ExerciseEdit = ({ state }) => {
         renderItem={({ item }) => {
           return (
             <View style={styles.editContainer}>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={() => deleteExercise(item._id)}>
                 <Ionicons
                   name="remove-circle-outline"
                   size={24}

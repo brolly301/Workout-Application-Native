@@ -38,4 +38,9 @@ router.patch("/editExercise", async (req, res) => {
   res.send(exercise);
 });
 
+router.delete("/deleteExercise/:id", async (req, res) => {
+  const exercise = await UserExercise.deleteOne({ _id: req.params.id });
+  res.send(exercise);
+});
+
 module.exports = router;

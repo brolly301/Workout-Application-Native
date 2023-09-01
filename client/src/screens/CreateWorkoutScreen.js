@@ -29,7 +29,9 @@ const CreateWorkoutScreen = ({ route }) => {
     exercises: [],
   });
 
-  console.log(workoutData);
+  console.log(workoutData.exercises.sets);
+
+  const routine = route.params?.routine;
 
   const { state, addWorkout, getWorkouts } = useWorkoutContext();
   const { addExerciseSets } = useExerciseSetsContext();
@@ -37,6 +39,10 @@ const CreateWorkoutScreen = ({ route }) => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
+    if (routine) {
+      setWorkoutData({ ...routine });
+    }
+
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
@@ -73,29 +79,37 @@ const CreateWorkoutScreen = ({ route }) => {
   };
 
   const removeExercise = (index) => {
-    const updatedExercises = workoutData.exercises.filter(
-      (exercise, idx) => index !== idx
-    );
-    setWorkoutData({
-      ...workoutData,
-      exercises: updatedExercises,
+    setWorkoutData((prevWorkoutData) => {
+      // Use filter to create a new array without the exercise at the specified index
+      const updatedExercises = prevWorkoutData.exercises.filter(
+        (exercise, idx) => idx !== index
+      );
+
+      return {
+        ...prevWorkoutData,
+        exercises: updatedExercises,
+      };
     });
   };
 
   const removeSet = (exerciseIndex, setIndex) => {
-    const updatedExercises = workoutData.exercises.map((exercise, idx) => {
-      if (idx === exerciseIndex) {
-        return {
-          ...exercise,
-          sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
-        };
-      }
-      return exercise;
-    });
+    setWorkoutData((prevWorkoutData) => {
+      const updatedExercises = prevWorkoutData.exercises.map(
+        (exercise, idx) => {
+          if (idx === exerciseIndex) {
+            return {
+              ...exercise,
+              sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
+            };
+          }
+          return exercise;
+        }
+      );
 
-    setWorkoutData({
-      ...workoutData,
-      exercises: updatedExercises,
+      return {
+        ...prevWorkoutData,
+        exercises: updatedExercises,
+      };
     });
   };
 

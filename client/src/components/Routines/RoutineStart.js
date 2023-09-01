@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import useRoutineContext from "../../hooks/useRoutineContext";
+import { useNavigation } from "@react-navigation/native";
 
 const RoutineStart = ({ routine }) => {
   const { deleteRoutine } = useRoutineContext();
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -16,7 +18,14 @@ const RoutineStart = ({ routine }) => {
         <TouchableOpacity style={styles.editButton}>
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.startButton}>
+        <TouchableOpacity
+          style={styles.startButton}
+          onPress={() =>
+            navigation.navigate("RoutineWorkout", {
+              screen: "CreateWorkout",
+              params: { routine: routine },
+            })
+          }>
           <Text style={styles.buttonText}>Start</Text>
         </TouchableOpacity>
       </View>

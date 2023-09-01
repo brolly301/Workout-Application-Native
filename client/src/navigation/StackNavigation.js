@@ -29,7 +29,11 @@ const WorkoutStack = ({ navigation }) => {
   const { startStopTimer, resetTimer } = useStateContext();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Workout" component={WorkoutDashboard} />
+      <Stack.Screen
+        name="Workout"
+        component={WorkoutDashboard}
+        options={{ headerLeft: false }}
+      />
       <Stack.Screen
         name="CreateWorkout"
         component={CreateWorkoutScreen}
@@ -108,6 +112,11 @@ const RoutinesStack = ({ navigation }) => {
           ),
           headerTitle: "",
         }}
+      />
+      <Stack.Screen
+        name="RoutineWorkout"
+        component={WorkoutStack}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

@@ -100,8 +100,10 @@ const editExercise =
     }
   };
 
-const deleteExercise = (dispatch) => (id) => {
+const deleteExercise = (dispatch) => async (id) => {
+  const res = await Server.delete(`/exercises/deleteExercise/${id}`);
   dispatch({ type: "delete_exercise", payload: id });
+  getExercises();
 };
 
 const getExercises = (dispatch) => async () => {
