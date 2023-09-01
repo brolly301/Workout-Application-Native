@@ -69,14 +69,14 @@ const WorkoutExerciseShow = ({
               </TouchableOpacity>
               <TextInput
                 placeholder="0"
-                value={item.kg}
+                value={item?.kg?.toString() ?? ""}
                 onChangeText={(text) =>
                   handleExerciseInputChange(exerciseIndex, index, "kg", text)
                 }
               />
               <TextInput
                 placeholder="0"
-                value={item.reps}
+                value={item?.reps?.toString() ?? ""}
                 onChangeText={(text) =>
                   handleExerciseInputChange(exerciseIndex, index, "reps", text)
                 }

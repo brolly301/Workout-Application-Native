@@ -13,12 +13,14 @@ import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Routines/RoutineValidation";
 import useUserContext from "../hooks/useUserContext";
 
-const EditWorkoutScreen = () => {
+const EditWorkoutScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
-  const { routine, setRoutine, addRoutine } = useRoutineContext();
+  const { setRoutine, editRoutine } = useRoutineContext();
   const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
+
+  const routine = route.params?.routine;
 
   useEffect(() => {
     navigation.setOptions({
@@ -44,7 +46,7 @@ const EditWorkoutScreen = () => {
   };
 
   const handleSubmit = () => {
-    addRoutine(routine, () => {
+    editRoutine(routine._id, routine, () => {
       navigation.navigate("Routines");
     });
   };
@@ -112,6 +114,8 @@ const EditWorkoutScreen = () => {
     });
     setRoutine(updatedRoutine);
   };
+
+  console.log(routine);
 
   return (
     <View style={styles.container}>

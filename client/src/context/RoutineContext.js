@@ -52,6 +52,20 @@ export function RoutineProvider({ children }) {
     }
   };
 
+  const editRoutine = async (id, routine, callback) => {
+    const res = await Server.patch("/routines/editRoutine", { id, ...routine });
+
+    setAllRoutines(
+      allRoutines.map((routine) => {
+        return routine.id === id ? allRoutines : routine;
+      })
+    );
+    getRoutines();
+    if (callback) {
+      callback();
+    }
+  };
+
   const [workoutData, setWorkoutData] = useState({
     userID: "12547",
     name: "",
@@ -70,6 +84,7 @@ export function RoutineProvider({ children }) {
     workoutData,
     setWorkoutData,
     deleteRoutine,
+    editRoutine,
   };
 
   return (
