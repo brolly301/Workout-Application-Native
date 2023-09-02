@@ -8,7 +8,10 @@ export default function HistoryShow({ item, handleDeleteWorkout }) {
 
   return (
     <View style={styles.mainContainer}>
-      <Button title="Remove" onPress={() => handleDeleteWorkout(item._id)} />
+      <Button
+        title="Remove"
+        onPress={() => handleDeleteWorkout(item._id, item.workoutID)}
+      />
       <Button
         title="Edit"
         onPress={() => navigation.navigate("EditWorkout", { workout: item })}

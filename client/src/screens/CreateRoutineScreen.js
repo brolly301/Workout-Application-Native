@@ -137,6 +137,9 @@ const CreateRoutineScreen = () => {
                 ...routine,
                 name: text,
                 userID: user.userDetails._id,
+                routineID: `${user.userDetails._id}${
+                  Math.floor(Math.random() * 100) + Date.now()
+                }`,
               })
             }
           />

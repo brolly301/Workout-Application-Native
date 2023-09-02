@@ -12,7 +12,7 @@ const RoutineStart = ({ routine }) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={() => deleteRoutine(routine._id)}>
+          onPress={() => deleteRoutine(routine._id, routine.routineID)}>
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
         <TouchableOpacity

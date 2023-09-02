@@ -5,6 +5,9 @@ const RoutineSchema = new Schema({
   userID: {
     type: String,
   },
+  routineID: {
+    type: String,
+  },
   name: {
     type: String,
   },

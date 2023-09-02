@@ -12,8 +12,6 @@ export default function RoutineScreen() {
     getUserDetails();
   }, []);
 
-  console.log(state.userDetails);
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Routine</Text>

@@ -5,6 +5,7 @@ const RoutineContext = createContext();
 
 export function RoutineProvider({ children }) {
   const [routine, setRoutine] = useState({
+    routineID: "",
     userID: "",
     name: "",
     description: "",
@@ -42,13 +43,14 @@ export function RoutineProvider({ children }) {
     }
   };
 
-  const deleteRoutine = async (id) => {
+  const deleteRoutine = async (id, routineID) => {
     try {
       const res = await Server.delete(`/routines/deleteRoutine/${id}`);
       setAllRoutines((prevRoutines) =>
-        prevRoutines.filter((routine) => routine.id !== id)
+        prevRoutines.filter((routine) => {
+          return routine.routineID !== routineID;
+        })
       );
-      getRoutines();
     } catch (e) {
       console.log(e);
     }
@@ -58,11 +60,10 @@ export function RoutineProvider({ children }) {
     const res = await Server.patch("/routines/editRoutine", { id, ...routine });
 
     setAllRoutines(
-      allRoutines.map((routine) => {
-        return routine.id === id ? allRoutines : routine;
+      allRoutines.map((oldRoutine) => {
+        return oldRoutine._id === id ? routine : oldRoutine;
       })
     );
-    getRoutines();
     if (callback) {
       callback();
     }

@@ -12,6 +12,9 @@ export default function ExerciseEditScreen({ route }) {
   const navigation = useNavigation();
   const { state: user } = useUserContext();
 
+  const id = route.params.id;
+  const exercise = state.find((result) => result._id === id);
+
   const [name, setName] = useState(exercise?.name);
   const [primaryMuscle, setPrimaryMuscle] = useState(exercise?.primaryMuscle);
   const [secondaryMuscle, setSecondaryMuscle] = useState(
@@ -21,12 +24,6 @@ export default function ExerciseEditScreen({ route }) {
   const [category, setCategory] = useState(exercise?.category);
 
   const [errors, setErrors] = useState({});
-
-  const id = route.params.id;
-
-  const exercise = state.find((result) => result._id === id);
-
-  console.log(exercise);
 
   const handleValidation = () => {
     setErrors(
@@ -59,34 +56,34 @@ export default function ExerciseEditScreen({ route }) {
       <Text style={styles.subTitle}>Edit Exercise</Text>
       <Input
         field={"Exercise Name"}
-        value={exercise.name}
+        value={name}
         setText={setName}
         error={errors.name}
       />
       <Spacer />
       <Input
         field={"Primary Muscle"}
-        value={exercise?.primaryMuscle}
+        value={primaryMuscle}
         setText={setPrimaryMuscle}
         error={errors.primaryMuscle}
       />
       <Spacer />
       <Input
         field={"Secondary Muscle"}
-        value={exercise?.secondaryMuscle}
+        value={secondaryMuscle}
         setText={setSecondaryMuscle}
         error={errors.secondaryMuscle}
       />
       <Spacer />
       <Input
-        value={exercise?.equipment}
+        value={equipment}
         field={"Equipment"}
         setText={setEquipment}
         error={errors.equipment}
       />
       <Spacer />
       <Input
-        value={exercise?.category}
+        value={category}
         field={"Category"}
         setText={setCategory}
         error={errors.category}

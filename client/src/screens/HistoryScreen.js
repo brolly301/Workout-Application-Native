@@ -12,9 +12,8 @@ export default function HistoryScreen() {
     getWorkouts();
   }, []);
 
-  const handleDeleteWorkout = async (id) => {
-    await deleteWorkout(id);
-    getWorkouts();
+  const handleDeleteWorkout = async (id, routineID) => {
+    deleteWorkout(id, routineID);
   };
 
   return (

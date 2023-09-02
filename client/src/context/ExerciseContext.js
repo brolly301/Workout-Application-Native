@@ -18,8 +18,10 @@ const reducer = (state, action) => {
       ];
     case "edit_exercise":
       return state.map((exercise) => {
-        return exercise.id === action.payload.id ? action.payload : exercise;
+        console.log(action.payload);
+        return exercise._id === action.payload.id ? action.payload : exercise;
       });
+
     case "delete_exercise":
       return state.filter((exercise) => exercise.id !== action.payload);
     case "get_exercises":
@@ -95,7 +97,6 @@ const editExercise =
         category,
       },
     });
-    dispatch({ type: "edit_workout", payload: { workout, id } });
     if (callback) {
       callback();
     }

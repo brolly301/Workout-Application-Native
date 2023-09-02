@@ -22,6 +22,9 @@ const CreateWorkoutScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
   const [workoutData, setWorkoutData] = useState({
     userID: user.userDetails._id,
+    workoutID: `${user.userDetails._id}${Math.floor(
+      Math.random() * 100
+    )}${Date.now()}`,
     name: "",
     description: "",
     date: new Date(),
@@ -29,11 +32,9 @@ const CreateWorkoutScreen = ({ route }) => {
     exercises: [],
   });
 
-  console.log(workoutData.exercises.sets);
-
   const routine = route.params?.routine;
 
-  const { state, addWorkout, getWorkouts } = useWorkoutContext();
+  const { state, addWorkout } = useWorkoutContext();
   const { addExerciseSets } = useExerciseSetsContext();
 
   const [errors, setErrors] = useState({});
@@ -75,7 +76,6 @@ const CreateWorkoutScreen = ({ route }) => {
     addWorkout(workoutData, () => {
       navigation.navigate("Workout");
     });
-    getWorkouts();
   };
 
   const removeExercise = (index) => {
