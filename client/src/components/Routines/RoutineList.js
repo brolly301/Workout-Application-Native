@@ -10,8 +10,7 @@ import useRoutineContext from "../../hooks/useRoutineContext";
 import RoutineShow from "./RoutineShow";
 import { useNavigation } from "@react-navigation/native";
 
-export default function RoutineList({ limit }) {
-  const { allRoutines } = useRoutineContext();
+export default function RoutineList({ limit, allRoutines }) {
   const navigation = useNavigation();
 
   return (

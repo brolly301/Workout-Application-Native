@@ -59,7 +59,7 @@ export default function ExerciseScreen() {
       {isActive ? (
         <ExerciseEdit state={update(selected)} />
       ) : (
-        <ExerciseList state={update(selected)} search={search} />
+        <ExerciseList state={update(selected)} />
       )}
     </View>
   );
