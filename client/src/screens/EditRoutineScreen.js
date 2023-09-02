@@ -7,35 +7,35 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import AddExercise from "../components/Workout/AddExercise";
-import useWorkoutContext from "../hooks/useWorkoutContext";
+import useRoutineContext from "../hooks/useRoutineContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Routines/RoutineValidation";
 import useUserContext from "../hooks/useUserContext";
 
-const EditWorkoutScreen = ({ route }) => {
+const EditRoutineScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
-  const { setWorkout, editWorkout } = useWorkoutContext();
+  const { setRoutine, editRoutine } = useRoutineContext();
   const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
-  const workout = route.params?.workout;
+  const routine = route.params?.routine;
 
-  const [newWorkout, setNewWorkout] = useState(workout || {});
-  const [workoutText, setWorkoutText] = useState({
-    name: workout?.name,
-    description: workout?.description,
+  const [newRoutine, setNewRoutine] = useState(routine || {});
+  const [routineText, setRoutineText] = useState({
+    name: routine?.name,
+    description: routine?.description,
   });
 
   const handleUpdateText = (field, text) => {
-    setWorkoutText({
-      ...workoutText,
+    setRoutineText({
+      ...routineText,
       [field]: text,
     });
-    setNewWorkout({
-      ...newWorkout,
-      name: workoutText.name,
-      description: workoutText.description,
+    setNewRoutine({
+      ...newRoutine,
+      name: routineText.name,
+      description: routineText.description,
     });
   };
 
@@ -56,41 +56,41 @@ const EditWorkoutScreen = ({ route }) => {
         </TouchableOpacity>
       ),
     });
-  }, [workoutText.name, workoutText.description, newWorkout]);
+  }, [routineText.name, routineText.description, newRoutine]);
 
   const handleValidation = () => {
-    setErrors(validation(newWorkout));
+    setErrors(validation(newRoutine));
   };
 
   const handleSubmit = () => {
-    editWorkout(newWorkout._id, newWorkout, () => {
-      navigation.navigate("History");
+    editRoutine(newRoutine._id, newRoutine, () => {
+      navigation.navigate("Routines");
     });
   };
 
   const handleExerciseInput = (name, level, category) => {
-    const updatedWorkout = { ...newWorkout };
-    newWorkout.exercises.push({
+    const updatedRoutine = { ...newRoutine };
+    newRoutine.exercises.push({
       name,
       level,
       category,
       sets: [{ set: 1, kg: "", reps: "" }],
     });
-    setNewWorkout(updatedWorkout);
+    setNewRoutine(updatedRoutine);
   };
 
   const removeExercise = (index) => {
-    const updatedExercises = newWorkout.exercises.filter((exercise, idx) => {
+    const updatedExercises = newRoutine.exercises.filter((exercise, idx) => {
       return index !== idx;
     });
-    setNewWorkout({
-      ...newWorkout,
+    setNewRoutine({
+      ...newRoutine,
       exercises: updatedExercises,
     });
   };
 
   const removeSet = (exerciseIndex, setIndex) => {
-    const updatedExercises = newWorkout.exercises.map((exercise, idx) => {
+    const updatedExercises = newRoutine.exercises.map((exercise, idx) => {
       if (idx === exerciseIndex) {
         return {
           ...exercise,
@@ -100,8 +100,8 @@ const EditWorkoutScreen = ({ route }) => {
       return exercise;
     });
 
-    setNewWorkout({
-      ...newWorkout,
+    setNewRoutine({
+      ...newRoutine,
       exercises: updatedExercises,
     });
   };
@@ -110,26 +110,26 @@ const EditWorkoutScreen = ({ route }) => {
   //Use set index to specify that exact set then field to update a specific field
   //Then spcify the value to update and use this as an onChangeText event
   const handleExerciseInputChange = (exerciseIndex, setIndex, field, value) => {
-    const updatedWorkout = { ...newWorkout };
-    updatedWorkout.exercises[exerciseIndex].sets[setIndex][field] = value;
-    setNewWorkout(updatedWorkout);
+    const updatedRoutine = { ...newRoutine };
+    updatedRoutine.exercises[exerciseIndex].sets[setIndex][field] = value;
+    setNewRoutine(updatedRoutine);
   };
 
   const handleExerciseNotesChange = (exerciseIndex, field, value) => {
-    const updatedWorkout = { ...newWorkout };
-    updatedWorkout.exercises[exerciseIndex][field] = value;
-    setNewWorkout(updatedWorkout);
+    const updatedRoutine = { ...newRoutine };
+    updatedRoutine.exercises[exerciseIndex][field] = value;
+    setNewRoutine(updatedRoutine);
   };
 
   //
   const addSetToExercise = (exerciseIndex) => {
-    const updatedWorkout = { ...newWorkout };
-    updatedWorkout.exercises[exerciseIndex].sets.push({
-      set: updatedWorkout.exercises[exerciseIndex].sets.length + 1,
+    const updatedRoutine = { ...newRoutine };
+    updatedRoutine.exercises[exerciseIndex].sets.push({
+      set: updatedRoutine.exercises[exerciseIndex].sets.length + 1,
       kg: "",
       reps: "",
     });
-    setNewWorkout(updatedWorkout);
+    setNewRoutine(updatedRoutine);
   };
 
   return (
@@ -143,22 +143,22 @@ const EditWorkoutScreen = ({ route }) => {
         <>
           {errors.name && <Text>{errors.name}</Text>}
           {errors.exercises && <Text>{errors.exercises}</Text>}
-          <Text style={styles.title}>Workouts</Text>
-          <Text style={styles.subTitle}>Edit Workout</Text>
+          <Text style={styles.title}>Routines</Text>
+          <Text style={styles.subTitle}>Edit Routine</Text>
           <Text style={styles.fieldText}>Name</Text>
           <TextInput
             style={styles.input}
-            value={workoutText.name}
+            value={routineText.name}
             onChangeText={(text) => handleUpdateText("name", text)}
           />
           <Text style={styles.fieldText}>Description</Text>
           <TextInput
             style={styles.input}
-            value={workoutText.description}
+            value={routineText.description}
             onChangeText={(text) => handleUpdateText("description", text)}
           />
           <WorkoutExerciseList
-            workoutData={newWorkout}
+            workoutData={newRoutine}
             handleExerciseInputChange={handleExerciseInputChange}
             handleExerciseNotesChange={handleExerciseNotesChange}
             addSetToExercise={addSetToExercise}
@@ -176,7 +176,7 @@ const EditWorkoutScreen = ({ route }) => {
   );
 };
 
-export default EditWorkoutScreen;
+export default EditRoutineScreen;
 
 const styles = StyleSheet.create({
   container: {

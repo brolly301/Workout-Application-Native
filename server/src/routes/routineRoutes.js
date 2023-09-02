@@ -21,7 +21,10 @@ router.delete("/deleteRoutine/:id", async (req, res) => {
 });
 
 router.patch("/editRoutine", async (req, res) => {
-  const routine = await Routine.findByIdAndUpdate(req.body.id, { ...req.body });
+  const routine = await Routine.findByIdAndUpdate(req.body.id, {
+    ...req.body,
+  });
+
   res.send(routine);
 });
 

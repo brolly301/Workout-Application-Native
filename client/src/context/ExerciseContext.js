@@ -95,6 +95,7 @@ const editExercise =
         category,
       },
     });
+    dispatch({ type: "edit_workout", payload: { workout, id } });
     if (callback) {
       callback();
     }

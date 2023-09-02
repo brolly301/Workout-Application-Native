@@ -25,4 +25,12 @@ router.delete("/deleteWorkout/:id", async (req, res) => {
   res.send(workout);
 });
 
+router.patch("/editWorkout", async (req, res) => {
+  const workout = await Workout.findByIdAndUpdate(req.body.id, {
+    ...req.body,
+  });
+
+  res.send(workout);
+});
+
 module.exports = router;

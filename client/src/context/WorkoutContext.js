@@ -11,6 +11,10 @@ const reducer = (state, action) => {
       return Array.isArray(state) ? [...state, { ...action.payload }] : state;
     case "delete_workout":
       return state.filter((workout) => workout.id !== action.payload);
+    case "edit_workout":
+      return state.map((workout) => {
+        return workout.id === action.payload.id ? action.payload : workout;
+      });
     default:
       return state;
   }
@@ -47,8 +51,17 @@ const deleteWorkout = (dispatch) => async (id) => {
   }
 };
 
+const editWorkout = (dispatch) => async (id, workout, callback) => {
+  const res = await Server.patch("/workouts/editWorkout", { id, ...workout });
+  dispatch({ type: "edit_workout", payload: { id, workout } });
+
+  if (callback) {
+    callback();
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   reducer,
-  { addWorkout, getWorkouts, deleteWorkout },
+  { addWorkout, getWorkouts, deleteWorkout, editWorkout },
   { errorMessage: "" }
 );

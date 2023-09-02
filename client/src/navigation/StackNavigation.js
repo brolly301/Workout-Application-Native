@@ -17,6 +17,7 @@ import ExerciseCreate from "../components/Exercises/ExerciseCreate";
 import CreateRoutineScreen from "../screens/CreateRoutineScreen";
 import useStateContext from "../hooks/useStateContext";
 import EditExerciseScreen from "../screens/EditExerciseScreen";
+import EditRoutineScreen from "../screens/EditRoutineScreen";
 import EditWorkoutScreen from "../screens/EditWorkoutScreen";
 
 const Stack = createStackNavigator();
@@ -73,6 +74,7 @@ const HistoryStack = () => {
           ),
         }}
       />
+      <Stack.Screen name="EditWorkout" component={EditWorkoutScreen} />
     </Stack.Navigator>
   );
 };
@@ -114,7 +116,7 @@ const RoutinesStack = ({ navigation }) => {
         component={WorkoutStack}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="EditRoutine" component={EditWorkoutScreen} />
+      <Stack.Screen name="EditRoutine" component={EditRoutineScreen} />
     </Stack.Navigator>
   );
 };

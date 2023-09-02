@@ -1,11 +1,18 @@
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import useWorkoutContext from "../../hooks/useWorkoutContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HistoryShow({ item, handleDeleteWorkout }) {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.mainContainer}>
       <Button title="Remove" onPress={() => handleDeleteWorkout(item._id)} />
+      <Button
+        title="Edit"
+        onPress={() => navigation.navigate("EditWorkout", { workout: item })}
+      />
 
       <View style={styles.hr} />
       {item?.exercises.map((exercise) => {
