@@ -59,7 +59,7 @@ const CreateWorkoutScreen = ({ route }) => {
         </TouchableOpacity>
       ),
     });
-  }, [workoutData.name]);
+  }, [workoutData.name, workoutData.description]);
 
   const handleValidation = () => {
     setErrors(validation(workoutData));

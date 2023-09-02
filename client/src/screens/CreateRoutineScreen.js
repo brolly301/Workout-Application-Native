@@ -20,8 +20,6 @@ const CreateRoutineScreen = () => {
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
 
-  console.log(routine);
-
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -39,7 +37,7 @@ const CreateRoutineScreen = () => {
         </TouchableOpacity>
       ),
     });
-  }, [routine.name]);
+  }, [routine.name, routine.description]);
 
   const handleValidation = () => {
     setErrors(validation(routine));
@@ -143,7 +141,7 @@ const CreateRoutineScreen = () => {
               })
             }
           />
-          <Text style={styles.fieldText}>Description</Text>
+          <Text>Description</Text>
           <TextInput
             style={styles.input}
             value={routine.description}

@@ -17,7 +17,7 @@ export default function WorkoutDashboard() {
       <WorkoutCalendar />
       <QuickStart />
       <Text>Recent Routines</Text>
-      <RoutineList limit={1} />
+      {/* <RoutineList limit={1} /> */}
     </View>
   );
 }

@@ -22,6 +22,7 @@ export default function HistoryShow({ item, handleDeleteWorkout }) {
         return (
           <View>
             <Text style={styles.exerciseName}>{exercise.name}</Text>
+            <Text style={styles.exerciseName}>{exercise.description}</Text>
             <View style={styles.headerContainer}>
               <Text style={styles.setHeaderText}>Set</Text>
               <Text style={styles.setHeaderText}>kg</Text>

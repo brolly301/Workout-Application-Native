@@ -30,19 +30,17 @@ export function RoutineProvider({ children }) {
 
   console.log(routine);
 
-  const addRoutine = async (routine, callback) => {
+  const addRoutine = async (newRoutine, callback) => {
     try {
-      const res = await Server.post("/routines/addRoutine", routine);
-      setAllRoutines([...allRoutines, { ...routine }]);
+      const res = await Server.post("/routines/addRoutine", newRoutine);
+      setAllRoutines((prevRoutines) => [...prevRoutines, res.data]);
       if (callback) {
         callback();
       }
-      getRoutines();
     } catch (e) {
       console.log(e);
     }
   };
-
   const deleteRoutine = async (id, routineID) => {
     try {
       const res = await Server.delete(`/routines/deleteRoutine/${id}`);
