@@ -5,6 +5,9 @@ const ExerciseSchema = new Schema({
   id: {
     type: String,
   },
+  exerciseID: {
+    type: String,
+  },
   name: {
     type: String,
   },

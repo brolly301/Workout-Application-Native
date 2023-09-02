@@ -29,7 +29,8 @@ const ExerciseEdit = ({ state }) => {
         renderItem={({ item }) => {
           return (
             <View style={styles.editContainer}>
-              <TouchableOpacity onPress={() => deleteExercise(item._id)}>
+              <TouchableOpacity
+                onPress={() => deleteExercise(item._id, item.exerciseID)}>
                 <Ionicons
                   name="remove-circle-outline"
                   size={24}

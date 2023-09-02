@@ -68,6 +68,7 @@ const WorkoutExerciseShow = ({
                 <Text>Kepp</Text>
               </TouchableOpacity>
               <TextInput
+                style={styles.header}
                 placeholder="0"
                 value={item?.kg?.toString() ?? ""}
                 onChangeText={(text) =>
@@ -75,6 +76,7 @@ const WorkoutExerciseShow = ({
                 }
               />
               <TextInput
+                style={styles.header}
                 placeholder="0"
                 value={item?.reps?.toString() ?? ""}
                 onChangeText={(text) =>

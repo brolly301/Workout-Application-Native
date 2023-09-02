@@ -31,6 +31,9 @@ export default function ExerciseCreate() {
       try {
         addExercise(
           user.userDetails._id,
+          `${user.userDetails._id}${Math.floor(
+            Math.random() * 100000
+          )}${Date.now()}`,
           name,
           primaryMuscle,
           secondaryMuscle,

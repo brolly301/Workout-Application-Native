@@ -23,7 +23,7 @@ const reducer = (state, action) => {
       });
 
     case "delete_exercise":
-      return state.filter((exercise) => exercise.id !== action.payload);
+      return state.filter((exercise) => exercise.exerciseID !== action.payload);
     case "get_exercises":
       return action.payload;
     default:
@@ -35,6 +35,7 @@ const addExercise =
   (dispatch) =>
   async (
     userID,
+    exerciseID,
     name,
     primaryMuscle,
     secondaryMuscle,
@@ -44,6 +45,7 @@ const addExercise =
   ) => {
     const res = await Server.post("/exercises/addExercise", {
       userID,
+      exerciseID,
       name,
       primaryMuscle,
       secondaryMuscle,
@@ -55,6 +57,7 @@ const addExercise =
       type: "add_exercise",
       payload: {
         userID,
+        exerciseID,
         name,
         primaryMuscle,
         secondaryMuscle,
@@ -102,10 +105,9 @@ const editExercise =
     }
   };
 
-const deleteExercise = (dispatch) => async (id) => {
+const deleteExercise = (dispatch) => async (id, exerciseID) => {
   const res = await Server.delete(`/exercises/deleteExercise/${id}`);
-  dispatch({ type: "delete_exercise", payload: id });
-  getExercises();
+  dispatch({ type: "delete_exercise", payload: exerciseID });
 };
 
 const getExercises = (dispatch) => async () => {
