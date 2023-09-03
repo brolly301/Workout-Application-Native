@@ -43,7 +43,7 @@ export function RoutineProvider({ children }) {
   };
   const deleteRoutine = async (id, routineID) => {
     try {
-      const res = await Server.delete(`/routines/deleteRoutine/${id}`);
+      const res = await Server.delete(`/routines/deleteRoutine/${routineID}`);
       setAllRoutines((prevRoutines) =>
         prevRoutines.filter((routine) => {
           return routine.routineID !== routineID;

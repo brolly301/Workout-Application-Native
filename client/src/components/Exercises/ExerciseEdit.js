@@ -20,6 +20,8 @@ const ExerciseEdit = ({ state }) => {
     exercise.userID ? exercise : null
   );
 
+  // console.log(updatedState);
+
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>Edit Exercises</Text>
@@ -40,7 +42,7 @@ const ExerciseEdit = ({ state }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("ExerciseEdit", { id: item._id })
+                  navigation.navigate("ExerciseEdit", { id: item.exerciseID })
                 }>
                 <ExerciseEditShow exercise={item} />
               </TouchableOpacity>

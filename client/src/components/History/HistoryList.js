@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     marginTop: 20,
     flex: 1,
-    borderRadius: "5%",
+    borderRadius: 5,
   },
   container: {
     display: "flex",
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     marginBottom: 20,
     paddingTop: 20,
-    borderRadius: "5%",
+    borderRadius: 5,
   },
   subContainer: {
     display: "flex",

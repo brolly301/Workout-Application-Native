@@ -59,7 +59,7 @@ const CreateWorkoutScreen = ({ route }) => {
         </TouchableOpacity>
       ),
     });
-  }, [workoutData.name, workoutData.description]);
+  }, [workoutData.name, workoutData.description, workoutData]);
 
   const handleValidation = () => {
     setErrors(validation(workoutData));
@@ -151,6 +151,8 @@ const CreateWorkoutScreen = ({ route }) => {
     setWorkoutData(updatedWorkout);
   };
 
+  console.log(workoutData?.exercises[0]?.sets);
+
   return (
     <View style={styles.container}>
       {addExercise ? (
@@ -237,7 +239,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#D5A8F8",
     borderWidth: 1,
-    borderRadius: "5%",
+    borderRadius: 5,
     paddingVertical: 8,
     // marginTop: "auto",
     marginBottom: 15,

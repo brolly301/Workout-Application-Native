@@ -12,8 +12,8 @@ export default function HistoryScreen() {
     getWorkouts();
   }, []);
 
-  const handleDeleteWorkout = async (id, routineID) => {
-    deleteWorkout(id, routineID);
+  const handleDeleteWorkout = async (id, workoutID) => {
+    await deleteWorkout(id, workoutID);
   };
 
   return (
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     width: "48%",
     backgroundColor: "#D5A8F8",
     borderWidth: 1,
-    borderRadius: "5%",
+    borderRadius: 5,
     paddingVertical: 10,
   },
   buttonText: {

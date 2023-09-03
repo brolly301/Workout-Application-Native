@@ -13,7 +13,7 @@ export default function ExerciseEditScreen({ route }) {
   const { state: user } = useUserContext();
 
   const id = route.params.id;
-  const exercise = state.find((result) => result._id === id);
+  const exercise = state.find((result) => result.exerciseID === id);
 
   const [name, setName] = useState(exercise?.name);
   const [primaryMuscle, setPrimaryMuscle] = useState(exercise?.primaryMuscle);
@@ -24,6 +24,8 @@ export default function ExerciseEditScreen({ route }) {
   const [category, setCategory] = useState(exercise?.category);
 
   const [errors, setErrors] = useState({});
+
+  console.log(exercise.exerciseID, id);
 
   const handleValidation = () => {
     setErrors(
@@ -36,6 +38,8 @@ export default function ExerciseEditScreen({ route }) {
       try {
         editExercise(
           id,
+          exercise.exerciseID,
+          user.userDetails._id,
           name,
           primaryMuscle,
           secondaryMuscle,
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#D5A8F8",
     borderWidth: 1,
-    borderRadius: "5%",
+    borderRadius: 5,
     paddingVertical: 8,
     marginTop: 10,
     marginBottom: 15,

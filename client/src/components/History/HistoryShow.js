@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function HistoryShow({ item, handleDeleteWorkout }) {
   const navigation = useNavigation();
 
+  console.log(item);
   return (
     <View style={styles.mainContainer}>
       <Button

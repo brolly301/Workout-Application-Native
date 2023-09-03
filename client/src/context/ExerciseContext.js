@@ -9,6 +9,7 @@ const reducer = (state, action) => {
         ...state,
         {
           userID: action.payload.userID,
+          exerciseID: action.payload.exerciseID,
           name: action.payload.name,
           primaryMuscle: action.payload.primaryMuscle,
           secondaryMuscle: action.payload.secondaryMuscle,
@@ -18,8 +19,9 @@ const reducer = (state, action) => {
       ];
     case "edit_exercise":
       return state.map((exercise) => {
-        console.log(action.payload);
-        return exercise._id === action.payload.id ? action.payload : exercise;
+        return exercise.exerciseID === action.payload.exerciseID
+          ? action.payload
+          : exercise;
       });
 
     case "delete_exercise":
@@ -74,6 +76,8 @@ const editExercise =
   (dispatch) =>
   async (
     id,
+    exerciseID,
+    userID,
     name,
     primaryMuscle,
     secondaryMuscle,
@@ -83,6 +87,8 @@ const editExercise =
   ) => {
     const res = await Server.patch("/exercises/editExercise", {
       id,
+      exerciseID,
+      userID,
       name,
       primaryMuscle,
       secondaryMuscle,
@@ -93,6 +99,8 @@ const editExercise =
       type: "edit_exercise",
       payload: {
         id,
+        exerciseID,
+        userID,
         name,
         primaryMuscle,
         secondaryMuscle,
@@ -106,7 +114,7 @@ const editExercise =
   };
 
 const deleteExercise = (dispatch) => async (id, exerciseID) => {
-  const res = await Server.delete(`/exercises/deleteExercise/${id}`);
+  const res = await Server.delete(`/exercises/deleteExercise/${exerciseID}`);
   dispatch({ type: "delete_exercise", payload: exerciseID });
 };
 
