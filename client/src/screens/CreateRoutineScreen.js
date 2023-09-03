@@ -28,6 +28,14 @@ const CreateRoutineScreen = () => {
             if (!handleValidation()) {
               try {
                 handleSubmit();
+                setRoutine({
+                  routineID: "",
+                  userID: "",
+                  name: "",
+                  description: "",
+                  date: new Date(),
+                  exercises: [],
+                });
               } catch (e) {
                 console.log(e);
               }

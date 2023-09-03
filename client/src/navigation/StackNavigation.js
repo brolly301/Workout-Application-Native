@@ -19,6 +19,7 @@ import useStateContext from "../hooks/useStateContext";
 import EditExerciseScreen from "../screens/EditExerciseScreen";
 import EditRoutineScreen from "../screens/EditRoutineScreen";
 import EditWorkoutScreen from "../screens/EditWorkoutScreen";
+import useRoutineContext from "../hooks/useRoutineContext";
 
 const Stack = createStackNavigator();
 
@@ -40,7 +41,6 @@ const WorkoutStack = ({ navigation }) => {
               onPress={() => {
                 resetTimer();
                 startStopTimer(false);
-                // setWorkoutData([]);
                 navigation.navigate("Workout");
               }}>
               <Text style={styles.cancelButton}>Cancel</Text>
@@ -79,6 +79,7 @@ const HistoryStack = () => {
   );
 };
 const RoutinesStack = ({ navigation }) => {
+  const { setRoutine } = useRoutineContext();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -103,6 +104,14 @@ const RoutinesStack = ({ navigation }) => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => {
+                setRoutine({
+                  routineID: "",
+                  userID: "",
+                  name: "",
+                  description: "",
+                  date: new Date(),
+                  exercises: [],
+                });
                 navigation.navigate("Routines");
               }}>
               <Text style={styles.cancelButton}>Cancel</Text>

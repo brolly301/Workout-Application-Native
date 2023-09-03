@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import React from "react";
 import WorkoutExerciseShow from "./WorkoutExerciseShow";
 
@@ -9,12 +15,15 @@ const WorkoutExerciseList = ({
   handleExerciseNotesChange,
   removeExercise,
   removeSet,
+  setAddExercise,
 }) => {
   return (
     <View style={styles.container}>
       <FlatList
         data={workoutData.exercises}
-        keyExtractor={(item) => item.exerciseID}
+        keyExtractor={(item) =>
+          Math.floor(Math.random() * 1000000) + Date.now()
+        }
         renderItem={({ item, index }) => {
           return (
             <WorkoutExerciseShow

@@ -61,7 +61,9 @@ const WorkoutExerciseShow = ({
       </View>
       {item.sets?.map((item, index) => {
         return (
-          <Swipeable key={item.set} renderRightActions={renderRightActions}>
+          <Swipeable
+            key={Math.floor(Math.random() * 1000000) + Date.now()}
+            renderRightActions={renderRightActions}>
             <View style={styles.setHeaderContainer}>
               <Text style={styles.header}>{item.set}</Text>
               <TouchableOpacity onPress={() => removeSet(exerciseIndex, index)}>
@@ -145,6 +147,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginTop: "auto",
     marginBottom: 15,
+    flex: 1,
   },
   buttonText: {
     fontSize: 18,

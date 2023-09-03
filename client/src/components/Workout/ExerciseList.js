@@ -19,15 +19,16 @@ export default function ExerciseList({ state, setAddExercise, handleSubmit }) {
     <View style={styles.container}>
       <FlatList
         data={state}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) =>
+          Math.floor(Math.random() * 1000000) + Date.now()
+        }
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
               onPress={() => {
                 setAddExercise(false);
                 handleSubmit(item.name, item.category, item.level);
-              }}
-            >
+              }}>
               <ExerciseShow exercise={item} />
             </TouchableOpacity>
           );

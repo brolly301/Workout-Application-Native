@@ -37,7 +37,9 @@ const RoutineStart = ({ routine }) => {
       <View style={styles.exerciseContainer}>
         {routine?.exercises?.map((exercise) => {
           return (
-            <View style={{ display: "flex", flexDirection: "row" }}>
+            <View
+              key={Math.floor(Math.random() * 1000)}
+              style={{ display: "flex", flexDirection: "row" }}>
               <Text style={styles.exerciseText}>
                 {exercise.sets.length}X Set -
               </Text>

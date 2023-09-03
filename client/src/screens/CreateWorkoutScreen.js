@@ -15,10 +15,12 @@ import useWorkoutContext from "../hooks/useWorkoutContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Workout/WorkoutValidation";
+import useStateContext from "../hooks/useStateContext";
 
 const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
   const { state: user } = useUserContext();
+  const { startStopTimer, resetTimer } = useStateContext();
   const [addExercise, setAddExercise] = useState(false);
   const [workoutData, setWorkoutData] = useState({
     userID: user.userDetails._id,
@@ -76,6 +78,9 @@ const CreateWorkoutScreen = ({ route }) => {
     addWorkout(workoutData, () => {
       navigation.navigate("Workout");
     });
+
+    resetTimer();
+    startStopTimer(false);
   };
 
   const removeExercise = (index) => {
@@ -150,8 +155,6 @@ const CreateWorkoutScreen = ({ route }) => {
     });
     setWorkoutData(updatedWorkout);
   };
-
-  console.log(workoutData?.exercises[0]?.sets);
 
   return (
     <View style={styles.container}>

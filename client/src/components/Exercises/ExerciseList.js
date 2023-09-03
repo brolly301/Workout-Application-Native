@@ -27,7 +27,9 @@ export default function ExerciseList({ state }) {
 
       <FlatList
         data={state}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) =>
+          Math.floor(Math.random() * 1000000) + Date.now()
+        }
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
