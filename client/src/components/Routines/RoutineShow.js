@@ -2,31 +2,40 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import RoutineStart from "./RoutineStart";
+import RoutineModal from "./Modals/RoutineModal";
 
 export default function RoutineShow({ routine }) {
   const [isActive, setIsActive] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <TouchableOpacity onPress={() => setIsActive(!isActive)}>
-      <View style={styles.container}>
-        <MaterialCommunityIcons name="dumbbell" size={24} color="black" />
-        <View style={styles.textContainer}>
-          <Text style={styles.name}>{routine?.name}</Text>
-          <Text style={styles.type}>{routine?.description}</Text>
+    <>
+      <RoutineModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        routine={routine}
+      />
+      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+        <View style={styles.container}>
+          <MaterialCommunityIcons name="dumbbell" size={24} color="black" />
+          <View style={styles.textContainer}>
+            <Text style={styles.name}>{routine?.name}</Text>
+            <Text style={styles.type}>{routine?.description}</Text>
+          </View>
+          <AntDesign
+            name="arrowright"
+            size={24}
+            color="black"
+            style={styles.icon}
+          />
         </View>
-        <AntDesign
-          name="arrowright"
-          size={24}
-          color="black"
-          style={styles.icon}
-        />
-      </View>
-      {isActive ? (
-        <View style={{ display: "flex", flexDirection: "column" }}>
-          <RoutineStart routine={routine} />
-        </View>
-      ) : null}
-    </TouchableOpacity>
+        {/* {isActive ? (
+          <View style={{ display: "flex", flexDirection: "column" }}>
+            <RoutineStart routine={routine} />
+          </View>
+        ) : null} */}
+      </TouchableOpacity>
+    </>
   );
 }
 

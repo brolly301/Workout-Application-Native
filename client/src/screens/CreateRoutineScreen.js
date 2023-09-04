@@ -12,6 +12,8 @@ import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Routines/RoutineValidation";
 import useUserContext from "../hooks/useUserContext";
+import CancelRoutineModal from "../components/Routines/Modals/CancelRoutineModal";
+import SaveRoutineModal from "../components/Routines/Modals/SaveRoutineModal";
 
 const CreateRoutineScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
@@ -20,32 +22,27 @@ const CreateRoutineScreen = () => {
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
 
+  const [cancelModalVisible, setCancelModalVisible] = useState(false);
+  const [saveModalVisible, setSaveModalVisible] = useState(false);
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => {
-            if (!handleValidation()) {
-              try {
-                handleSubmit();
-                setRoutine({
-                  routineID: "",
-                  userID: "",
-                  name: "",
-                  description: "",
-                  date: new Date(),
-                  exercises: [],
-                });
-              } catch (e) {
-                console.log(e);
-              }
-            }
-          }}>
+          onPress={() => setSaveModalVisible(!saveModalVisible)}>
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => {
+            setCancelModalVisible(!cancelModalVisible);
+          }}>
+          <Text style={styles.cancelButton}>Cancel</Text>
+        </TouchableOpacity>
+      ),
     });
-  }, [routine.name, routine.description]);
+  }, [routine.name, routine.description, routine]);
 
   const handleValidation = () => {
     setErrors(validation(routine));
@@ -53,6 +50,14 @@ const CreateRoutineScreen = () => {
 
   const handleSubmit = () => {
     addRoutine(routine, () => {
+      setRoutine({
+        routineID: "",
+        userID: "",
+        name: "",
+        description: "",
+        date: new Date(),
+        exercises: [],
+      });
       navigation.navigate("Routines");
     });
   };
@@ -130,6 +135,17 @@ const CreateRoutineScreen = () => {
         />
       ) : (
         <>
+          <CancelRoutineModal
+            modalVisible={cancelModalVisible}
+            setModalVisible={setCancelModalVisible}
+            setRoutine={setRoutine}
+          />
+          <SaveRoutineModal
+            modalVisible={saveModalVisible}
+            setModalVisible={setSaveModalVisible}
+            handleSubmit={handleSubmit}
+            handleValidation={handleValidation}
+          />
           {errors.name && <Text>{errors.name}</Text>}
           {errors.exercises && <Text>{errors.exercises}</Text>}
           <Text style={styles.title}>Routines</Text>
@@ -225,5 +241,10 @@ const styles = StyleSheet.create({
     color: "lightgreen",
     fontSize: 18,
     marginRight: 20,
+  },
+  cancelButton: {
+    color: "red",
+    fontSize: 18,
+    marginLeft: 20,
   },
 });

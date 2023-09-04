@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
 import useStateContext from "../../../hooks/useStateContext";
+import { useNavigation } from "@react-navigation/native";
 
 const CancelModal = ({ modalVisible, setModalVisible }) => {
   const { resetTimer, startStopTimer } = useStateContext();
+
+  const navigation = useNavigation();
 
   return (
     <View>
@@ -30,6 +33,7 @@ const CancelModal = ({ modalVisible, setModalVisible }) => {
                   setModalVisible(!modalVisible);
                   resetTimer();
                   startStopTimer(false);
+                  navigation.navigate("Workout");
                 }}>
                 <Text style={styles.closeButtonText}>Yes</Text>
               </TouchableOpacity>

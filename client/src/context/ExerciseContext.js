@@ -45,19 +45,8 @@ const addExercise =
     category,
     callback
   ) => {
-    const res = await Server.post("/exercises/addExercise", {
-      userID,
-      exerciseID,
-      name,
-      primaryMuscle,
-      secondaryMuscle,
-      equipment,
-      category,
-    });
-    console.log(res);
-    dispatch({
-      type: "add_exercise",
-      payload: {
+    try {
+      const res = await Server.post("/exercises/addExercise", {
         userID,
         exerciseID,
         name,
@@ -65,10 +54,25 @@ const addExercise =
         secondaryMuscle,
         equipment,
         category,
-      },
-    });
-    if (callback) {
-      callback();
+      });
+      console.log(res);
+      dispatch({
+        type: "add_exercise",
+        payload: {
+          userID,
+          exerciseID,
+          name,
+          primaryMuscle,
+          secondaryMuscle,
+          equipment,
+          category,
+        },
+      });
+      if (callback) {
+        callback();
+      }
+    } catch (e) {
+      console.log(e.response.data);
     }
   };
 

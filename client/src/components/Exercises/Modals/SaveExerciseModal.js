@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import useStateContext from "../../../hooks/useStateContext";
 
-const FinishModal = ({
+const SaveExerciseModal = ({
   modalVisible,
   setModalVisible,
   handleSubmit,
@@ -17,7 +16,7 @@ const FinishModal = ({
         onRequestClose={() => setModalVisible(!modalVisible)}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.title}>Finish Workout</Text>
+            <Text style={styles.title}>Save Exercise</Text>
             <Text style={styles.subTitle}>
               Are you sure you are ready to finish?
             </Text>
@@ -48,7 +47,7 @@ const FinishModal = ({
   );
 };
 
-export default FinishModal;
+export default SaveExerciseModal;
 
 const styles = StyleSheet.create({
   centeredView: {

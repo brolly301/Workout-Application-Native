@@ -1,13 +1,10 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import useStateContext from "../../../hooks/useStateContext";
+import { useNavigation } from "@react-navigation/native";
 
-const FinishModal = ({
-  modalVisible,
-  setModalVisible,
-  handleSubmit,
-  handleValidation,
-}) => {
+const CancelRoutineModal = ({ modalVisible, setModalVisible, setRoutine }) => {
+  const navigation = useNavigation();
+
   return (
     <View>
       <Modal
@@ -17,9 +14,9 @@ const FinishModal = ({
         onRequestClose={() => setModalVisible(!modalVisible)}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.title}>Finish Workout</Text>
+            <Text style={styles.title}>Cancel Routine</Text>
             <Text style={styles.subTitle}>
-              Are you sure you are ready to finish?
+              Are you sure you want to cancel?
             </Text>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
@@ -31,12 +28,15 @@ const FinishModal = ({
                 style={styles.closeButton}
                 onPress={() => {
                   setModalVisible(!modalVisible);
-                  if (!handleValidation())
-                    try {
-                      handleSubmit();
-                    } catch (e) {
-                      console.log(e);
-                    }
+                  setRoutine({
+                    routineID: "",
+                    userID: "",
+                    name: "",
+                    description: "",
+                    date: new Date(),
+                    exercises: [],
+                  });
+                  navigation.navigate("Routines");
                 }}>
                 <Text style={styles.closeButtonText}>Yes</Text>
               </TouchableOpacity>
@@ -48,7 +48,7 @@ const FinishModal = ({
   );
 };
 
-export default FinishModal;
+export default CancelRoutineModal;
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: "lightgreen",
+    color: "red",
     textAlign: "center",
   },
   subTitle: {

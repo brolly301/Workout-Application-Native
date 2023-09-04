@@ -13,18 +13,17 @@ import RegisterScreen from "../screens/Auth/RegisterScreen";
 import { Feather, Ionicons, EvilIcons } from "@expo/vector-icons";
 import CreateWorkoutScreen from "../screens/CreateWorkoutScreen";
 import CreateTrackScreen from "../screens/CreateTrackScreen";
-import ExerciseCreate from "../components/Exercises/ExerciseCreate";
 import CreateRoutineScreen from "../screens/CreateRoutineScreen";
 import useStateContext from "../hooks/useStateContext";
 import EditExerciseScreen from "../screens/EditExerciseScreen";
 import EditRoutineScreen from "../screens/EditRoutineScreen";
 import EditWorkoutScreen from "../screens/EditWorkoutScreen";
 import useRoutineContext from "../hooks/useRoutineContext";
+import CreateExerciseScreen from "../screens/CreateExerciseScreen";
 
 const Stack = createStackNavigator();
 
 const WorkoutStack = ({ navigation }) => {
-  const { startStopTimer, resetTimer } = useStateContext();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -32,17 +31,7 @@ const WorkoutStack = ({ navigation }) => {
         component={WorkoutDashboard}
         options={{ headerLeft: false }}
       />
-      <Stack.Screen
-        name="CreateWorkout"
-        component={CreateWorkoutScreen}
-        options={{
-          headerTitle: () => (
-            <TouchableOpacity onPress={() => resetTimer()}>
-              <Text style={styles.resetButton}>Reset</Text>
-            </TouchableOpacity>
-          ),
-        }}
-      />
+      <Stack.Screen name="CreateWorkout" component={CreateWorkoutScreen} />
       <Stack.Screen name="CreateTrack" component={CreateTrackScreen} />
     </Stack.Navigator>
   );
@@ -78,7 +67,6 @@ const RoutinesStack = ({ navigation }) => {
         options={({ navigation }) => ({
           headerRight: () => (
             <View style={styles.headerRight}>
-              <Text style={styles.headerRightText}>Edit</Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate("CreateRoutine")}>
                 <Feather name="plus" size={24} color="#D5A8F8" />
@@ -87,29 +75,7 @@ const RoutinesStack = ({ navigation }) => {
           ),
         })}
       />
-      <Stack.Screen
-        name="CreateRoutine"
-        component={CreateRoutineScreen}
-        options={{
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                setRoutine({
-                  routineID: "",
-                  userID: "",
-                  name: "",
-                  description: "",
-                  date: new Date(),
-                  exercises: [],
-                });
-                navigation.navigate("Routines");
-              }}>
-              <Text style={styles.cancelButton}>Cancel</Text>
-            </TouchableOpacity>
-          ),
-          headerTitle: "",
-        }}
-      />
+      <Stack.Screen name="CreateRoutine" component={CreateRoutineScreen} />
       <Stack.Screen
         name="RoutineWorkout"
         component={WorkoutStack}
@@ -131,7 +97,7 @@ const ExercisesStack = ({ navigation }) => {
       <Stack.Screen name="ExerciseEdit" component={EditExerciseScreen} />
       <Stack.Screen
         name="ExerciseCreate"
-        component={ExerciseCreate}
+        component={CreateExerciseScreen}
         options={{
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.navigate("Exercises")}>

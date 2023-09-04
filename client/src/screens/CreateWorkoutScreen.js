@@ -92,6 +92,8 @@ const CreateWorkoutScreen = ({ route }) => {
       });
     }
     addWorkout(workoutData, () => {
+      resetTimer();
+      startStopTimer(false);
       navigation.navigate("Workout");
     });
   };
