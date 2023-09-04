@@ -29,7 +29,7 @@ const WorkoutStack = ({ navigation }) => {
       <Stack.Screen
         name="Workout"
         component={WorkoutDashboard}
-        options={{ headerLeft: false }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen name="CreateWorkout" component={CreateWorkoutScreen} />
       <Stack.Screen name="CreateTrack" component={CreateTrackScreen} />

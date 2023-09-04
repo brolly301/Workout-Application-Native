@@ -25,49 +25,59 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
 
   return (
     <View style={styles.mainContainer}>
-      <FlatList
-        data={state}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item, index }) => {
-          const date = new Date(item.date).toLocaleDateString("en-gb", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            weekday: "short",
-          });
-          const isExpanded = index === isActive;
-          return (
-            <View style={styles.container}>
-              <TouchableOpacity onPress={() => handleItemPress(index)}>
-                <FontAwesome5
-                  style={styles.icon}
-                  name="dumbbell"
-                  size={24}
-                  color="black"
-                />
-                <View style={styles.subContainer}>
-                  <View style={styles.textContainer}>
-                    <Text>{date}</Text>
-                    <Text>{item.name}</Text>
-                  </View>
-                  <View style={styles.textContainer}>
-                    <Text>{item.time}</Text>
-                    <Text>{item.exercises.length || 0} Exercises</Text>
-                  </View>
-                </View>
-                {isExpanded && (
-                  <>
-                    <HistoryShow
-                      item={item}
-                      handleDeleteWorkout={handleDeleteWorkout}
+      {state?.length < 1 ? (
+        <NoResultsPlaceholder
+          redirect={"Workout"}
+          buttonText={"Start New Workout"}
+          message={"You currently don't have any history for this exercise."}
+        />
+      ) : (
+        <>
+          <FlatList
+            data={Array.isArray(state) ? state.slice(0, limit) : []}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item, index }) => {
+              const date = new Date(item.date).toLocaleDateString("en-gb", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                weekday: "short",
+              });
+              const isExpanded = index === isActive;
+              return (
+                <View style={styles.container}>
+                  <TouchableOpacity onPress={() => handleItemPress(index)}>
+                    <FontAwesome5
+                      style={styles.icon}
+                      name="dumbbell"
+                      size={24}
+                      color="black"
                     />
-                  </>
-                )}
-              </TouchableOpacity>
-            </View>
-          );
-        }}
-      />
+                    <View style={styles.subContainer}>
+                      <View style={styles.textContainer}>
+                        <Text>{date}</Text>
+                        <Text>{item.name}</Text>
+                      </View>
+                      <View style={styles.textContainer}>
+                        <Text>{item.time}</Text>
+                        <Text>{item.exercises.length || 0} Exercises</Text>
+                      </View>
+                    </View>
+                    {isExpanded && (
+                      <>
+                        <HistoryShow
+                          item={item}
+                          handleDeleteWorkout={handleDeleteWorkout}
+                        />
+                      </>
+                    )}
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+          />
+        </>
+      )}
     </View>
   );
 }

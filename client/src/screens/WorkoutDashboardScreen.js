@@ -4,9 +4,11 @@ import WorkoutCalendar from "../components/Workout/WorkoutCalender";
 import QuickStart from "../components/Workout/QuickStart";
 import RoutineList from "../components/Routines/RoutineList";
 import useUserContext from "../hooks/useUserContext";
+import useRoutineContext from "../hooks/useRoutineContext";
 
 export default function WorkoutDashboard() {
   const { state } = useUserContext();
+  const { allRoutines } = useRoutineContext();
 
   return (
     <View style={styles.container}>
@@ -16,8 +18,8 @@ export default function WorkoutDashboard() {
       </Text>
       <WorkoutCalendar />
       <QuickStart />
-      <Text>Recent Routines</Text>
-      {/* <RoutineList limit={1} /> */}
+      <Text style={styles.routineText}>Recent Routines</Text>
+      <RoutineList allRoutines={allRoutines} limit={1} />
     </View>
   );
 }
@@ -25,6 +27,7 @@ export default function WorkoutDashboard() {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 15,
+    marginTop: 50,
   },
   title: {
     fontSize: 36,
@@ -35,5 +38,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 30,
+  },
+  routineText: {
+    fontSize: 22,
+    fontWeight: "bold",
   },
 });

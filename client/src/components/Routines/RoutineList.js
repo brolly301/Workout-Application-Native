@@ -15,7 +15,7 @@ export default function RoutineList({ limit, allRoutines }) {
 
   return (
     <View>
-      {allRoutines.length >= 1 ? (
+      {allRoutines?.length >= 1 ? (
         <>
           <FlatList
             data={allRoutines.slice(0, limit)}

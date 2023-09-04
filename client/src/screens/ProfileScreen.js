@@ -8,10 +8,12 @@ import { Ionicons } from "@expo/vector-icons";
 import ProfileSettings from "../components/Profile/ProfileSettings";
 import useUserContext from "../hooks/useUserContext";
 import { EvilIcons } from "@expo/vector-icons";
+import useWorkoutContext from "../hooks/useWorkoutContext";
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
   const { logout } = useUserContext();
+  const { state } = useWorkoutContext();
 
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
@@ -64,7 +66,7 @@ export default function ProfileScreen() {
       <ProfileCharts />
       <Text style={styles.subTitle}>Recent Workouts</Text>
       <View style={styles.recentWorkoutsContainer}>
-        <HistoryList limit={2} />
+        <HistoryList state={state} limit={3} />
       </View>
     </View>
   );
