@@ -36,16 +36,6 @@ const WorkoutStack = ({ navigation }) => {
         name="CreateWorkout"
         component={CreateWorkoutScreen}
         options={{
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                resetTimer();
-                startStopTimer(false);
-                navigation.navigate("Workout");
-              }}>
-              <Text style={styles.cancelButton}>Cancel</Text>
-            </TouchableOpacity>
-          ),
           headerTitle: () => (
             <TouchableOpacity onPress={() => resetTimer()}>
               <Text style={styles.resetButton}>Reset</Text>

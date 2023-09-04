@@ -16,6 +16,9 @@ import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Workout/WorkoutValidation";
 import useStateContext from "../hooks/useStateContext";
+import FinishModal from "../components/Workout/Modals/FinishModal";
+import CancelModal from "../components/Workout/Modals/CancelModal";
+import ResetModal from "../components/Workout/Modals/ResetModal";
 
 const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -34,6 +37,10 @@ const CreateWorkoutScreen = ({ route }) => {
     exercises: [],
   });
 
+  const [cancelModalVisible, setCancelModalVisible] = useState(false);
+  const [finishModalVisible, setFinishlModalVisible] = useState(false);
+  const [resetModalVisible, setResetModalVisible] = useState(false);
+
   const routine = route.params?.routine;
 
   const { state, addWorkout } = useWorkoutContext();
@@ -50,14 +57,23 @@ const CreateWorkoutScreen = ({ route }) => {
       headerRight: () => (
         <TouchableOpacity
           onPress={() => {
-            if (!handleValidation())
-              try {
-                handleSubmit();
-              } catch (e) {
-                console.log(e);
-              }
+            setFinishlModalVisible(!finishModalVisible);
           }}>
           <Text style={styles.finishButton}>Finish</Text>
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => {
+            setCancelModalVisible(!cancelModalVisible);
+          }}>
+          <Text style={styles.cancelButton}>Cancel</Text>
+        </TouchableOpacity>
+      ),
+      headerTitle: () => (
+        <TouchableOpacity
+          onPress={() => setResetModalVisible(!resetModalVisible)}>
+          <Text style={styles.resetButton}>Reset</Text>
         </TouchableOpacity>
       ),
     });
@@ -78,9 +94,6 @@ const CreateWorkoutScreen = ({ route }) => {
     addWorkout(workoutData, () => {
       navigation.navigate("Workout");
     });
-
-    resetTimer();
-    startStopTimer(false);
   };
 
   const removeExercise = (index) => {
@@ -165,6 +178,20 @@ const CreateWorkoutScreen = ({ route }) => {
         />
       ) : (
         <>
+          <ResetModal
+            modalVisible={resetModalVisible}
+            setModalVisible={setResetModalVisible}
+          />
+          <FinishModal
+            modalVisible={finishModalVisible}
+            setModalVisible={setFinishlModalVisible}
+            handleSubmit={handleSubmit}
+            handleValidation={handleValidation}
+          />
+          <CancelModal
+            modalVisible={cancelModalVisible}
+            setModalVisible={setCancelModalVisible}
+          />
           <View style={styles.timerContainer}>
             <TextInput
               placeholder="Workout 1"
@@ -257,5 +284,14 @@ const styles = StyleSheet.create({
     color: "lightgreen",
     fontSize: 18,
     marginRight: 20,
+  },
+  cancelButton: {
+    color: "red",
+    fontSize: 18,
+    marginLeft: 20,
+  },
+  resetButton: {
+    color: "#D5A8F8",
+    fontSize: 18,
   },
 });
