@@ -19,6 +19,7 @@ import useStateContext from "../hooks/useStateContext";
 import FinishModal from "../components/Workout/Modals/FinishModal";
 import CancelModal from "../components/Workout/Modals/CancelModal";
 import ResetModal from "../components/Workout/Modals/ResetModal";
+import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 
 const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -40,6 +41,7 @@ const CreateWorkoutScreen = ({ route }) => {
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [finishModalVisible, setFinishlModalVisible] = useState(false);
   const [resetModalVisible, setResetModalVisible] = useState(false);
+  const [exerciseModalVisible, setExerciseModalVisible] = useState(false);
 
   const routine = route.params?.routine;
 
@@ -58,7 +60,8 @@ const CreateWorkoutScreen = ({ route }) => {
         <TouchableOpacity
           onPress={() => {
             setFinishlModalVisible(!finishModalVisible);
-          }}>
+          }}
+        >
           <Text style={styles.finishButton}>Finish</Text>
         </TouchableOpacity>
       ),
@@ -66,13 +69,15 @@ const CreateWorkoutScreen = ({ route }) => {
         <TouchableOpacity
           onPress={() => {
             setCancelModalVisible(!cancelModalVisible);
-          }}>
+          }}
+        >
           <Text style={styles.cancelButton}>Cancel</Text>
         </TouchableOpacity>
       ),
       headerTitle: () => (
         <TouchableOpacity
-          onPress={() => setResetModalVisible(!resetModalVisible)}>
+          onPress={() => setResetModalVisible(!resetModalVisible)}
+        >
           <Text style={styles.resetButton}>Reset</Text>
         </TouchableOpacity>
       ),
@@ -173,64 +178,65 @@ const CreateWorkoutScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      {addExercise ? (
-        <AddExercise
-          setAddExercise={setAddExercise}
-          handleSubmit={handleExerciseInput}
+      <AddExerciseModal
+        setAddExercise={setAddExercise}
+        handleSubmit={handleExerciseInput}
+        modalVisible={exerciseModalVisible}
+        setModalVisible={setExerciseModalVisible}
+      />
+
+      <>
+        <ResetModal
+          modalVisible={resetModalVisible}
+          setModalVisible={setResetModalVisible}
         />
-      ) : (
-        <>
-          <ResetModal
-            modalVisible={resetModalVisible}
-            setModalVisible={setResetModalVisible}
-          />
-          <FinishModal
-            modalVisible={finishModalVisible}
-            setModalVisible={setFinishlModalVisible}
-            handleSubmit={handleSubmit}
-            handleValidation={handleValidation}
-          />
-          <CancelModal
-            modalVisible={cancelModalVisible}
-            setModalVisible={setCancelModalVisible}
-          />
-          <View style={styles.timerContainer}>
-            <TextInput
-              placeholder="Workout 1"
-              value={workoutData.name}
-              style={styles.title}
-              onChangeText={(text) =>
-                setWorkoutData({ ...workoutData, name: text })
-              }
-            />
-            <Timer />
-          </View>
-          {errors.name && <Text>{errors.name}</Text>}
-          {errors.exercises && <Text>{errors.exercises}</Text>}
-          {errors.sets && <Text>{errors.sets}</Text>}
-          <Text style={styles.label}>Description</Text>
+        <FinishModal
+          modalVisible={finishModalVisible}
+          setModalVisible={setFinishlModalVisible}
+          handleSubmit={handleSubmit}
+          handleValidation={handleValidation}
+        />
+        <CancelModal
+          modalVisible={cancelModalVisible}
+          setModalVisible={setCancelModalVisible}
+        />
+        <View style={styles.timerContainer}>
           <TextInput
-            style={styles.input}
-            value={workoutData.description}
+            placeholder='Workout 1'
+            value={workoutData.name}
+            style={styles.title}
             onChangeText={(text) =>
-              setWorkoutData({ ...workoutData, description: text })
+              setWorkoutData({ ...workoutData, name: text })
             }
           />
-          <WorkoutExerciseList
-            workoutData={workoutData}
-            handleExerciseInputChange={handleExerciseInputChange}
-            handleExerciseNotesChange={handleExerciseNotesChange}
-            addSetToExercise={addSetToExercise}
-            removeExercise={removeExercise}
-            removeSet={removeSet}
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setAddExercise(true)}>
-            <Text style={styles.buttonText}>Add Exercise</Text>
-          </TouchableOpacity>
-        </>
-      )}
+          <Timer />
+        </View>
+        {errors.name && <Text>{errors.name}</Text>}
+        {errors.exercises && <Text>{errors.exercises}</Text>}
+        {errors.sets && <Text>{errors.sets}</Text>}
+        <Text style={styles.label}>Description</Text>
+        <TextInput
+          style={styles.input}
+          value={workoutData.description}
+          onChangeText={(text) =>
+            setWorkoutData({ ...workoutData, description: text })
+          }
+        />
+        <WorkoutExerciseList
+          workoutData={workoutData}
+          handleExerciseInputChange={handleExerciseInputChange}
+          handleExerciseNotesChange={handleExerciseNotesChange}
+          addSetToExercise={addSetToExercise}
+          removeExercise={removeExercise}
+          removeSet={removeSet}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}
+        >
+          <Text style={styles.buttonText}>Add Exercise</Text>
+        </TouchableOpacity>
+      </>
     </View>
   );
 };

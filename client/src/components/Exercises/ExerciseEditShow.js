@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { AntDesign } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 
 export default function ExerciseShow({ exercise }) {
   return (
@@ -17,12 +17,7 @@ export default function ExerciseShow({ exercise }) {
           {exercise.primaryMuscles ? exercise.primaryMuscles[0] : null}
         </Text>
       </View>
-      <AntDesign
-        style={styles.icon}
-        name="arrowright"
-        size={24}
-        color="black"
-      />
+      <EvilIcons style={styles.icon} name='pencil' size={30} color='black' />
     </View>
   );
 }
