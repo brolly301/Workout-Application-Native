@@ -58,12 +58,15 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
                       />
                       <View style={styles.subContainer}>
                         <View style={styles.textContainer}>
-                          <Text>{date}</Text>
-                          <Text>{item.name}</Text>
+                          <Text style={styles.text}>{item.name}</Text>
+
+                          <Text style={styles.text}>{date}</Text>
                         </View>
                         <View style={styles.textContainer}>
-                          <Text>{item.time}</Text>
-                          <Text>{item.exercises.length || 0} Exercises</Text>
+                          <Text style={styles.text}>{item.time}hr 50min</Text>
+                          <Text style={styles.text}>
+                            {item.exercises.length || 0} Exercises
+                          </Text>
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -90,7 +93,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     marginBottom: 20,
-    paddingTop: 20,
+    paddingVertical: 20,
+
     borderRadius: 5,
   },
   subContainer: {
@@ -103,9 +107,12 @@ const styles = StyleSheet.create({
   textContainer: {
     display: "flex",
     flexDirection: "column",
+    marginLeft: 20,
   },
   icon: {
     position: "absolute",
+    left: 10,
+    bottom: 10,
   },
   hr: {
     borderBottomColor: "black",
@@ -123,5 +130,8 @@ const styles = StyleSheet.create({
   exerciseName: {
     textAlign: "center",
     fontSize: 16,
+  },
+  text: {
+    marginVertical: 3,
   },
 });
