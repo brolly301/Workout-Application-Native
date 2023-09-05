@@ -5,11 +5,6 @@ import useWorkoutContext from "../../hooks/useWorkoutContext";
 import HistoryModal from "../History/HistoryModal";
 
 export default function WorkoutCalender() {
-  const [selected, setSelected] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const { state, deleteWorkout } = useWorkoutContext();
-
   const formatDate = (date) => {
     newDate = new Date(date).toLocaleDateString("en-gb", {
       year: "numeric",
@@ -19,6 +14,13 @@ export default function WorkoutCalender() {
     });
     return newDate;
   };
+
+  let newDate = new Date().toISOString().slice(0, 10);
+
+  const [selected, setSelected] = useState(newDate);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const { state, deleteWorkout } = useWorkoutContext();
 
   const newState = state?.map((workout) => {
     if (formatDate(workout.date) === formatDate(selected)) {
@@ -36,9 +38,21 @@ export default function WorkoutCalender() {
       />
       <View>
         <Calendar
+          style={{
+            borderWidth: 1,
+            borderColor: "gray",
+          }}
           onDayPress={(day) => {
             setModalVisible(!modalVisible);
             setSelected(day.dateString);
+          }}
+          markedDates={{
+            [selected]: {
+              marked: true,
+              selected: true,
+              dotColor: "#D5A8F8",
+              selectedColor: "#D5A8F8",
+            },
           }}
         />
       </View>
