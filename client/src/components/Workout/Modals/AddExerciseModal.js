@@ -33,12 +33,14 @@ const AddExerciseModal = ({ modalVisible, setModalVisible, handleSubmit }) => {
             </TouchableOpacity>
 
             <SearchBar placeholder={"exercises"} setText={setSearch} />
-            <ExerciseList
-              state={state}
-              modalVisible={modalVisible}
-              setModalVisible={setModalVisible}
-              handleSubmit={handleSubmit}
-            />
+            <View style={{ flex: 1 }}>
+              <ExerciseList
+                state={state}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                handleSubmit={handleSubmit}
+              />
+            </View>
           </View>
         </View>
       </Modal>
