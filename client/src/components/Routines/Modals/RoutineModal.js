@@ -1,48 +1,49 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import useRoutineContext from "../../../hooks/useRoutineContext";
+import CancelModal from "../../Workout/Modals/CancelModal";
+import DeleteModal from "../../DeleteModal";
 
 const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
   const { deleteRoutine } = useRoutineContext();
   const navigation = useNavigation();
 
+  const [cancelModalVisible, setCancelModalVisible] = useState(false);
+
   return (
     <View>
       <Modal
         visible={modalVisible}
-        animationType='fade'
+        animationType="fade"
         transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
+        onRequestClose={() => setModalVisible(!modalVisible)}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.iconContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  deleteRoutine(routine._id, routine.routineID);
+                  setCancelModalVisible(!cancelModalVisible);
                   setModalVisible(!modalVisible);
-                }}
-              >
+                }}>
                 <EvilIcons
                   style={styles.modalIconDelete}
-                  name='trash'
+                  name="trash"
                   size={33}
-                  color='black'
+                  color="black"
                 />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("EditRoutine", { routine: routine });
                   setModalVisible(!modalVisible);
-                }}
-              >
+                }}>
                 <EvilIcons
                   style={styles.modalIconClose}
-                  name='pencil'
+                  name="pencil"
                   size={33}
-                  color='black'
+                  color="black"
                 />
               </TouchableOpacity>
               <TouchableOpacity
@@ -52,21 +53,20 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                     params: { routine: routine },
                   });
                   setModalVisible(!modalVisible);
-                }}
-              >
+                }}>
                 <AntDesign
                   style={styles.modalIconClose}
-                  name='caretright'
+                  name="caretright"
                   size={28}
-                  color='black'
+                  color="black"
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <EvilIcons
                   style={styles.modalIconClose}
-                  name='close'
+                  name="close"
                   size={32}
-                  color='black'
+                  color="black"
                 />
               </TouchableOpacity>
             </View>
@@ -82,8 +82,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                   <>
                     <Text
                       style={styles.exerciseName}
-                      key={Math.floor(Math.random() * 1000)}
-                    >
+                      key={Math.floor(Math.random() * 1000)}>
                       Exercises {index + 1} - {exercise?.name}
                     </Text>
                     <View style={styles.exerciseContainer}>
@@ -113,6 +112,13 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
           </View>
         </View>
       </Modal>
+      <DeleteModal
+        deleteText={"Routine"}
+        modalVisible={cancelModalVisible}
+        setModalVisible={setCancelModalVisible}
+        routine={routine}
+        deleteFunction={deleteRoutine}
+      />
     </View>
   );
 };
