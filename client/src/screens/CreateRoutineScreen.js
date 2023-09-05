@@ -14,6 +14,7 @@ import validation from "../components/Routines/RoutineValidation";
 import useUserContext from "../hooks/useUserContext";
 import CancelRoutineModal from "../components/Routines/Modals/CancelRoutineModal";
 import SaveRoutineModal from "../components/Routines/Modals/SaveRoutineModal";
+import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 
 const CreateRoutineScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
@@ -24,12 +25,14 @@ const CreateRoutineScreen = () => {
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
+  const [exerciseModalVisible, setExerciseModalVisible] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => setSaveModalVisible(!saveModalVisible)}>
+          onPress={() => setSaveModalVisible(!saveModalVisible)}
+        >
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       ),
@@ -37,7 +40,8 @@ const CreateRoutineScreen = () => {
         <TouchableOpacity
           onPress={() => {
             setCancelModalVisible(!cancelModalVisible);
-          }}>
+          }}
+        >
           <Text style={styles.cancelButton}>Cancel</Text>
         </TouchableOpacity>
       ),
@@ -128,66 +132,64 @@ const CreateRoutineScreen = () => {
 
   return (
     <View style={styles.container}>
-      {addExercise ? (
-        <AddExercise
-          setAddExercise={setAddExercise}
-          handleSubmit={handleExerciseInput}
+      <AddExerciseModal
+        setAddExercise={setAddExercise}
+        handleSubmit={handleExerciseInput}
+        modalVisible={exerciseModalVisible}
+        setModalVisible={setExerciseModalVisible}
+      />
+      <>
+        <CancelRoutineModal
+          modalVisible={cancelModalVisible}
+          setModalVisible={setCancelModalVisible}
+          setRoutine={setRoutine}
         />
-      ) : (
-        <>
-          <CancelRoutineModal
-            modalVisible={cancelModalVisible}
-            setModalVisible={setCancelModalVisible}
-            setRoutine={setRoutine}
-          />
-          <SaveRoutineModal
-            modalVisible={saveModalVisible}
-            setModalVisible={setSaveModalVisible}
-            handleSubmit={handleSubmit}
-            handleValidation={handleValidation}
-          />
-          {errors.name && <Text>{errors.name}</Text>}
-          {errors.exercises && <Text>{errors.exercises}</Text>}
-          <Text style={styles.title}>Routines</Text>
-          <Text style={styles.subTitle}>Create Routine</Text>
-          <Text style={styles.fieldText}>Name</Text>
-          <TextInput
-            style={styles.input}
-            value={routine.name}
-            onChangeText={(text) =>
-              setRoutine({
-                ...routine,
-                name: text,
-                userID: user.userDetails._id,
-                routineID: `${user.userDetails._id}${
-                  Math.floor(Math.random() * 100) + Date.now()
-                }`,
-              })
-            }
-          />
-          <Text>Description</Text>
-          <TextInput
-            style={styles.input}
-            value={routine.description}
-            onChangeText={(text) =>
-              setRoutine({ ...routine, description: text })
-            }
-          />
-          <WorkoutExerciseList
-            workoutData={routine}
-            handleExerciseInputChange={handleExerciseInputChange}
-            handleExerciseNotesChange={handleExerciseNotesChange}
-            addSetToExercise={addSetToExercise}
-            removeExercise={removeExercise}
-            removeSet={removeSet}
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setAddExercise(true)}>
-            <Text style={styles.buttonText}>Add Exercise</Text>
-          </TouchableOpacity>
-        </>
-      )}
+        <SaveRoutineModal
+          modalVisible={saveModalVisible}
+          setModalVisible={setSaveModalVisible}
+          handleSubmit={handleSubmit}
+          handleValidation={handleValidation}
+        />
+        {errors.name && <Text>{errors.name}</Text>}
+        {errors.exercises && <Text>{errors.exercises}</Text>}
+        <Text style={styles.title}>Routines</Text>
+        <Text style={styles.subTitle}>Create Routine</Text>
+        <Text style={styles.fieldText}>Name</Text>
+        <TextInput
+          style={styles.input}
+          value={routine.name}
+          onChangeText={(text) =>
+            setRoutine({
+              ...routine,
+              name: text,
+              userID: user.userDetails._id,
+              routineID: `${user.userDetails._id}${
+                Math.floor(Math.random() * 100) + Date.now()
+              }`,
+            })
+          }
+        />
+        <Text>Description</Text>
+        <TextInput
+          style={styles.input}
+          value={routine.description}
+          onChangeText={(text) => setRoutine({ ...routine, description: text })}
+        />
+        <WorkoutExerciseList
+          workoutData={routine}
+          handleExerciseInputChange={handleExerciseInputChange}
+          handleExerciseNotesChange={handleExerciseNotesChange}
+          addSetToExercise={addSetToExercise}
+          removeExercise={removeExercise}
+          removeSet={removeSet}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}
+        >
+          <Text style={styles.buttonText}>Add Exercise</Text>
+        </TouchableOpacity>
+      </>
     </View>
   );
 };
