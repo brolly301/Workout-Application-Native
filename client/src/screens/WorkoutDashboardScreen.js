@@ -27,7 +27,7 @@ export default function WorkoutDashboard() {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 15,
-    marginTop: 50,
+    marginTop: 80,
   },
   title: {
     fontSize: 36,

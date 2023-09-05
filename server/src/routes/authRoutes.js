@@ -52,4 +52,11 @@ router.get("/userDetails", requireAuth, async (req, res) => {
   res.send(userDetails);
 });
 
+router.patch("/editUserDetails", requireAuth, async (req, res) => {
+  const userDetails = await User.findOneAndUpdate(req.user._id, {
+    ...req.body,
+  });
+  res.send(userDetails);
+});
+
 module.exports = router;

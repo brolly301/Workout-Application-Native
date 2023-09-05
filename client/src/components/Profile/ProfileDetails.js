@@ -12,7 +12,10 @@ import useUserContext from "../../hooks/useUserContext";
 import Input from "../Input";
 
 export default function ProfileDetails() {
-  const { state } = useUserContext();
+  const { state, editUserDetails } = useUserContext();
+  const [firstName, setFirstName] = useState(state.userDetails?.firstName);
+  const [lastName, setLastName] = useState(state.userDetails?.lastName);
+  const [email, setEmail] = useState(state.userDetails?.email);
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -21,23 +24,40 @@ export default function ProfileDetails() {
   return (
     <View style={styles.container}>
       <Modal
-        animationType="fade"
+        animationType='fade'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           toggleModal();
-        }}>
+        }}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text>Profile Details</Text>
-            <Input />
-            <Input />
-            <Input />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => toggleModal()}>
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
+            <Text style={styles.title}>Profile Details</Text>
+            <Input
+              value={firstName}
+              field={"First Name"}
+              setText={setFirstName}
+            />
+            <Input value={lastName} field={"Last Name"} setText={setLastName} />
+            <Input value={email} field={"Email"} setText={setEmail} />
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => toggleModal()}
+              >
+                <Text style={styles.closeButtonText}>Close</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => {
+                  editUserDetails({ firstName, lastName, email });
+                  toggleModal();
+                }}
+              >
+                <Text style={styles.closeButtonText}>Save</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -53,7 +73,8 @@ export default function ProfileDetails() {
         </Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => setModalVisible(true)}>
+          onPress={() => setModalVisible(true)}
+        >
           <Text style={styles.buttonText}>View Profile</Text>
         </TouchableOpacity>
       </View>
@@ -92,12 +113,24 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     width: "80%",
-    height: "50%",
+    height: "40%",
   },
   closeButton: {
-    marginTop: 10,
+    marginTop: 30,
   },
   closeButtonText: {
+    fontSize: 18,
     color: "blue",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 26,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
 });

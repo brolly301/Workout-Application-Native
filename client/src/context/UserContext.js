@@ -26,6 +26,8 @@ const reducer = (state, action) => {
         userDetails: action.payload.userDetails,
         token: action.payload.token,
       };
+    case "edit_user_details":
+      return { ...state, userDetails: action.payload };
     default:
       return state;
   }
@@ -80,8 +82,17 @@ const getUserDetails = (dispatch) => async () => {
   }
 };
 
+const editUserDetails = (dispatch) => async (userDetails) => {
+  try {
+    const res = await Server.patch("/editUserDetails", userDetails);
+    dispatch({ type: "edit_user_details", payload: userDetails });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const { Provider, Context } = createDataContext(
   reducer,
-  { login, register, logout, getUserDetails },
+  { login, register, logout, getUserDetails, editUserDetails },
   { token: null, errorMessage: "", userDetails: {} }
 );

@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import useWorkoutContext from "../../hooks/useWorkoutContext";
 import { FontAwesome5 } from "@expo/vector-icons";
 import HistoryShow from "./HistoryShow";
+import NoResultsPlaceholder from "../NoResultsPlaceholder";
 
 export default function HistoryList({ limit, state, handleDeleteWorkout }) {
   // const { state } = useWorkoutContext();
@@ -28,8 +29,11 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
       {state?.length < 1 ? (
         <NoResultsPlaceholder
           redirect={"Workout"}
-          buttonText={"Start New Workout"}
-          message={"You currently don't have any history for this exercise."}
+          buttonText={"New Workout"}
+          message={"You have currently not created any workouts."}
+          secondMessage={
+            "Please use the button below to begin a new workout. Your history will then appear here."
+          }
         />
       ) : (
         <>
@@ -49,9 +53,9 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
                   <TouchableOpacity onPress={() => handleItemPress(index)}>
                     <FontAwesome5
                       style={styles.icon}
-                      name="dumbbell"
+                      name='dumbbell'
                       size={24}
-                      color="black"
+                      color='black'
                     />
                     <View style={styles.subContainer}>
                       <View style={styles.textContainer}>

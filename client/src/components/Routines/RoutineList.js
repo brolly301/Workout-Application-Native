@@ -9,6 +9,7 @@ import React from "react";
 import useRoutineContext from "../../hooks/useRoutineContext";
 import RoutineShow from "./RoutineShow";
 import { useNavigation } from "@react-navigation/native";
+import NoResultsPlaceholder from "../NoResultsPlaceholder";
 
 export default function RoutineList({ limit, allRoutines }) {
   const navigation = useNavigation();
@@ -26,20 +27,14 @@ export default function RoutineList({ limit, allRoutines }) {
           />
         </>
       ) : (
-        <View style={styles.defaultContainer}>
-          <Text style={styles.deafultText}>
-            You have currently not created any routines.
-          </Text>
-          <Text style={styles.deafultText}>
-            Please press the button below or use the plus icon in the header to
-            create a new routine.
-          </Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("CreateRoutine")}>
-            <Text style={styles.buttonText}>Create Routine</Text>
-          </TouchableOpacity>
-        </View>
+        <NoResultsPlaceholder
+          redirect={"CreateRoutine"}
+          buttonText={"Create Routine"}
+          message={"You have currently not created any routines."}
+          secondMessage={
+            "Please press the button below or use the plus icon in the header to create a new routine."
+          }
+        />
       )}
     </View>
   );

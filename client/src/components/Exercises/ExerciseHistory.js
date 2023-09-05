@@ -14,8 +14,11 @@ export default function ExerciseHistory({ exercise }) {
       {exercises.length < 1 ? (
         <NoResultsPlaceholder
           redirect={"Workout"}
-          buttonText={"Start New Workout"}
+          buttonText={"New Workout"}
           message={"You currently don't have any history for this exercise."}
+          secondMessage={
+            "Please use the button below to begin a new workout and choose this exercise. Your history will then appear here."
+          }
         />
       ) : (
         <FlatList
