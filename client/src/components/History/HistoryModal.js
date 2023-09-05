@@ -1,11 +1,23 @@
-import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
-import React from "react";
+import {
+  Button,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
+import useWorkoutContext from "../../hooks/useWorkoutContext";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import useRoutineContext from "../../../hooks/useRoutineContext";
 
-const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
-  const { deleteRoutine } = useRoutineContext();
+import { useNavigation } from "@react-navigation/native";
+
+export default function HistoryModal({
+  routine,
+  handleDeleteWorkout,
+  modalVisible,
+  setModalVisible,
+}) {
   const navigation = useNavigation();
 
   return (
@@ -21,7 +33,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
             <View style={styles.iconContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  deleteRoutine(routine._id, routine.routineID);
+                  handleDeleteWorkout(routine._id, routine.workoutID);
                   setModalVisible(!modalVisible);
                 }}
               >
@@ -34,7 +46,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("EditRoutine", { routine: routine });
+                  navigation.navigate("EditWorkout", { workout: routine });
                   setModalVisible(!modalVisible);
                 }}
               >
@@ -45,22 +57,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                   color='black'
                 />
               </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("RoutineWorkout", {
-                    screen: "CreateWorkout",
-                    params: { routine: routine },
-                  });
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <AntDesign
-                  style={styles.modalIconClose}
-                  name='caretright'
-                  size={28}
-                  color='black'
-                />
-              </TouchableOpacity>
+
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <EvilIcons
                   style={styles.modalIconClose}
@@ -115,11 +112,33 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
       </Modal>
     </View>
   );
-};
-
-export default RoutineModal;
+}
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    paddingBottom: 10,
+  },
+  hr: {
+    borderBottomColor: "black",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginVertical: 10,
+  },
+  headerContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: 5,
+  },
+  setHeaderText: {
+    textAlign: "center",
+    fontWeight: "600",
+  },
+  exerciseName: {
+    textAlign: "center",
+    fontSize: 17,
+    marginVertical: 10,
+    fontWeight: "bold",
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",

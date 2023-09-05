@@ -49,7 +49,7 @@ const WorkoutExerciseShow = ({
           Exercise {exerciseIndex + 1} - {item.name}
         </Text>
         <TouchableOpacity onPress={() => removeExercise(exerciseIndex)}>
-          <Ionicons name="remove-circle-outline" size={24} color="black" />
+          <Ionicons name='remove-circle-outline' size={24} color='black' />
         </TouchableOpacity>
       </View>
       <Spacer />
@@ -63,7 +63,8 @@ const WorkoutExerciseShow = ({
         return (
           <Swipeable
             key={Math.floor(Math.random() * 1000000) + Date.now()}
-            renderRightActions={renderRightActions}>
+            renderRightActions={renderRightActions}
+          >
             <View style={styles.setHeaderContainer}>
               <Text style={styles.header}>{item.set}</Text>
               <TouchableOpacity onPress={() => removeSet(exerciseIndex, index)}>
@@ -71,7 +72,7 @@ const WorkoutExerciseShow = ({
               </TouchableOpacity>
               <TextInput
                 style={styles.header}
-                placeholder="0"
+                placeholder='0'
                 value={item?.kg?.toString() ?? ""}
                 onChangeText={(text) =>
                   handleExerciseInputChange(exerciseIndex, index, "kg", text)
@@ -79,7 +80,7 @@ const WorkoutExerciseShow = ({
               />
               <TextInput
                 style={styles.header}
-                placeholder="0"
+                placeholder='0'
                 value={item?.reps?.toString() ?? ""}
                 onChangeText={(text) =>
                   handleExerciseInputChange(exerciseIndex, index, "reps", text)
@@ -99,7 +100,8 @@ const WorkoutExerciseShow = ({
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => addSetToExercise(exerciseIndex)}>
+        onPress={() => addSetToExercise(exerciseIndex)}
+      >
         <Text style={styles.buttonText}>Add Set</Text>
       </TouchableOpacity>
     </View>
