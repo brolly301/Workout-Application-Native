@@ -24,89 +24,116 @@ export default function HistoryModal({
     <View>
       <Modal
         visible={modalVisible}
-        animationType='fade'
+        animationType="fade"
         transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
+        onRequestClose={() => setModalVisible(!modalVisible)}>
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={styles.iconContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  handleDeleteWorkout(routine._id, routine.workoutID);
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <EvilIcons
-                  style={styles.modalIconDelete}
-                  name='trash'
-                  size={33}
-                  color='black'
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("EditWorkout", { workout: routine });
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <EvilIcons
-                  style={styles.modalIconClose}
-                  name='pencil'
-                  size={33}
-                  color='black'
-                />
-              </TouchableOpacity>
+          <View style={routine ? styles.modalView : styles.noModalView}>
+            {!routine ? (
+              <View>
+                <View style={{ alignSelf: "flex-end" }}>
+                  <TouchableOpacity
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <EvilIcons
+                      style={styles.modalIconClose}
+                      name="close"
+                      size={32}
+                      color="black"
+                    />
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.noTitle}>No workout found!</Text>
+                <Text style={styles.noSubTitle}>
+                  You haven't completed any workouts for this date yet. Please
+                  click the button below to begin a new workout for this date.
+                </Text>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => navigation.navigate("CreateWorkout")}>
+                  <Text style={styles.buttonText}>Start Workout</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <>
+                <View style={styles.iconContainer}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleDeleteWorkout(routine._id, routine.workoutID);
+                      setModalVisible(!modalVisible);
+                    }}>
+                    <EvilIcons
+                      style={styles.modalIconDelete}
+                      name="trash"
+                      size={33}
+                      color="black"
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("EditWorkout", { workout: routine });
+                      setModalVisible(!modalVisible);
+                    }}>
+                    <EvilIcons
+                      style={styles.modalIconClose}
+                      name="pencil"
+                      size={33}
+                      color="black"
+                    />
+                  </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                <EvilIcons
-                  style={styles.modalIconClose}
-                  name='close'
-                  size={32}
-                  color='black'
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>{routine?.name}</Text>
-              <Text style={styles.subTitle}>
-                {routine?.description || "No description"}
-              </Text>
-            </View>
-            <View>
-              {routine?.exercises?.map((exercise, index) => {
-                return (
-                  <>
-                    <Text
-                      style={styles.exerciseName}
-                      key={Math.floor(Math.random() * 1000)}
-                    >
-                      Exercises {index + 1} - {exercise?.name}
-                    </Text>
-                    <View style={styles.exerciseContainer}>
-                      <View style={styles.setsContainer}>
-                        <Text style={styles.exerciseText}>Set</Text>
-                        {exercise?.sets?.map((set, index) => (
-                          <Text style={styles.setText}>{set.set}</Text>
-                        ))}
-                      </View>
-                      <View style={styles.setsContainer}>
-                        <Text style={styles.exerciseText}>Reps</Text>
-                        {exercise?.sets?.map((set, index) => (
-                          <Text style={styles.setText}>{set.reps || 0}</Text>
-                        ))}
-                      </View>
-                      <View style={styles.setsContainer}>
-                        <Text style={styles.exerciseText}>KG</Text>
-                        {exercise?.sets?.map((set, index) => (
-                          <Text style={styles.setText}>{set.kg || 0}</Text>
-                        ))}
-                      </View>
-                    </View>
-                  </>
-                );
-              })}
-            </View>
+                  <TouchableOpacity
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <EvilIcons
+                      style={styles.modalIconClose}
+                      name="close"
+                      size={32}
+                      color="black"
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.titleContainer}>
+                  <Text style={styles.title}>{routine?.name}</Text>
+                  <Text style={styles.subTitle}>
+                    {routine?.description || "No description"}
+                  </Text>
+                </View>
+                <View>
+                  {routine?.exercises?.map((exercise, index) => {
+                    return (
+                      <>
+                        <Text
+                          style={styles.exerciseName}
+                          key={Math.floor(Math.random() * 1000)}>
+                          Exercises {index + 1} - {exercise?.name}
+                        </Text>
+                        <View style={styles.exerciseContainer}>
+                          <View style={styles.setsContainer}>
+                            <Text style={styles.exerciseText}>Set</Text>
+                            {exercise?.sets?.map((set, index) => (
+                              <Text style={styles.setText}>{set.set}</Text>
+                            ))}
+                          </View>
+                          <View style={styles.setsContainer}>
+                            <Text style={styles.exerciseText}>Reps</Text>
+                            {exercise?.sets?.map((set, index) => (
+                              <Text style={styles.setText}>
+                                {set.reps || 0}
+                              </Text>
+                            ))}
+                          </View>
+                          <View style={styles.setsContainer}>
+                            <Text style={styles.exerciseText}>KG</Text>
+                            {exercise?.sets?.map((set, index) => (
+                              <Text style={styles.setText}>{set.kg || 0}</Text>
+                            ))}
+                          </View>
+                        </View>
+                      </>
+                    );
+                  })}
+                </View>
+              </>
+            )}
           </View>
         </View>
       </Modal>
@@ -152,6 +179,13 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "70%",
   },
+  noModalView: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    width: "80%",
+    height: "35%",
+  },
   closeButton: {
     marginTop: 20,
   },
@@ -173,6 +207,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginTop: 15,
+  },
+  noTitle: {
+    fontSize: 24,
+    marginVertical: 15,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  noSubTitle: {
+    fontSize: 15,
+    marginBottom: 15,
+    textAlign: "center",
   },
   modalIconClose: {
     marginBottom: 10,
@@ -261,5 +306,21 @@ const styles = StyleSheet.create({
   },
   setText: {
     marginVertical: 4,
+  },
+
+  button: {
+    width: "100%",
+    backgroundColor: "#D5A8F8",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingVertical: 10,
+    marginTop: 10,
+    marginBottom: 15,
+  },
+  buttonText: {
+    fontSize: 24,
+    fontWeight: "500",
+    textAlign: "center",
+    justifyContent: "flex-end",
   },
 });
