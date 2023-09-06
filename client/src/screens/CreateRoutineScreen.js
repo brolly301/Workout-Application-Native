@@ -174,6 +174,8 @@ const CreateRoutineScreen = () => {
           addSetToExercise={addSetToExercise}
           removeExercise={removeExercise}
           removeSet={removeSet}
+          modalVisible={exerciseModalVisible}
+          setModalVisible={setExerciseModalVisible}
         />
         {routine.exercises.length < 3 ? (
           <>
