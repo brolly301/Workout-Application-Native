@@ -52,10 +52,6 @@ const CreateWorkoutScreen = ({ route }) => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (routine) {
-      setWorkoutData({ ...routine });
-    }
-
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
@@ -81,6 +77,12 @@ const CreateWorkoutScreen = ({ route }) => {
       ),
     });
   }, [workoutData.name, workoutData.description, workoutData]);
+
+  useEffect(() => {
+    if (routine) {
+      setWorkoutData({ ...routine });
+    }
+  }, []);
 
   const handleValidation = () => {
     setErrors(validation(workoutData));
