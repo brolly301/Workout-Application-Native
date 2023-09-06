@@ -240,12 +240,18 @@ const CreateWorkoutScreen = ({ route }) => {
           addSetToExercise={addSetToExercise}
           removeExercise={removeExercise}
           removeSet={removeSet}
+          setExerciseModalVisible={setExerciseModalVisible}
+          exerciseModalVisible={exerciseModalVisible}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
-          <Text style={styles.buttonText}>Add Exercise</Text>
-        </TouchableOpacity>
+        {workoutData.exercises.length < 3 ? (
+          <>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
+              <Text style={styles.buttonText}>Add Exercise</Text>
+            </TouchableOpacity>
+          </>
+        ) : null}
       </>
     </HeaderPanel>
   );
