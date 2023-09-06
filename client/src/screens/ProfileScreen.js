@@ -9,6 +9,7 @@ import ProfileSettings from "../components/Profile/ProfileSettings";
 import useUserContext from "../hooks/useUserContext";
 import { EvilIcons } from "@expo/vector-icons";
 import useWorkoutContext from "../hooks/useWorkoutContext";
+import HeaderPanel from "../components/HeaderPanel";
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
@@ -35,7 +36,15 @@ export default function ProfileScreen() {
   }, [modalVisible]);
 
   return (
-    <View style={[styles.container]}>
+    <HeaderPanel>
+      <TouchableOpacity style={styles.headerIcon} onPress={() => toggleModal()}>
+        <Ionicons
+          style={styles.headerRight}
+          name="settings-sharp"
+          size={32}
+          color="#D5A8F8"
+        />
+      </TouchableOpacity>
       <Modal
         animationType="fade"
         transparent={true}
@@ -68,7 +77,7 @@ export default function ProfileScreen() {
       <View style={styles.recentWorkoutsContainer}>
         <HistoryList state={state} limit={3} />
       </View>
-    </View>
+    </HeaderPanel>
   );
 }
 
@@ -133,5 +142,8 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",
+  },
+  headerIcon: {
+    alignSelf: "flex-end",
   },
 });

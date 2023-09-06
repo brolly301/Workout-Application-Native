@@ -20,6 +20,7 @@ import FinishModal from "../components/Workout/Modals/FinishModal";
 import CancelModal from "../components/Workout/Modals/CancelModal";
 import ResetModal from "../components/Workout/Modals/ResetModal";
 import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
+import HeaderPanel from "../components/HeaderPanel";
 
 const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -50,39 +51,6 @@ const CreateWorkoutScreen = ({ route }) => {
   const { addExerciseSets } = useExerciseSetsContext();
 
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            setFinishlModalVisible(!finishModalVisible);
-          }}>
-          <Text style={styles.finishButton}>Finish</Text>
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            setCancelModalVisible(!cancelModalVisible);
-          }}>
-          <Text style={styles.cancelButton}>Cancel</Text>
-        </TouchableOpacity>
-      ),
-      headerTitle: () => (
-        <TouchableOpacity
-          onPress={() => setResetModalVisible(!resetModalVisible)}>
-          <Text style={styles.resetButton}>Reset</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [workoutData.name, workoutData.description, workoutData]);
-
-  useEffect(() => {
-    if (routine) {
-      setWorkoutData({ ...routine });
-    }
-  }, []);
 
   const handleValidation = () => {
     setErrors(validation(workoutData));
@@ -141,29 +109,53 @@ const CreateWorkoutScreen = ({ route }) => {
 
   //Take copy of state, push the exercise into the exercises array and give default set values
   const handleExerciseInput = (name, level, category) => {
-    const updatedWorkout = { ...workoutData };
-    updatedWorkout.exercises.push({
-      name,
-      level,
-      category,
-      sets: [{ set: 1, kg: "", reps: "" }],
-    });
-    setWorkoutData(updatedWorkout);
+    setWorkoutData((prevData) => ({
+      ...prevData,
+      exercises: [
+        ...prevData.exercises,
+        {
+          name,
+          level,
+          category,
+          sets: [{ set: 1, kg: "", reps: "" }],
+        },
+      ],
+    }));
   };
 
   //Take copy of state, use the exercises index to choose that exercise
   //Use set index to specify that exact set then field to update a specific field
   //Then spcify the value to update and use this as an onChangeText event
   const handleExerciseInputChange = (exerciseIndex, setIndex, field, value) => {
-    const updatedWorkout = { ...workoutData };
-    updatedWorkout.exercises[exerciseIndex].sets[setIndex][field] = value;
-    setWorkoutData(updatedWorkout);
+    setWorkoutData((prevData) => ({
+      ...prevData,
+      exercises: prevData.exercises.map((exercise, idx) => {
+        if (idx === exerciseIndex) {
+          return {
+            ...exercise,
+            sets: exercise.sets.map((set, setIdx) => {
+              if (setIdx === setIndex) {
+                return { ...set, [field]: value };
+              }
+              return set;
+            }),
+          };
+        }
+        return exercise;
+      }),
+    }));
   };
 
   const handleExerciseNotesChange = (exerciseIndex, field, value) => {
-    const updatedWorkout = { ...workoutData };
-    updatedWorkout.exercises[exerciseIndex][field] = value;
-    setWorkoutData(updatedWorkout);
+    setWorkoutData((prevData) => ({
+      ...prevData,
+      exercises: prevData.exercises.map((exercise, idx) => {
+        if (idx === exerciseIndex) {
+          return { ...exercise, [field]: value };
+        }
+        return exercise;
+      }),
+    }));
   };
 
   //
@@ -178,7 +170,25 @@ const CreateWorkoutScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <HeaderPanel>
+      <View style={styles.headerIcon}>
+        <TouchableOpacity
+          onPress={() => {
+            setCancelModalVisible(!cancelModalVisible);
+          }}>
+          <Text style={styles.cancelButton}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setResetModalVisible(!resetModalVisible)}>
+          <Text style={styles.resetButton}>Reset</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setFinishlModalVisible(!finishModalVisible);
+          }}>
+          <Text style={styles.finishButton}>Finish</Text>
+        </TouchableOpacity>
+      </View>
       <AddExerciseModal
         setAddExercise={setAddExercise}
         handleSubmit={handleExerciseInput}
@@ -237,17 +247,13 @@ const CreateWorkoutScreen = ({ route }) => {
           <Text style={styles.buttonText}>Add Exercise</Text>
         </TouchableOpacity>
       </>
-    </View>
+    </HeaderPanel>
   );
 };
 
 export default CreateWorkoutScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 20,
-    height: "100%",
-  },
   title: {
     fontSize: 36,
     fontWeight: "bold",
@@ -291,15 +297,19 @@ const styles = StyleSheet.create({
   finishButton: {
     color: "lightgreen",
     fontSize: 18,
-    marginRight: 20,
   },
   cancelButton: {
     color: "red",
     fontSize: 18,
-    marginLeft: 20,
   },
   resetButton: {
     color: "#D5A8F8",
     fontSize: 18,
+  },
+  headerIcon: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
   },
 });

@@ -12,6 +12,8 @@ import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Routines/RoutineValidation";
 import useUserContext from "../hooks/useUserContext";
+import HeaderPanel from "../components/HeaderPanel";
+import { Ionicons } from "@expo/vector-icons";
 
 const EditWorkoutScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
@@ -38,25 +40,6 @@ const EditWorkoutScreen = ({ route }) => {
       description: workoutText.description,
     });
   };
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            if (!handleValidation()) {
-              try {
-                handleSubmit();
-              } catch (e) {
-                console.log(e);
-              }
-            }
-          }}>
-          <Text style={styles.finishButton}>Save</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [workoutText.name, workoutText.description, newWorkout]);
 
   const handleValidation = () => {
     setErrors(validation(newWorkout));
@@ -133,7 +116,24 @@ const EditWorkoutScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <HeaderPanel>
+      <View style={styles.headerIcon}>
+        <TouchableOpacity onPress={() => navigation.pop()}>
+          <Ionicons name="arrow-back" size={32} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            if (!handleValidation()) {
+              try {
+                handleSubmit();
+              } catch (e) {
+                console.log(e);
+              }
+            }
+          }}>
+          <Text style={styles.finishButton}>Save</Text>
+        </TouchableOpacity>
+      </View>
       {addExercise ? (
         <AddExercise
           setAddExercise={setAddExercise}
@@ -172,7 +172,7 @@ const EditWorkoutScreen = ({ route }) => {
           </TouchableOpacity>
         </>
       )}
-    </View>
+    </HeaderPanel>
   );
 };
 
@@ -225,5 +225,10 @@ const styles = StyleSheet.create({
     color: "lightgreen",
     fontSize: 18,
     marginRight: 20,
+  },
+  headerIcon: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import HistoryList from "../components/History/HistoryList";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import TrackList from "../components/History/TrackList";
+import HeaderPanel from "../components/HeaderPanel";
 
 export default function HistoryScreen() {
   const [active, setActive] = useState(true);
@@ -17,7 +18,7 @@ export default function HistoryScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <HeaderPanel>
       <Text style={styles.title}>History</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => setActive(true)}>
@@ -34,16 +35,11 @@ export default function HistoryScreen() {
       ) : (
         <TrackList />
       )}
-    </View>
+    </HeaderPanel>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 20,
-    height: "100%",
-    flex: 1,
-  },
   title: {
     fontSize: 36,
     fontWeight: "bold",

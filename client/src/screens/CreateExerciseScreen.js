@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import useUserContext from "../hooks/useUserContext";
 import CancelExerciseModal from "../components/Exercises/Modals/CancelExerciseModal";
 import SaveExerciseModal from "../components/Exercises/Modals/SaveExerciseModal";
+import HeaderPanel from "../components/HeaderPanel";
 
 export default function CreateExerciseScreen() {
   const { addExercise, state } = useExerciseContext();
@@ -23,25 +24,6 @@ export default function CreateExerciseScreen() {
   const [errors, setErrors] = useState({});
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => setSaveModalVisible(!saveModalVisible)}>
-          <Text style={styles.finishButton}>Save</Text>
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            setCancelModalVisible(!cancelModalVisible);
-          }}>
-          <Text style={styles.cancelButton}>Cancel</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [name, primaryMuscle, secondaryMuscle, equipment, category]);
 
   const handleValidation = () => {
     setErrors(
@@ -78,7 +60,19 @@ export default function CreateExerciseScreen() {
         handleSubmit={handleSubmit}
         handleValidation={handleValidation}
       />
-      <View style={styles.container}>
+      <HeaderPanel>
+        <View style={styles.headerIcon}>
+          <TouchableOpacity
+            onPress={() => {
+              setCancelModalVisible(!cancelModalVisible);
+            }}>
+            <Text style={styles.cancelButton}>Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setSaveModalVisible(!saveModalVisible)}>
+            <Text style={styles.finishButton}>Save</Text>
+          </TouchableOpacity>
+        </View>
         <Text style={styles.title}>Exercises</Text>
         <Text style={styles.subTitle}>Create New Exercise</Text>
         <Input field={"Exercise Name"} setText={setName} error={errors.name} />
@@ -106,19 +100,17 @@ export default function CreateExerciseScreen() {
           setText={setCategory}
           error={errors.category}
         />
-      </View>
+      </HeaderPanel>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 20,
-  },
   title: {
     fontSize: 36,
     fontWeight: "bold",
     marginBottom: 10,
+    marginTop: 10,
   },
   subTitle: {
     fontSize: 22,
@@ -144,11 +136,14 @@ const styles = StyleSheet.create({
   finishButton: {
     color: "lightgreen",
     fontSize: 18,
-    marginRight: 20,
   },
   cancelButton: {
     color: "red",
     fontSize: 18,
-    marginLeft: 20,
+  },
+  headerIcon: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

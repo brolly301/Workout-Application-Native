@@ -20,26 +20,6 @@ const WorkoutExerciseShow = ({
   removeExercise,
   removeSet,
 }) => {
-  const renderRightActions = (
-    progress: Animated.AnimatedInterpolation,
-    dragAnimatedValue: Animated.AnimatedInterpolation
-  ) => {
-    const opacity = dragAnimatedValue.interpolate({
-      inputRange: [-150, 0],
-      outputRange: [1, 0],
-      extrapolate: "clamp",
-    });
-    return (
-      <View style={styles.swipedRow}>
-        <Animated.View style={[styles.deleteButton, { opacity }]}>
-          <TouchableOpacity>
-            <Text style={styles.deleteButtonText}>Delete</Text>
-          </TouchableOpacity>
-        </Animated.View>
-      </View>
-    );
-  };
-
   return (
     <View>
       <Spacer />
@@ -49,7 +29,7 @@ const WorkoutExerciseShow = ({
           Exercise {exerciseIndex + 1} - {item.name}
         </Text>
         <TouchableOpacity onPress={() => removeExercise(exerciseIndex)}>
-          <Ionicons name='remove-circle-outline' size={24} color='black' />
+          <Ionicons name="remove-circle-outline" size={24} color="black" />
         </TouchableOpacity>
       </View>
       <Spacer />
@@ -61,33 +41,30 @@ const WorkoutExerciseShow = ({
       </View>
       {item.sets?.map((item, index) => {
         return (
-          <Swipeable
+          <View
             key={Math.floor(Math.random() * 1000000) + Date.now()}
-            renderRightActions={renderRightActions}
-          >
-            <View style={styles.setHeaderContainer}>
-              <Text style={styles.header}>{item.set}</Text>
-              <TouchableOpacity onPress={() => removeSet(exerciseIndex, index)}>
-                <Text>Kepp</Text>
-              </TouchableOpacity>
-              <TextInput
-                style={styles.header}
-                placeholder='0'
-                value={item?.kg?.toString() ?? ""}
-                onChangeText={(text) =>
-                  handleExerciseInputChange(exerciseIndex, index, "kg", text)
-                }
-              />
-              <TextInput
-                style={styles.header}
-                placeholder='0'
-                value={item?.reps?.toString() ?? ""}
-                onChangeText={(text) =>
-                  handleExerciseInputChange(exerciseIndex, index, "reps", text)
-                }
-              />
-            </View>
-          </Swipeable>
+            style={styles.setHeaderContainer}>
+            <Text style={styles.header}>{item.set}</Text>
+            <TouchableOpacity onPress={() => removeSet(exerciseIndex, index)}>
+              <Text>Kepp</Text>
+            </TouchableOpacity>
+            <TextInput
+              style={styles.header}
+              placeholder="0"
+              defaultValue={item?.kg?.toString() ?? ""}
+              onChangeText={(text) =>
+                handleExerciseInputChange(exerciseIndex, index, "kg", text)
+              }
+            />
+            <TextInput
+              style={styles.header}
+              placeholder="0"
+              value={item?.reps?.toString() ?? ""}
+              onChangeText={(text) =>
+                handleExerciseInputChange(exerciseIndex, index, "reps", text)
+              }
+            />
+          </View>
         );
       })}
       <Spacer />
@@ -100,8 +77,7 @@ const WorkoutExerciseShow = ({
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => addSetToExercise(exerciseIndex)}
-      >
+        onPress={() => addSetToExercise(exerciseIndex)}>
         <Text style={styles.buttonText}>Add Set</Text>
       </TouchableOpacity>
     </View>

@@ -25,12 +25,8 @@ const Stack = createStackNavigator();
 
 const WorkoutStack = ({ navigation }) => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Workout"
-        component={WorkoutDashboard}
-        options={{ headerShown: false }}
-      />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Workout" component={WorkoutDashboard} />
       <Stack.Screen name="CreateWorkout" component={CreateWorkoutScreen} />
       <Stack.Screen name="CreateTrack" component={CreateTrackScreen} />
     </Stack.Navigator>
@@ -38,21 +34,8 @@ const WorkoutStack = ({ navigation }) => {
 };
 const HistoryStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="History"
-        component={HistoryScreen}
-        options={{
-          headerRight: () => (
-            <EvilIcons
-              style={styles.headerRight}
-              name="calendar"
-              size={30}
-              color="#D5A8F8"
-            />
-          ),
-        }}
-      />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="History" component={HistoryScreen} />
       <Stack.Screen name="EditWorkout" component={EditWorkoutScreen} />
     </Stack.Navigator>
   );
@@ -60,52 +43,21 @@ const HistoryStack = () => {
 const RoutinesStack = ({ navigation }) => {
   const { setRoutine } = useRoutineContext();
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Routines"
-        component={RoutineScreen}
-        options={({ navigation }) => ({
-          headerRight: () => (
-            <View style={styles.headerRight}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("CreateRoutine")}>
-                <Feather name="plus" size={24} color="#D5A8F8" />
-              </TouchableOpacity>
-            </View>
-          ),
-        })}
-      />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Routines" component={RoutineScreen} />
       <Stack.Screen name="CreateRoutine" component={CreateRoutineScreen} />
-      <Stack.Screen
-        name="RoutineWorkout"
-        component={WorkoutStack}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="RoutineWorkout" component={WorkoutStack} />
       <Stack.Screen name="EditRoutine" component={EditRoutineScreen} />
     </Stack.Navigator>
   );
 };
 const ExercisesStack = ({ navigation }) => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Exercises"
-        component={ExerciseScreen}
-        options={({ navigation }) => ({})}
-      />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Exercises" component={ExerciseScreen} />
       <Stack.Screen name="ExerciseShow" component={ExerciseShowScreen} />
       <Stack.Screen name="ExerciseEdit" component={EditExerciseScreen} />
-      <Stack.Screen
-        name="ExerciseCreate"
-        component={CreateExerciseScreen}
-        options={{
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.navigate("Exercises")}>
-              <Text style={styles.cancelButton}>Cancel</Text>
-            </TouchableOpacity>
-          ),
-        }}
-      />
+      <Stack.Screen name="ExerciseCreate" component={CreateExerciseScreen} />
     </Stack.Navigator>
   );
 };
@@ -115,16 +67,7 @@ const ProfileStack = () => {
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{
-          headerRight: () => (
-            <Ionicons
-              style={styles.headerRight}
-              name="settings-sharp"
-              size={24}
-              color="#D5A8F8"
-            />
-          ),
-        }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

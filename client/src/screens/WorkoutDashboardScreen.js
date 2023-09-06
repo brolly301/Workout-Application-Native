@@ -14,16 +14,14 @@ export default function WorkoutDashboard() {
 
   return (
     <HeaderPanel>
-      <View style={styles.container}>
-        <Text style={styles.title}>Begin Workout</Text>
-        <Text style={styles.subTitle}>
-          Welcome back, {state.userDetails?.firstName}
-        </Text>
-        <WorkoutCalendar />
-        <QuickStart />
-        <Text style={styles.routineText}>Recent Routines</Text>
-        <RoutineList allRoutines={allRoutines} limit={1} />
-      </View>
+      <Text style={styles.title}>Begin Workout</Text>
+      <Text style={styles.subTitle}>
+        Welcome back, {state.userDetails?.firstName}
+      </Text>
+      <WorkoutCalendar />
+      <QuickStart />
+      <Text style={styles.routineText}>Recent Routines</Text>
+      <RoutineList allRoutines={allRoutines} limit={1} />
     </HeaderPanel>
   );
 }

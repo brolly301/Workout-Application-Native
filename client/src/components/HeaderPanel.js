@@ -11,5 +11,7 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 15,
     marginTop: 50,
+    height: "100%",
+    flex: 1,
   },
 });

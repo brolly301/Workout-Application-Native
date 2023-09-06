@@ -9,6 +9,7 @@ import ExerciseSortBy from "../components/Exercises/ExerciseSortBy";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import ExerciseEdit from "../components/Exercises/ExerciseEdit";
+import HeaderPanel from "../components/HeaderPanel";
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
@@ -32,6 +33,7 @@ export default function ExerciseScreen() {
           {/* <ExerciseSortBy selected={selected} setSelected={setSelected} /> */}
           <GestureHandlerRootView>
             <TouchableOpacity
+              style={styles.headerIcon}
               onPress={() => navigation.navigate("ExerciseCreate")}>
               <Feather name="plus" size={24} color="#D5A8F8" />
             </TouchableOpacity>
@@ -53,7 +55,21 @@ export default function ExerciseScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <HeaderPanel>
+      <View style={styles.headerRight}>
+        {/* <ExerciseSortBy selected={selected} setSelected={setSelected} /> */}
+
+        <TouchableOpacity onPress={() => handleEdit()}>
+          <Text style={styles.editText}>Edit</Text>
+        </TouchableOpacity>
+
+        <GestureHandlerRootView>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ExerciseCreate")}>
+            <Feather name="plus" size={32} color="#D5A8F8" />
+          </TouchableOpacity>
+        </GestureHandlerRootView>
+      </View>
       <Text style={styles.title}>Exercises</Text>
       <SearchBar setText={setSearch} placeholder={"exercises"} />
       {isActive ? (
@@ -61,19 +77,14 @@ export default function ExerciseScreen() {
       ) : (
         <ExerciseList state={update(selected)} />
       )}
-    </View>
+    </HeaderPanel>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: "100%",
-    marginHorizontal: 20,
-  },
   title: {
     fontSize: 36,
-    marginTop: 10,
+    fontWeight: "bold",
   },
   subTitle: {
     fontSize: 18,
@@ -81,6 +92,11 @@ const styles = StyleSheet.create({
   headerRight: {
     display: "flex",
     flexDirection: "row",
-    marginRight: 10,
+    alignSelf: "flex-end",
+    alignItems: "center",
+  },
+  editText: {
+    fontSize: 20,
+    marginRight: 15,
   },
 });

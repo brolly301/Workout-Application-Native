@@ -5,10 +5,14 @@ import ExerciseAbout from "../components/Exercises/ExerciseAbout";
 import ExerciseHistory from "../components/Exercises/ExerciseHistory";
 import useExerciseContext from "../hooks/useExerciseContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
+import HeaderPanel from "../components/HeaderPanel";
+import { Ionicons } from "@expo/vector-icons";
 
 const ExerciseShowScreen = ({ route }) => {
   const [selected, setSelected] = useState(true);
   const { state: exerciseSets, getExerciseSets } = useExerciseSetsContext();
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     getExerciseSets();
@@ -29,7 +33,10 @@ const ExerciseShowScreen = ({ route }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <HeaderPanel>
+      <TouchableOpacity onPress={() => navigation.pop()}>
+        <Ionicons name="arrow-back" size={32} color="black" />
+      </TouchableOpacity>
       <Text style={styles.title}>Exercises</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -44,16 +51,13 @@ const ExerciseShowScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
       {content}
-    </View>
+    </HeaderPanel>
   );
 };
 
 export default ExerciseShowScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 25,
-  },
   title: {
     fontSize: 36,
     fontWeight: "bold",

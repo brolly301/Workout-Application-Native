@@ -15,6 +15,7 @@ import useUserContext from "../hooks/useUserContext";
 import CancelRoutineModal from "../components/Routines/Modals/CancelRoutineModal";
 import SaveRoutineModal from "../components/Routines/Modals/SaveRoutineModal";
 import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
+import HeaderPanel from "../components/HeaderPanel";
 
 const CreateRoutineScreen = () => {
   const [addExercise, setAddExercise] = useState(false);
@@ -26,27 +27,6 @@ const CreateRoutineScreen = () => {
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
   const [exerciseModalVisible, setExerciseModalVisible] = useState(false);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => setSaveModalVisible(!saveModalVisible)}
-        >
-          <Text style={styles.finishButton}>Save</Text>
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            setCancelModalVisible(!cancelModalVisible);
-          }}
-        >
-          <Text style={styles.cancelButton}>Cancel</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [routine.name, routine.description, routine]);
 
   const handleValidation = () => {
     setErrors(validation(routine));
@@ -131,7 +111,19 @@ const CreateRoutineScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <HeaderPanel>
+      <View style={styles.headerIcon}>
+        <TouchableOpacity
+          onPress={() => {
+            setCancelModalVisible(!cancelModalVisible);
+          }}>
+          <Text style={styles.cancelButton}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setSaveModalVisible(!saveModalVisible)}>
+          <Text style={styles.finishButton}>Save</Text>
+        </TouchableOpacity>
+      </View>
       <AddExerciseModal
         setAddExercise={setAddExercise}
         handleSubmit={handleExerciseInput}
@@ -185,12 +177,11 @@ const CreateRoutineScreen = () => {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}
-        >
+          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
           <Text style={styles.buttonText}>Add Exercise</Text>
         </TouchableOpacity>
       </>
-    </View>
+    </HeaderPanel>
   );
 };
 
@@ -242,11 +233,15 @@ const styles = StyleSheet.create({
   finishButton: {
     color: "lightgreen",
     fontSize: 18,
-    marginRight: 20,
   },
   cancelButton: {
     color: "red",
     fontSize: 18,
-    marginLeft: 20,
+  },
+  headerIcon: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
   },
 });

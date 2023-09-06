@@ -23,11 +23,11 @@ app.listen(3000, () => {
 
 //middleware
 app.use(morgan("dev"));
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(expressValidator());
 
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json());
 
 //Routes
 const authRoutes = require("./routes/authRoutes");
