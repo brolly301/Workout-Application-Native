@@ -8,6 +8,8 @@ const FinishModal = ({
   handleSubmit,
   handleValidation,
 }) => {
+  const { resetTimer, startStopTimer } = useStateContext();
+
   return (
     <View>
       <Modal
@@ -33,7 +35,10 @@ const FinishModal = ({
                   setModalVisible(!modalVisible);
                   if (!handleValidation())
                     try {
-                      handleSubmit();
+                      handleSubmit(() => {
+                        resetTimer();
+                        startStopTimer(false);
+                      });
                     } catch (e) {
                       console.log(e);
                     }

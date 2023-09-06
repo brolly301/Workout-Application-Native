@@ -38,7 +38,8 @@ const addWorkout = (dispatch) => async (exerciseData, callback) => {
       callback();
     }
   } catch (e) {
-    dispatch({ type: "add_error", payload: e.response.data.error });
+    // dispatch({ type: "add_error", payload: e.response.data.error });
+    console.log(e);
   }
 };
 

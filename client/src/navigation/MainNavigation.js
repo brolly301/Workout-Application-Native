@@ -9,7 +9,6 @@ const Stack = createStackNavigator();
 
 const MainNavigation = () => {
   const { state } = useUserContext();
-  console.log(state.token);
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>

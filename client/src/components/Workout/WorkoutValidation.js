@@ -1,8 +1,6 @@
 export default validation = (workoutData) => {
   const errors = {};
 
-  console.log(workoutData);
-
   if (workoutData.name === "") {
     errors.name = "Name is required.";
   }

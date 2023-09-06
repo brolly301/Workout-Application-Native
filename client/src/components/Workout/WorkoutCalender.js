@@ -22,11 +22,11 @@ export default function WorkoutCalender() {
 
   const { state, deleteWorkout } = useWorkoutContext();
 
-  const newState = state?.map((workout) => {
-    if (formatDate(workout.date) === formatDate(selected)) {
-      return workout;
-    }
-  });
+  const newState = Array.isArray(state)
+    ? state.filter(
+        (workout) => formatDate(workout.date) === formatDate(selected)
+      )
+    : [];
 
   return (
     <>

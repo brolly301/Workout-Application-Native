@@ -146,7 +146,7 @@ export default function HistoryModal({
         setModalVisible={setCancelModalVisible}
         routine={routine}
         deleteFunction={handleDeleteWorkout}
-        id={routine.workoutID}
+        id={routine?.workoutID}
       />
     </View>
   );

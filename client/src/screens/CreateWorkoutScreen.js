@@ -24,7 +24,6 @@ import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
   const { state: user } = useUserContext();
-  const { startStopTimer, resetTimer } = useStateContext();
   const [addExercise, setAddExercise] = useState(false);
   const [workoutData, setWorkoutData] = useState({
     userID: user.userDetails._id,
@@ -37,6 +36,8 @@ const CreateWorkoutScreen = ({ route }) => {
     time: 0,
     exercises: [],
   });
+
+  console.log(workoutData);
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [finishModalVisible, setFinishlModalVisible] = useState(false);
@@ -60,8 +61,7 @@ const CreateWorkoutScreen = ({ route }) => {
         <TouchableOpacity
           onPress={() => {
             setFinishlModalVisible(!finishModalVisible);
-          }}
-        >
+          }}>
           <Text style={styles.finishButton}>Finish</Text>
         </TouchableOpacity>
       ),
@@ -69,15 +69,13 @@ const CreateWorkoutScreen = ({ route }) => {
         <TouchableOpacity
           onPress={() => {
             setCancelModalVisible(!cancelModalVisible);
-          }}
-        >
+          }}>
           <Text style={styles.cancelButton}>Cancel</Text>
         </TouchableOpacity>
       ),
       headerTitle: () => (
         <TouchableOpacity
-          onPress={() => setResetModalVisible(!resetModalVisible)}
-        >
+          onPress={() => setResetModalVisible(!resetModalVisible)}>
           <Text style={styles.resetButton}>Reset</Text>
         </TouchableOpacity>
       ),
@@ -88,7 +86,7 @@ const CreateWorkoutScreen = ({ route }) => {
     setErrors(validation(workoutData));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (callback) => {
     for (let exercise of workoutData.exercises) {
       addExerciseSets({
         userID: user.userDetails._id,
@@ -97,8 +95,9 @@ const CreateWorkoutScreen = ({ route }) => {
       });
     }
     addWorkout(workoutData, () => {
-      resetTimer();
-      startStopTimer(false);
+      if (callback) {
+        callback();
+      }
       navigation.navigate("Workout");
     });
   };
@@ -184,25 +183,25 @@ const CreateWorkoutScreen = ({ route }) => {
         modalVisible={exerciseModalVisible}
         setModalVisible={setExerciseModalVisible}
       />
+      <ResetModal
+        modalVisible={resetModalVisible}
+        setModalVisible={setResetModalVisible}
+      />
+      <FinishModal
+        modalVisible={finishModalVisible}
+        setModalVisible={setFinishlModalVisible}
+        handleSubmit={handleSubmit}
+        handleValidation={handleValidation}
+      />
+      <CancelModal
+        modalVisible={cancelModalVisible}
+        setModalVisible={setCancelModalVisible}
+      />
 
       <>
-        <ResetModal
-          modalVisible={resetModalVisible}
-          setModalVisible={setResetModalVisible}
-        />
-        <FinishModal
-          modalVisible={finishModalVisible}
-          setModalVisible={setFinishlModalVisible}
-          handleSubmit={handleSubmit}
-          handleValidation={handleValidation}
-        />
-        <CancelModal
-          modalVisible={cancelModalVisible}
-          setModalVisible={setCancelModalVisible}
-        />
         <View style={styles.timerContainer}>
           <TextInput
-            placeholder='Workout 1'
+            placeholder="Workout 1"
             value={workoutData.name}
             style={styles.title}
             onChangeText={(text) =>
@@ -232,8 +231,7 @@ const CreateWorkoutScreen = ({ route }) => {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}
-        >
+          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
           <Text style={styles.buttonText}>Add Exercise</Text>
         </TouchableOpacity>
       </>
