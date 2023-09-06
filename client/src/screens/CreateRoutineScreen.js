@@ -175,11 +175,15 @@ const CreateRoutineScreen = () => {
           removeExercise={removeExercise}
           removeSet={removeSet}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
-          <Text style={styles.buttonText}>Add Exercise</Text>
-        </TouchableOpacity>
+        {routine.exercises.length < 3 ? (
+          <>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
+              <Text style={styles.buttonText}>Add Exercise</Text>
+            </TouchableOpacity>
+          </>
+        ) : null}
       </>
     </HeaderPanel>
   );

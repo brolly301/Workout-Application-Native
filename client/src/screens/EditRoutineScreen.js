@@ -14,6 +14,7 @@ import validation from "../components/Routines/RoutineValidation";
 import useUserContext from "../hooks/useUserContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
+import SaveEditModal from "../components/SaveEditModal";
 
 const EditRoutineScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
@@ -22,6 +23,8 @@ const EditRoutineScreen = ({ route }) => {
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
   const routine = route.params?.routine;
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [newRoutine, setNewRoutine] = useState(routine || {});
   const [routineText, setRoutineText] = useState({
@@ -117,19 +120,20 @@ const EditRoutineScreen = ({ route }) => {
 
   return (
     <HeaderPanel>
+      <SaveEditModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        saveText={"Routine"}
+        handleSubmit={handleSubmit}
+        handleValidation={handleValidation}
+      />
       <View style={styles.headerIcon}>
         <TouchableOpacity onPress={() => navigation.pop()}>
           <Ionicons name="arrow-back" size={32} color="black" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            if (!handleValidation()) {
-              try {
-                handleSubmit();
-              } catch (e) {
-                console.log(e);
-              }
-            }
+            setModalVisible(!modalVisible);
           }}>
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
