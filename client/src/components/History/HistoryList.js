@@ -48,13 +48,12 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
                   />
                   <View style={styles.container}>
                     <TouchableOpacity
-                      onPress={() => setModalVisible(!modalVisible)}
-                    >
+                      onPress={() => setModalVisible(!modalVisible)}>
                       <FontAwesome5
                         style={styles.icon}
-                        name='dumbbell'
+                        name="dumbbell"
                         size={24}
-                        color='black'
+                        color="black"
                       />
                       <View style={styles.subContainer}>
                         <View style={styles.textContainer}>

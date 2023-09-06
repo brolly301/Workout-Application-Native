@@ -5,16 +5,17 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ExerciseEditShow from "./ExerciseEditShow";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import useExerciseContext from "../../hooks/useExerciseContext";
 import NoResultsPlaceholder from "../NoResultsPlaceholder";
+import DeleteModal from "../DeleteModal";
 
 const ExerciseEdit = ({ state }) => {
   const navigation = useNavigation();
-
+  const [modalVisible, setModalVisible] = useState(false);
   const { deleteExercise } = useExerciseContext();
 
   const updatedState = state.filter((exercise) =>
@@ -41,25 +42,35 @@ const ExerciseEdit = ({ state }) => {
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => {
             return (
-              <View style={styles.editContainer}>
-                <TouchableOpacity
-                  onPress={() => deleteExercise(item._id, item.exerciseID)}
-                >
-                  <Ionicons
-                    name='remove-circle-outline'
-                    size={24}
-                    color='black'
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("ExerciseEdit", { id: item.exerciseID })
-                  }
-                >
-                  <ExerciseEditShow exercise={item} />
-                </TouchableOpacity>
-              </View>
+              <>
+                <DeleteModal
+                  modalVisible={modalVisible}
+                  setModalVisible={setModalVisible}
+                  routine={item}
+                  deleteFunction={deleteExercise}
+                  id={item.exerciseID}
+                  deleteText={"Exercise"}
+                />
+                <View style={styles.editContainer}>
+                  <TouchableOpacity
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <Ionicons
+                      name="remove-circle-outline"
+                      size={24}
+                      color="black"
+                      style={styles.icon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("ExerciseEdit", {
+                        id: item.exerciseID,
+                      })
+                    }>
+                    <ExerciseEditShow exercise={item} />
+                  </TouchableOpacity>
+                </View>
+              </>
             );
           }}
         />

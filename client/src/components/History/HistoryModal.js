@@ -11,6 +11,7 @@ import useWorkoutContext from "../../hooks/useWorkoutContext";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
+import DeleteModal from "../DeleteModal";
 
 export default function HistoryModal({
   routine,
@@ -19,6 +20,8 @@ export default function HistoryModal({
   setModalVisible,
 }) {
   const navigation = useNavigation();
+
+  const [cancelModalVisible, setCancelModalVisible] = useState(false);
 
   return (
     <View>
@@ -58,7 +61,7 @@ export default function HistoryModal({
                 <View style={styles.iconContainer}>
                   <TouchableOpacity
                     onPress={() => {
-                      handleDeleteWorkout(routine._id, routine.workoutID);
+                      setCancelModalVisible(!cancelModalVisible);
                       setModalVisible(!modalVisible);
                     }}>
                     <EvilIcons
@@ -137,6 +140,14 @@ export default function HistoryModal({
           </View>
         </View>
       </Modal>
+      <DeleteModal
+        deleteText={"Workout"}
+        modalVisible={cancelModalVisible}
+        setModalVisible={setCancelModalVisible}
+        routine={routine}
+        deleteFunction={handleDeleteWorkout}
+        id={routine.workoutID}
+      />
     </View>
   );
 }

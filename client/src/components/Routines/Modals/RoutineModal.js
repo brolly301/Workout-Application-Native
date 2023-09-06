@@ -118,6 +118,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
         setModalVisible={setCancelModalVisible}
         routine={routine}
         deleteFunction={deleteRoutine}
+        id={routine.routineID}
       />
     </View>
   );

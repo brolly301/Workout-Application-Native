@@ -17,7 +17,12 @@ export default function RoutineShow({ routine }) {
       />
       <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.container}>
-          <MaterialCommunityIcons name="dumbbell" size={24} color="black" />
+          <MaterialCommunityIcons
+            style={styles.dumbbell}
+            name="dumbbell"
+            size={32}
+            color="black"
+          />
           <View style={styles.textContainer}>
             <Text style={styles.name}>{routine?.name}</Text>
             <Text style={styles.type}>{routine?.description}</Text>
@@ -29,11 +34,6 @@ export default function RoutineShow({ routine }) {
             style={styles.icon}
           />
         </View>
-        {/* {isActive ? (
-          <View style={{ display: "flex", flexDirection: "column" }}>
-            <RoutineStart routine={routine} />
-          </View>
-        ) : null} */}
       </TouchableOpacity>
     </>
   );
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
 
   textContainer: {
     padding: 15,
+    marginLeft: 50,
   },
 
   icon: {
@@ -68,5 +69,10 @@ const styles = StyleSheet.create({
   },
   type: {
     fontSize: 16,
+  },
+  dumbbell: {
+    position: "absolute",
+    top: 24,
+    left: 15,
   },
 });

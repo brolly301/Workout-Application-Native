@@ -7,6 +7,7 @@ const DeleteModal = ({
   deleteText,
   deleteFunction,
   routine,
+  id,
 }) => {
   return (
     <View>
@@ -30,7 +31,7 @@ const DeleteModal = ({
               <TouchableOpacity
                 style={styles.closeButton}
                 onPress={() => {
-                  deleteFunction(routine._id, routine.routineID);
+                  deleteFunction(routine._id, id);
                   setModalVisible(!modalVisible);
                 }}>
                 <Text style={styles.closeButtonText}>Yes</Text>

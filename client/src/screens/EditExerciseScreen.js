@@ -25,8 +25,6 @@ export default function ExerciseEditScreen({ route }) {
 
   const [errors, setErrors] = useState({});
 
-  console.log(exercise.exerciseID, id);
-
   const handleValidation = () => {
     setErrors(
       validation(name, primaryMuscle, secondaryMuscle, equipment, category)
