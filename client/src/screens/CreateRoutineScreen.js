@@ -142,10 +142,10 @@ const CreateRoutineScreen = () => {
           handleSubmit={handleSubmit}
           handleValidation={handleValidation}
         />
-        {errors.name && <Text>{errors.name}</Text>}
-        {errors.exercises && <Text>{errors.exercises}</Text>}
+
         <Text style={styles.title}>Routines</Text>
         <Text style={styles.subTitle}>Create Routine</Text>
+        {errors.name && <Text style={styles.errors}>{errors.name}</Text>}
         <Text style={styles.fieldText}>Name</Text>
         <TextInput
           style={styles.input}
@@ -179,6 +179,9 @@ const CreateRoutineScreen = () => {
         />
         {routine.exercises.length < 3 ? (
           <>
+            {errors.exercises && (
+              <Text style={styles.errors}>{errors.exercises}</Text>
+            )}
             <TouchableOpacity
               style={styles.button}
               onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
@@ -249,5 +252,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
+  },
+  errors: {
+    color: "red",
+    marginBottom: 10,
   },
 });

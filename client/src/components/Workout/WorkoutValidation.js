@@ -2,11 +2,12 @@ export default validation = (workoutData) => {
   const errors = {};
 
   if (workoutData.name === "") {
-    errors.name = "Name is required.";
+    errors.name = "Please enter a name for this routine.";
   }
 
   if (workoutData.exercises.length < 1) {
-    errors.exercises = "At least one exercise is required.";
+    errors.exercises =
+      "At least one exercise is required. Please add one below.";
   }
 
   const invalidExercise = workoutData.exercises.find((exercise) =>
@@ -14,7 +15,7 @@ export default validation = (workoutData) => {
   );
 
   if (invalidExercise) {
-    errors.sets = "Weight and reps must be added in to complete the workout.";
+    errors.sets = "All weight and reps must be added to complete the workout.";
   }
 
   return errors;

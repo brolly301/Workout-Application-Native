@@ -211,6 +211,8 @@ const CreateWorkoutScreen = ({ route }) => {
       />
 
       <>
+        {errors.name && <Text style={styles.errors}>{errors.name}</Text>}
+
         <View style={styles.timerContainer}>
           <TextInput
             placeholder="Workout 1"
@@ -222,9 +224,6 @@ const CreateWorkoutScreen = ({ route }) => {
           />
           <Timer />
         </View>
-        {errors.name && <Text>{errors.name}</Text>}
-        {errors.exercises && <Text>{errors.exercises}</Text>}
-        {errors.sets && <Text>{errors.sets}</Text>}
         <Text style={styles.label}>Description</Text>
         <TextInput
           style={styles.input}
@@ -233,6 +232,8 @@ const CreateWorkoutScreen = ({ route }) => {
             setWorkoutData({ ...workoutData, description: text })
           }
         />
+        {errors.sets && <Text style={styles.errors}>{errors.sets}</Text>}
+
         <WorkoutExerciseList
           workoutData={workoutData}
           handleExerciseInputChange={handleExerciseInputChange}
@@ -245,6 +246,10 @@ const CreateWorkoutScreen = ({ route }) => {
         />
         {workoutData.exercises.length < 3 ? (
           <>
+            {errors.exercises && (
+              <Text style={styles.errors}>{errors.exercises}</Text>
+            )}
+
             <TouchableOpacity
               style={styles.button}
               onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
@@ -317,5 +322,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
+  },
+  errors: {
+    color: "red",
+    marginBottom: 10,
   },
 });
