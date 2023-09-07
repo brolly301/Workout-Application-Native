@@ -19,7 +19,7 @@ import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 
 const EditWorkoutScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
-  const { setWorkout, editWorkout } = useWorkoutContext();
+  const { editWorkout } = useWorkoutContext();
   const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
@@ -28,11 +28,14 @@ const EditWorkoutScreen = ({ route }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [newWorkout, setNewWorkout] = useState(workout || {});
+  const [newWorkout, setNewWorkout] = useState({ ...workout });
   const [workoutText, setWorkoutText] = useState({
     name: workout?.name,
     description: workout?.description,
   });
+
+  console.log(workout);
+  console.log(newWorkout);
 
   const handleUpdateText = (field, text) => {
     setWorkoutText({
@@ -41,8 +44,7 @@ const EditWorkoutScreen = ({ route }) => {
     });
     setNewWorkout({
       ...newWorkout,
-      name: workoutText.name,
-      description: workoutText.description,
+      [field]: text, // Use the 'text' parameter directly here
     });
   };
 
@@ -57,40 +59,52 @@ const EditWorkoutScreen = ({ route }) => {
   };
 
   const handleExerciseInput = (name, level, category) => {
-    const updatedWorkout = { ...newWorkout };
-    newWorkout.exercises.push({
-      name,
-      level,
-      category,
-      sets: [{ set: 1, kg: "", reps: "" }],
-    });
-    setNewWorkout(updatedWorkout);
+    setNewWorkout((prevData) => ({
+      ...prevData,
+      exercises: [
+        ...prevData.exercises,
+        {
+          name,
+          level,
+          category,
+          sets: [{ set: 1, kg: "", reps: "" }],
+        },
+      ],
+    }));
   };
 
   const removeExercise = (index) => {
-    const updatedExercises = newWorkout.exercises.filter((exercise, idx) => {
-      return index !== idx;
-    });
-    setNewWorkout({
-      ...newWorkout,
-      exercises: updatedExercises,
+    setNewWorkout((prevWorkoutData) => {
+      // Use filter to create a new array without the exercise at the specified index
+      const updatedExercises = prevWorkoutData.exercises.filter(
+        (exercise, idx) => idx !== index
+      );
+
+      return {
+        ...prevWorkoutData,
+        exercises: updatedExercises,
+      };
     });
   };
 
   const removeSet = (exerciseIndex, setIndex) => {
-    const updatedExercises = newWorkout.exercises.map((exercise, idx) => {
-      if (idx === exerciseIndex) {
-        return {
-          ...exercise,
-          sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
-        };
-      }
-      return exercise;
-    });
+    setNewWorkout((prevWorkoutData) => {
+      const updatedExercises = prevWorkoutData.exercises.map(
+        (exercise, idx) => {
+          if (idx === exerciseIndex) {
+            return {
+              ...exercise,
+              sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
+            };
+          }
+          return exercise;
+        }
+      );
 
-    setNewWorkout({
-      ...newWorkout,
-      exercises: updatedExercises,
+      return {
+        ...prevWorkoutData,
+        exercises: updatedExercises,
+      };
     });
   };
 
@@ -136,7 +150,10 @@ const EditWorkoutScreen = ({ route }) => {
         handleValidation={handleValidation}
       />
       <View style={styles.headerIcon}>
-        <TouchableOpacity onPress={() => navigation.pop()}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.pop();
+          }}>
           <Ionicons name="arrow-back" size={32} color="black" />
         </TouchableOpacity>
         <TouchableOpacity

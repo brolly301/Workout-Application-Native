@@ -13,9 +13,18 @@ import NoResultsPlaceholder from "../NoResultsPlaceholder";
 
 export default function HistoryList({ limit, state, handleDeleteWorkout }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [routine, setRoutine] = useState(null);
+
+  console.log(state[0]);
 
   return (
     <View style={styles.mainContainer}>
+      <HistoryModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        routine={routine}
+        handleDeleteWorkout={handleDeleteWorkout}
+      />
       {state?.length < 1 ? (
         <NoResultsPlaceholder
           redirect={"Workout"}
@@ -40,15 +49,12 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
 
               return (
                 <>
-                  <HistoryModal
-                    modalVisible={modalVisible}
-                    setModalVisible={setModalVisible}
-                    routine={item}
-                    handleDeleteWorkout={handleDeleteWorkout}
-                  />
                   <View style={styles.container}>
                     <TouchableOpacity
-                      onPress={() => setModalVisible(!modalVisible)}>
+                      onPress={() => {
+                        setRoutine(item);
+                        setModalVisible(!modalVisible);
+                      }}>
                       <FontAwesome5
                         style={styles.icon}
                         name="dumbbell"

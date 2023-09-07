@@ -29,7 +29,7 @@ const EditRoutineScreen = ({ route }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [newRoutine, setNewRoutine] = useState(routine || {});
+  const [newRoutine, setNewRoutine] = useState({ ...routine });
   const [routineText, setRoutineText] = useState({
     name: routine?.name,
     description: routine?.description,
@@ -58,43 +58,54 @@ const EditRoutineScreen = ({ route }) => {
   };
 
   const handleExerciseInput = (name, level, category) => {
-    const updatedRoutine = { ...newRoutine };
-    newRoutine.exercises.push({
-      name,
-      level,
-      category,
-      sets: [{ set: 1, kg: "", reps: "" }],
-    });
-    setNewRoutine(updatedRoutine);
+    setNewRoutine((prevData) => ({
+      ...prevData,
+      exercises: [
+        ...prevData.exercises,
+        {
+          name,
+          level,
+          category,
+          sets: [{ set: 1, kg: "", reps: "" }],
+        },
+      ],
+    }));
   };
 
   const removeExercise = (index) => {
-    const updatedExercises = newRoutine.exercises.filter((exercise, idx) => {
-      return index !== idx;
-    });
-    setNewRoutine({
-      ...newRoutine,
-      exercises: updatedExercises,
+    setNewRoutine((prevWorkoutData) => {
+      // Use filter to create a new array without the exercise at the specified index
+      const updatedExercises = prevWorkoutData.exercises.filter(
+        (exercise, idx) => idx !== index
+      );
+
+      return {
+        ...prevWorkoutData,
+        exercises: updatedExercises,
+      };
     });
   };
 
   const removeSet = (exerciseIndex, setIndex) => {
-    const updatedExercises = newRoutine.exercises.map((exercise, idx) => {
-      if (idx === exerciseIndex) {
-        return {
-          ...exercise,
-          sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
-        };
-      }
-      return exercise;
-    });
+    setNewRoutine((prevWorkoutData) => {
+      const updatedExercises = prevWorkoutData.exercises.map(
+        (exercise, idx) => {
+          if (idx === exerciseIndex) {
+            return {
+              ...exercise,
+              sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
+            };
+          }
+          return exercise;
+        }
+      );
 
-    setNewRoutine({
-      ...newRoutine,
-      exercises: updatedExercises,
+      return {
+        ...prevWorkoutData,
+        exercises: updatedExercises,
+      };
     });
   };
-
   //Take copy of state, use the exercises index to choose that exercise
   //Use set index to specify that exact set then field to update a specific field
   //Then spcify the value to update and use this as an onChangeText event
@@ -140,7 +151,6 @@ const EditRoutineScreen = ({ route }) => {
         <TouchableOpacity
           onPress={() => {
             navigation.pop();
-            setNewRoutine({ ...routine });
           }}>
           <Ionicons name="arrow-back" size={32} color="black" />
         </TouchableOpacity>

@@ -2,29 +2,22 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import useExerciseContext from "../../hooks/useExerciseContext";
 import useStateContext from "../../hooks/useStateContext";
+import SortByModal from "./Modals/SortByModal";
 
 const ExerciseSortBy = ({ selected, setSelected }) => {
-  const [active, setActive] = useState(false);
-
-  const handlePress = () => {
-    setActive(!active);
-  };
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View>
-      <TouchableOpacity onPress={handlePress}>
+      <SortByModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
         <Text style={styles.sortByText}>Sort By</Text>
       </TouchableOpacity>
-
-      <View style={styles.dropdownContainer}>
-        <TouchableOpacity onPress={() => setSelected("reverse")}>
-          <Text>Z to A</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setSelected("search")}>
-          <Text>A to Z</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -39,9 +32,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   sortByText: {
-    marginRight: 10,
-    alignSelf: "center",
-    fontSize: 18,
+    fontSize: 20,
+    marginRight: 15,
   },
   dropdownText: {
     fontSize: 20,

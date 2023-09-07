@@ -24,24 +24,7 @@ export default function ExerciseScreen() {
 
   useEffect(() => {
     getExercises();
-    navigation.setOptions({
-      headerRight: () => (
-        <View style={styles.headerRight}>
-          <TouchableOpacity onPress={() => handleEdit()}>
-            <Text>Edit</Text>
-          </TouchableOpacity>
-          {/* <ExerciseSortBy selected={selected} setSelected={setSelected} /> */}
-          <GestureHandlerRootView>
-            <TouchableOpacity
-              style={styles.headerIcon}
-              onPress={() => navigation.navigate("ExerciseCreate")}>
-              <Feather name="plus" size={24} color="#D5A8F8" />
-            </TouchableOpacity>
-          </GestureHandlerRootView>
-        </View>
-      ),
-    });
-  }, [isActive]);
+  }, []);
 
   const update = (sortBy) => {
     switch (sortBy) {
@@ -56,13 +39,13 @@ export default function ExerciseScreen() {
 
   return (
     <HeaderPanel>
-      <View style={styles.headerRight}>
-        {/* <ExerciseSortBy selected={selected} setSelected={setSelected} /> */}
-
+      <View style={styles.headerContainer}>
+        <ExerciseSortBy selected={selected} setSelected={setSelected} />
+        {/* Pushes any other data to the right */}
+        <View style={{ flex: 1 }} />
         <TouchableOpacity onPress={() => handleEdit()}>
           <Text style={styles.editText}>Edit</Text>
         </TouchableOpacity>
-
         <GestureHandlerRootView>
           <TouchableOpacity
             onPress={() => navigation.navigate("ExerciseCreate")}>
@@ -89,10 +72,8 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
   },
-  headerRight: {
-    display: "flex",
+  headerContainer: {
     flexDirection: "row",
-    alignSelf: "flex-end",
     alignItems: "center",
   },
   editText: {
