@@ -89,19 +89,8 @@ const editExercise =
     category,
     callback
   ) => {
-    const res = await Server.patch("/exercises/editExercise", {
-      id,
-      exerciseID,
-      userID,
-      name,
-      primaryMuscle,
-      secondaryMuscle,
-      equipment,
-      category,
-    });
-    dispatch({
-      type: "edit_exercise",
-      payload: {
+    try {
+      const res = await Server.patch("/exercises/editExercise", {
         id,
         exerciseID,
         userID,
@@ -110,10 +99,26 @@ const editExercise =
         secondaryMuscle,
         equipment,
         category,
-      },
-    });
-    if (callback) {
-      callback();
+      });
+      console.log(res);
+      dispatch({
+        type: "edit_exercise",
+        payload: {
+          id,
+          exerciseID,
+          userID,
+          name,
+          primaryMuscle,
+          secondaryMuscle,
+          equipment,
+          category,
+        },
+      });
+      if (callback) {
+        callback();
+      }
+    } catch (e) {
+      console.log(e.response.data);
     }
   };
 

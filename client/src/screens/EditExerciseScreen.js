@@ -6,6 +6,9 @@ import useExerciseContext from "../hooks/useExerciseContext";
 import validation from "../components/Exercises/ExerciseValidation";
 import { useNavigation } from "@react-navigation/native";
 import useUserContext from "../hooks/useUserContext";
+import HeaderPanel from "../components/HeaderPanel";
+import SaveEditModal from "../components/SaveEditModal";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function ExerciseEditScreen({ route }) {
   const { editExercise, state } = useExerciseContext();
@@ -25,6 +28,8 @@ export default function ExerciseEditScreen({ route }) {
 
   const [errors, setErrors] = useState({});
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleValidation = () => {
     setErrors(
       validation(name, primaryMuscle, secondaryMuscle, equipment, category)
@@ -32,75 +37,91 @@ export default function ExerciseEditScreen({ route }) {
   };
 
   const handleSubmit = () => {
-    if (!handleValidation())
-      try {
-        editExercise(
-          id,
-          exercise.exerciseID,
-          user.userDetails._id,
-          name,
-          primaryMuscle,
-          secondaryMuscle,
-          equipment,
-          category,
-          () => {
-            navigation.navigate("Exercises");
-          }
-        );
-      } catch (e) {
-        console.log("error");
-      }
+    try {
+      editExercise(
+        exercise._id,
+        exercise.exerciseID,
+        user.userDetails._id,
+        name,
+        primaryMuscle,
+        secondaryMuscle,
+        equipment,
+        category,
+        () => {
+          navigation.navigate("Exercises");
+        }
+      );
+    } catch (e) {
+      console.log("error");
+    }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Exercises</Text>
-      <Text style={styles.subTitle}>Edit Exercise</Text>
-      <Input
-        field={"Exercise Name"}
-        value={name}
-        setText={setName}
-        error={errors.name}
+    <HeaderPanel>
+      <SaveEditModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        saveText={"Exercise"}
+        handleSubmit={handleSubmit}
+        handleValidation={handleValidation}
       />
-      <Spacer />
-      <Input
-        field={"Primary Muscle"}
-        value={primaryMuscle}
-        setText={setPrimaryMuscle}
-        error={errors.primaryMuscle}
-      />
-      <Spacer />
-      <Input
-        field={"Secondary Muscle"}
-        value={secondaryMuscle}
-        setText={setSecondaryMuscle}
-        error={errors.secondaryMuscle}
-      />
-      <Spacer />
-      <Input
-        value={equipment}
-        field={"Equipment"}
-        setText={setEquipment}
-        error={errors.equipment}
-      />
-      <Spacer />
-      <Input
-        value={category}
-        field={"Category"}
-        setText={setCategory}
-        error={errors.category}
-      />
-      <TouchableOpacity style={styles.button} onPress={() => handleSubmit()}>
-        <Text style={styles.buttonText}>Save Exercise</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.headerIcon}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.pop();
+          }}>
+          <Ionicons name="arrow-back" size={32} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <Text style={styles.finishButton}>Save</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Exercises</Text>
+        <Text style={styles.subTitle}>Edit Exercise</Text>
+        <Input
+          field={"Exercise Name"}
+          value={name}
+          setText={setName}
+          error={errors.name}
+        />
+        <Spacer />
+        <Input
+          field={"Primary Muscle"}
+          value={primaryMuscle}
+          setText={setPrimaryMuscle}
+          error={errors.primaryMuscle}
+        />
+        <Spacer />
+        <Input
+          field={"Secondary Muscle"}
+          value={secondaryMuscle}
+          setText={setSecondaryMuscle}
+          error={errors.secondaryMuscle}
+        />
+        <Spacer />
+        <Input
+          value={equipment}
+          field={"Equipment"}
+          setText={setEquipment}
+          error={errors.equipment}
+        />
+        <Spacer />
+        <Input
+          value={category}
+          field={"Category"}
+          setText={setCategory}
+          error={errors.category}
+        />
+      </View>
+    </HeaderPanel>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 20,
-  },
   title: {
     fontSize: 36,
     fontWeight: "bold",
@@ -125,5 +146,14 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",
+  },
+  headerIcon: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  finishButton: {
+    color: "lightgreen",
+    fontSize: 18,
   },
 });

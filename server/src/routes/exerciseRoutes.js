@@ -32,10 +32,13 @@ router.post("/addExercise", exerciseValidator, async (req, res) => {
 });
 
 router.patch("/editExercise", async (req, res) => {
-  const exercise = await UserExercise.findByIdAndUpdate(req.body.id, {
-    ...req.body,
-  });
-  res.send(exercise);
+  try {
+    const exercise = await UserExercise.findById(req.body.id, { ...req.body });
+
+    res.send(exercise);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 router.delete("/deleteExercise/:id", async (req, res) => {
