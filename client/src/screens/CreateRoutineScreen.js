@@ -124,13 +124,13 @@ const CreateRoutineScreen = () => {
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       </View>
-      <AddExerciseModal
-        setAddExercise={setAddExercise}
-        handleSubmit={handleExerciseInput}
-        modalVisible={exerciseModalVisible}
-        setModalVisible={setExerciseModalVisible}
-      />
+
       <>
+        <AddExerciseModal
+          handleSubmit={handleExerciseInput}
+          modalVisible={exerciseModalVisible}
+          setModalVisible={setExerciseModalVisible}
+        />
         <CancelRoutineModal
           modalVisible={cancelModalVisible}
           setModalVisible={setCancelModalVisible}
@@ -174,21 +174,9 @@ const CreateRoutineScreen = () => {
           addSetToExercise={addSetToExercise}
           removeExercise={removeExercise}
           removeSet={removeSet}
-          modalVisible={exerciseModalVisible}
-          setModalVisible={setExerciseModalVisible}
+          exerciseModalVisible={exerciseModalVisible}
+          setExerciseModalVisible={setExerciseModalVisible}
         />
-        {routine.exercises.length < 3 ? (
-          <>
-            {errors.exercises && (
-              <Text style={styles.errors}>{errors.exercises}</Text>
-            )}
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
-              <Text style={styles.buttonText}>Add Exercise</Text>
-            </TouchableOpacity>
-          </>
-        ) : null}
       </>
     </HeaderPanel>
   );

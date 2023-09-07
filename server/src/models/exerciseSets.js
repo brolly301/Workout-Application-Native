@@ -8,6 +8,9 @@ const ExerciseSetsSchema = new Schema({
   exerciseName: {
     type: String,
   },
+  date: {
+    type: String,
+  },
   sets: [
     {
       set: {

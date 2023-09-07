@@ -2,28 +2,40 @@ import { StyleSheet, Text, View, FlatList } from "react-native";
 import React from "react";
 
 const ExerciseHistoryShow = ({ item }) => {
+  const date = new Date(item.date).toLocaleDateString("en-gb", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "short",
+  });
+
   return (
     <View style={styles.listContainer}>
-      <Text style={styles.date}>Mon, 24 August 2023</Text>
+      <Text style={styles.date}>{date}</Text>
       <View style={styles.hr} />
-      <View style={styles.headerContainer}>
-        <Text style={styles.setText}>Set</Text>
-        <Text style={styles.setText}>kg</Text>
-        <Text style={styles.setText}>Reps</Text>
+
+      <View style={styles.setContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.setHeading}>Set</Text>
+          {item.sets.map((set) => (
+            <Text style={styles.setText}>{set.set}</Text>
+          ))}
+        </View>
+
+        <View style={styles.headerContainer}>
+          <Text style={styles.setHeading}>Kg</Text>
+          {item.sets.map((set) => (
+            <Text style={styles.setText}>{set.kg}</Text>
+          ))}
+        </View>
+
+        <View style={styles.headerContainer}>
+          <Text style={styles.setHeading}>Reps</Text>
+          {item.sets.map((set) => (
+            <Text style={styles.setText}>{set.reps}</Text>
+          ))}
+        </View>
       </View>
-      <FlatList
-        data={item.sets}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => {
-          return (
-            <View style={styles.headerContainer}>
-              <Text style={styles.setText}>{item.set}</Text>
-              <Text style={styles.setText}>{item.kg}</Text>
-              <Text style={styles.setText}>{item.reps}</Text>
-            </View>
-          );
-        }}
-      />
     </View>
   );
 };
@@ -36,7 +48,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   hr: {
     borderBottomColor: "black",
@@ -46,11 +58,20 @@ const styles = StyleSheet.create({
   date: {
     textAlign: "center",
   },
-  setHeading: {},
-  setText: {},
+  setHeading: {
+    fontWeight: "bold",
+  },
+  setText: {
+    marginVertical: 5,
+  },
   headerContainer: {
     display: "flex",
+    alignItems: "center",
+  },
+  setContainer: {
+    display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
+    alignItems: "center",
   },
 });

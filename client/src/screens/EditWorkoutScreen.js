@@ -15,6 +15,7 @@ import useUserContext from "../hooks/useUserContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
 import SaveEditModal from "../components/SaveEditModal";
+import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 
 const EditWorkoutScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
@@ -23,6 +24,7 @@ const EditWorkoutScreen = ({ route }) => {
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
   const workout = route.params?.workout;
+  const [exerciseModalVisible, setExerciseModalVisible] = useState(false);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -120,6 +122,12 @@ const EditWorkoutScreen = ({ route }) => {
 
   return (
     <HeaderPanel>
+      <AddExerciseModal
+        setAddExercise={setAddExercise}
+        handleSubmit={handleExerciseInput}
+        modalVisible={exerciseModalVisible}
+        setModalVisible={setExerciseModalVisible}
+      />
       <SaveEditModal
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
@@ -138,44 +146,33 @@ const EditWorkoutScreen = ({ route }) => {
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       </View>
-      {addExercise ? (
-        <AddExercise
-          setAddExercise={setAddExercise}
-          handleSubmit={handleExerciseInput}
-        />
-      ) : (
-        <>
-          {errors.name && <Text>{errors.name}</Text>}
-          {errors.exercises && <Text>{errors.exercises}</Text>}
-          <Text style={styles.title}>Workouts</Text>
-          <Text style={styles.subTitle}>Edit Workout</Text>
-          <Text style={styles.fieldText}>Name</Text>
-          <TextInput
-            style={styles.input}
-            value={workoutText.name}
-            onChangeText={(text) => handleUpdateText("name", text)}
-          />
-          <Text style={styles.fieldText}>Description</Text>
-          <TextInput
-            style={styles.input}
-            value={workoutText.description}
-            onChangeText={(text) => handleUpdateText("description", text)}
-          />
-          <WorkoutExerciseList
-            workoutData={newWorkout}
-            handleExerciseInputChange={handleExerciseInputChange}
-            handleExerciseNotesChange={handleExerciseNotesChange}
-            addSetToExercise={addSetToExercise}
-            removeExercise={removeExercise}
-            removeSet={removeSet}
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setAddExercise(true)}>
-            <Text style={styles.buttonText}>Add Exercise</Text>
-          </TouchableOpacity>
-        </>
-      )}
+
+      {errors.name && <Text>{errors.name}</Text>}
+      {errors.exercises && <Text>{errors.exercises}</Text>}
+      <Text style={styles.title}>Workouts</Text>
+      <Text style={styles.subTitle}>Edit Workout</Text>
+      <Text style={styles.fieldText}>Name</Text>
+      <TextInput
+        style={styles.input}
+        value={workoutText.name}
+        onChangeText={(text) => handleUpdateText("name", text)}
+      />
+      <Text style={styles.fieldText}>Description</Text>
+      <TextInput
+        style={styles.input}
+        value={workoutText.description}
+        onChangeText={(text) => handleUpdateText("description", text)}
+      />
+      <WorkoutExerciseList
+        workoutData={newWorkout}
+        handleExerciseInputChange={handleExerciseInputChange}
+        handleExerciseNotesChange={handleExerciseNotesChange}
+        addSetToExercise={addSetToExercise}
+        removeExercise={removeExercise}
+        removeSet={removeSet}
+        setExerciseModalVisible={setExerciseModalVisible}
+        exerciseModalVisible={exerciseModalVisible}
+      />
     </HeaderPanel>
   );
 };

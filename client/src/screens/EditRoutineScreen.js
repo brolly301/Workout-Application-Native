@@ -15,6 +15,7 @@ import useUserContext from "../hooks/useUserContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
 import SaveEditModal from "../components/SaveEditModal";
+import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 
 const EditRoutineScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
@@ -23,6 +24,8 @@ const EditRoutineScreen = ({ route }) => {
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
   const routine = route.params?.routine;
+
+  const [exerciseModalVisible, setExerciseModalVisible] = useState(false);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -120,6 +123,12 @@ const EditRoutineScreen = ({ route }) => {
 
   return (
     <HeaderPanel>
+      <AddExerciseModal
+        setAddExercise={setAddExercise}
+        handleSubmit={handleExerciseInput}
+        modalVisible={exerciseModalVisible}
+        setModalVisible={setExerciseModalVisible}
+      />
       <SaveEditModal
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
@@ -128,7 +137,11 @@ const EditRoutineScreen = ({ route }) => {
         handleValidation={handleValidation}
       />
       <View style={styles.headerIcon}>
-        <TouchableOpacity onPress={() => navigation.pop()}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.pop();
+            setNewRoutine({ ...routine });
+          }}>
           <Ionicons name="arrow-back" size={32} color="black" />
         </TouchableOpacity>
         <TouchableOpacity
@@ -138,44 +151,33 @@ const EditRoutineScreen = ({ route }) => {
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       </View>
-      {addExercise ? (
-        <AddExercise
-          setAddExercise={setAddExercise}
-          handleSubmit={handleExerciseInput}
-        />
-      ) : (
-        <>
-          {errors.name && <Text>{errors.name}</Text>}
-          {errors.exercises && <Text>{errors.exercises}</Text>}
-          <Text style={styles.title}>Routines</Text>
-          <Text style={styles.subTitle}>Edit Routine</Text>
-          <Text style={styles.fieldText}>Name</Text>
-          <TextInput
-            style={styles.input}
-            value={routineText.name}
-            onChangeText={(text) => handleUpdateText("name", text)}
-          />
-          <Text style={styles.fieldText}>Description</Text>
-          <TextInput
-            style={styles.input}
-            value={routineText.description}
-            onChangeText={(text) => handleUpdateText("description", text)}
-          />
-          <WorkoutExerciseList
-            workoutData={newRoutine}
-            handleExerciseInputChange={handleExerciseInputChange}
-            handleExerciseNotesChange={handleExerciseNotesChange}
-            addSetToExercise={addSetToExercise}
-            removeExercise={removeExercise}
-            removeSet={removeSet}
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setAddExercise(true)}>
-            <Text style={styles.buttonText}>Add Exercise</Text>
-          </TouchableOpacity>
-        </>
-      )}
+
+      {errors.name && <Text>{errors.name}</Text>}
+      {errors.exercises && <Text>{errors.exercises}</Text>}
+      <Text style={styles.title}>Routines</Text>
+      <Text style={styles.subTitle}>Edit Routine</Text>
+      <Text style={styles.fieldText}>Name</Text>
+      <TextInput
+        style={styles.input}
+        value={routineText.name}
+        onChangeText={(text) => handleUpdateText("name", text)}
+      />
+      <Text style={styles.fieldText}>Description</Text>
+      <TextInput
+        style={styles.input}
+        value={routineText.description}
+        onChangeText={(text) => handleUpdateText("description", text)}
+      />
+      <WorkoutExerciseList
+        workoutData={newRoutine}
+        handleExerciseInputChange={handleExerciseInputChange}
+        handleExerciseNotesChange={handleExerciseNotesChange}
+        addSetToExercise={addSetToExercise}
+        removeExercise={removeExercise}
+        removeSet={removeSet}
+        setExerciseModalVisible={setExerciseModalVisible}
+        exerciseModalVisible={exerciseModalVisible}
+      />
     </HeaderPanel>
   );
 };

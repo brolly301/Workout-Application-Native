@@ -25,20 +25,20 @@ import HeaderPanel from "../components/HeaderPanel";
 const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
   const { state: user } = useUserContext();
+  const { state, addWorkout } = useWorkoutContext();
+
   const [addExercise, setAddExercise] = useState(false);
   const [workoutData, setWorkoutData] = useState({
     userID: user.userDetails._id,
     workoutID: `${user.userDetails._id}${Math.floor(
       Math.random() * 100
     )}${Date.now()}`,
-    name: "",
+    name: `Workout ${state?.length + 1}`,
     description: "",
     date: new Date(),
     time: 0,
     exercises: [],
   });
-
-  console.log(workoutData);
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [finishModalVisible, setFinishlModalVisible] = useState(false);
@@ -47,7 +47,6 @@ const CreateWorkoutScreen = ({ route }) => {
 
   const routine = route.params?.routine;
 
-  const { state, addWorkout } = useWorkoutContext();
   const { addExerciseSets } = useExerciseSetsContext();
 
   const [errors, setErrors] = useState({});
@@ -61,6 +60,7 @@ const CreateWorkoutScreen = ({ route }) => {
       addExerciseSets({
         userID: user.userDetails._id,
         exerciseName: exercise.name,
+        date: workoutData.date,
         sets: exercise.sets,
       });
     }
@@ -190,7 +190,6 @@ const CreateWorkoutScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
       <AddExerciseModal
-        setAddExercise={setAddExercise}
         handleSubmit={handleExerciseInput}
         modalVisible={exerciseModalVisible}
         setModalVisible={setExerciseModalVisible}
@@ -215,7 +214,6 @@ const CreateWorkoutScreen = ({ route }) => {
 
         <View style={styles.timerContainer}>
           <TextInput
-            placeholder="Workout 1"
             value={workoutData.name}
             style={styles.title}
             onChangeText={(text) =>
@@ -244,19 +242,10 @@ const CreateWorkoutScreen = ({ route }) => {
           setExerciseModalVisible={setExerciseModalVisible}
           exerciseModalVisible={exerciseModalVisible}
         />
-        {workoutData.exercises.length < 3 ? (
-          <>
-            {errors.exercises && (
-              <Text style={styles.errors}>{errors.exercises}</Text>
-            )}
 
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
-              <Text style={styles.buttonText}>Add Exercise</Text>
-            </TouchableOpacity>
-          </>
-        ) : null}
+        {errors.exercises && (
+          <Text style={styles.errors}>{errors.exercises}</Text>
+        )}
       </>
     </HeaderPanel>
   );

@@ -19,17 +19,15 @@ const WorkoutExerciseList = ({
   exerciseModalVisible,
 }) => {
   const renderFooter = () => {
-    if (workoutData.exercises.length >= 3) {
-      return (
-        <View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
-            <Text style={styles.buttonText}>Add Exercise</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
+    return (
+      <View style={{ marginTop: 20 }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setExerciseModalVisible(!exerciseModalVisible)}>
+          <Text style={styles.buttonText}>Add Exercise</Text>
+        </TouchableOpacity>
+      </View>
+    );
   };
 
   return (
