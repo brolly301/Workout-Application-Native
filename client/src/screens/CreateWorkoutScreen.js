@@ -88,22 +88,27 @@ const CreateWorkoutScreen = ({ route }) => {
 
   const removeSet = (exerciseIndex, setIndex) => {
     setWorkoutData((prevWorkoutData) => {
-      const updatedExercises = prevWorkoutData.exercises.map(
-        (exercise, idx) => {
-          if (idx === exerciseIndex) {
-            return {
-              ...exercise,
-              sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
-            };
-          }
-          return exercise;
-        }
+      const updatedWorkout = { ...prevWorkoutData };
+      const exerciseToUpdate = updatedWorkout.exercises[exerciseIndex];
+
+      // Remove the set at the specified index
+      const updatedSets = exerciseToUpdate.sets.filter(
+        (set, idx) => idx !== setIndex
       );
 
-      return {
-        ...prevWorkoutData,
-        exercises: updatedExercises,
+      // Renumber the remaining sets
+      const renumberedSets = updatedSets.map((set, idx) => ({
+        ...set,
+        set: idx + 1,
+      }));
+
+      // Update the exercise in the workout data with the renumbered sets
+      updatedWorkout.exercises[exerciseIndex] = {
+        ...exerciseToUpdate,
+        sets: renumberedSets,
       };
+
+      return updatedWorkout;
     });
   };
 

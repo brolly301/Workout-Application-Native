@@ -10,10 +10,6 @@ import React, { useEffect, useState } from "react";
 import ExerciseShow from "../../components/Exercises/ExerciseShow";
 import { useNavigation } from "@react-navigation/native";
 
-const upperCaseChar = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
 export default function ExerciseList({ state }) {
   const navigation = useNavigation();
 
@@ -26,6 +22,7 @@ export default function ExerciseList({ state }) {
       <Text style={styles.subTitle}>All Exercises</Text>
 
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={state}
         keyExtractor={(item) =>
           Math.floor(Math.random() * 1000000) + Date.now()

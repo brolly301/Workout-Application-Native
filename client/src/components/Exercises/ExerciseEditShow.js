@@ -2,6 +2,10 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { EvilIcons } from "@expo/vector-icons";
 
+const upperCase = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 export default function ExerciseShow({ exercise }) {
   return (
     <View style={styles.container}>
@@ -12,12 +16,16 @@ export default function ExerciseShow({ exercise }) {
         }}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.name}>{exercise.name}</Text>
+        <Text style={styles.name}>{upperCase(exercise.name)}</Text>
+
         <Text style={styles.type}>
-          {exercise.primaryMuscles ? exercise.primaryMuscles[0] : null}
+          {exercise.primaryMuscles
+            ? upperCase(exercise.primaryMuscles[0])
+            : null}
+          {exercise.primaryMuscle ? upperCase(exercise.primaryMuscle) : null}
         </Text>
       </View>
-      <EvilIcons style={styles.icon} name='pencil' size={30} color='black' />
+      <EvilIcons style={styles.icon} name="pencil" size={34} color="black" />
     </View>
   );
 }
@@ -30,13 +38,33 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginVertical: 5,
+    borderRadius: 5,
   },
   textContainer: {
     padding: 15,
   },
   image: {
-    height: 100,
-    width: 100,
+    marginLeft: 10,
+    marginTop: 10,
+    height: 65,
+    width: 65,
+    borderRadius: 10,
+  },
+
+  icon: {
+    alignSelf: "center",
+    display: "flex",
+    justifyContent: "flex-end",
+    marginLeft: "auto",
+    marginRight: 10,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  type: {
+    fontSize: 16,
   },
 
   icon: {

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import Spacer from "../Spacer";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, EvilIcons } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 
 const WorkoutExerciseShow = ({
@@ -20,6 +20,8 @@ const WorkoutExerciseShow = ({
   removeExercise,
   removeSet,
 }) => {
+  const setLength = item.sets.length;
+
   return (
     <View>
       <Spacer />
@@ -40,31 +42,45 @@ const WorkoutExerciseShow = ({
         <Text style={styles.header}>Reps</Text>
       </View>
       {item.sets?.map((item, index) => {
+        console.log(item);
+
         return (
-          <View
+          <Swipeable
             key={Math.floor(Math.random() * 1000000) + Date.now()}
-            style={styles.setHeaderContainer}>
-            <Text style={styles.header}>{item.set}</Text>
-            <TouchableOpacity onPress={() => removeSet(exerciseIndex, index)}>
-              <Text>Kepp</Text>
-            </TouchableOpacity>
-            <TextInput
-              style={styles.header}
-              placeholder="0"
-              defaultValue={item?.kg?.toString() ?? ""}
-              onChangeText={(text) =>
-                handleExerciseInputChange(exerciseIndex, index, "kg", text)
-              }
-            />
-            <TextInput
-              style={styles.header}
-              placeholder="0"
-              value={item?.reps?.toString() ?? ""}
-              onChangeText={(text) =>
-                handleExerciseInputChange(exerciseIndex, index, "reps", text)
-              }
-            />
-          </View>
+            renderRightActions={() => (
+              <View>
+                {setLength > 1 ? (
+                  <TouchableOpacity
+                    style={styles.swipeableButton}
+                    onPress={() => removeSet(exerciseIndex, index)}>
+                    <EvilIcons name="trash" size={30} color="red" />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+            )}>
+            <View
+              key={Math.floor(Math.random() * 1000000) + Date.now()}
+              style={styles.setHeaderContainer}>
+              <Text style={styles.header}>{item.set}</Text>
+
+              <TextInput
+                style={styles.header}
+                placeholder="0"
+                defaultValue={item?.kg?.toString() ?? ""}
+                onChangeText={(text) =>
+                  handleExerciseInputChange(exerciseIndex, index, "kg", text)
+                }
+              />
+              <TextInput
+                style={styles.header}
+                placeholder="0"
+                value={item?.reps?.toString() ?? ""}
+                onChangeText={(text) =>
+                  handleExerciseInputChange(exerciseIndex, index, "reps", text)
+                }
+              />
+            </View>
+          </Swipeable>
         );
       })}
       <Spacer />
@@ -137,5 +153,16 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  swipeableButton: {
+    justifyContent: "center",
+    alignItems: "flex-end",
+    // flex: 1,
+  },
+  swipeableButtonText: {
+    backgroundColor: "red",
+    color: "white",
+    padding: 5,
+    fontWeight: "bold",
   },
 });
