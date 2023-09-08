@@ -61,10 +61,10 @@ const WorkoutExerciseShow = ({
             <View
               key={Math.floor(Math.random() * 1000000) + Date.now()}
               style={styles.setHeaderContainer}>
-              <Text style={styles.header}>{item.set}</Text>
+              <Text style={styles.set}>{item.set}</Text>
 
               <TextInput
-                style={styles.header}
+                style={styles.kg}
                 placeholder="0"
                 defaultValue={item?.kg?.toString() ?? ""}
                 onChangeText={(text) =>
@@ -72,7 +72,7 @@ const WorkoutExerciseShow = ({
                 }
               />
               <TextInput
-                style={styles.header}
+                style={styles.kg}
                 placeholder="0"
                 value={item?.reps?.toString() ?? ""}
                 onChangeText={(text) =>
@@ -87,6 +87,7 @@ const WorkoutExerciseShow = ({
       <TextInput
         value={item.notes}
         style={styles.input}
+        placeholder="Exercise notes"
         onChangeText={(text) =>
           handleExerciseNotesChange(exerciseIndex, "notes", text)
         }
@@ -113,16 +114,26 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 18,
-    fontWeight: "500",
+    fontWeight: "bold",
   },
   title: {
-    fontSize: 18,
+    fontSize: 18.5,
     fontWeight: "bold",
   },
   set: {
+    fontSize: 18,
     alignSelf: "center",
     marginTop: 10,
     paddingBottom: 3,
+    marginHorizontal: 5,
+    fontWeight: "500",
+  },
+  kg: {
+    fontSize: 18,
+    alignSelf: "center",
+    marginTop: 10,
+    paddingBottom: 3,
+    paddingLeft: 5,
   },
   input: {
     borderWidth: 1,
@@ -132,6 +143,7 @@ const styles = StyleSheet.create({
     height: 40,
     paddingVertical: 7,
     paddingLeft: 7,
+    marginBottom: 10,
   },
   button: {
     width: "100%",

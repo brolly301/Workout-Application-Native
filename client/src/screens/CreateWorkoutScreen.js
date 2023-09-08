@@ -227,10 +227,12 @@ const CreateWorkoutScreen = ({ route }) => {
           />
           <Timer />
         </View>
-        <Text style={styles.label}>Description</Text>
         <TextInput
           style={styles.input}
+          multiline={true}
+          numberOfLines={3}
           value={workoutData.description}
+          placeholder="Description"
           onChangeText={(text) =>
             setWorkoutData({ ...workoutData, description: text })
           }
@@ -282,6 +284,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     paddingVertical: 7,
+    paddingBottom: 30,
     paddingLeft: 7,
   },
   button: {

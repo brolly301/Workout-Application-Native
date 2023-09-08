@@ -146,10 +146,10 @@ const CreateRoutineScreen = () => {
         <Text style={styles.title}>Routines</Text>
         <Text style={styles.subTitle}>Create Routine</Text>
         {errors.name && <Text style={styles.errors}>{errors.name}</Text>}
-        <Text style={styles.fieldText}>Name</Text>
         <TextInput
-          style={styles.input}
+          style={styles.nameInput}
           value={routine.name}
+          placeholder="Name"
           onChangeText={(text) =>
             setRoutine({
               ...routine,
@@ -161,9 +161,9 @@ const CreateRoutineScreen = () => {
             })
           }
         />
-        <Text>Description</Text>
         <TextInput
-          style={styles.input}
+          placeholder="Description"
+          style={styles.descriptionInput}
           value={routine.description}
           onChangeText={(text) => setRoutine({ ...routine, description: text })}
         />
@@ -218,14 +218,25 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "flex-end",
   },
-  input: {
+  nameInput: {
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
     width: "100%",
     height: 35,
+    marginBottom: 10,
     paddingVertical: 7,
     paddingLeft: 7,
+  },
+  descriptionInput: {
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 5,
+    width: "100%",
+    height: 50,
+    paddingVertical: 7,
+    paddingLeft: 7,
+    paddingBottom: 25,
   },
   finishButton: {
     color: "lightgreen",

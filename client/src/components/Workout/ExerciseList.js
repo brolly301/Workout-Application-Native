@@ -23,6 +23,7 @@ export default function ExerciseList({
   return (
     <View style={styles.container}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={state}
         keyExtractor={(item) =>
           Math.floor(Math.random() * 1000000) + Date.now()
@@ -33,8 +34,7 @@ export default function ExerciseList({
               onPress={() => {
                 handleSubmit(item.name, item.category, item.level);
                 setModalVisible(!modalVisible);
-              }}
-            >
+              }}>
               <ExerciseShow exercise={item} />
             </TouchableOpacity>
           );

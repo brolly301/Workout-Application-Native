@@ -14,23 +14,23 @@ const AddExerciseModal = ({ modalVisible, setModalVisible, handleSubmit }) => {
   return (
     <View>
       <Modal
-        animationType='fade'
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
-        }}
-      >
+        }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
               <EvilIcons
                 style={styles.modalIconClose}
-                name='close'
+                name="close"
                 size={24}
-                color='black'
+                color="black"
               />
             </TouchableOpacity>
+            <Text style={styles.selectExercise}>Select Exercise</Text>
 
             <SearchBar placeholder={"exercises"} setText={setSearch} />
             <View style={{ flex: 1 }}>
@@ -70,5 +70,10 @@ const styles = StyleSheet.create({
   modalIconClose: {
     alignSelf: "flex-end",
     marginBottom: 5,
+  },
+  selectExercise: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
