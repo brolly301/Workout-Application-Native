@@ -26,6 +26,8 @@ const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
   const { state: user } = useUserContext();
   const { state, addWorkout } = useWorkoutContext();
+  const [newTime, setNewTime] = useState(0);
+  const routine = route.params?.routine;
 
   const [addExercise, setAddExercise] = useState(false);
   const [workoutData, setWorkoutData] = useState({
@@ -36,20 +38,31 @@ const CreateWorkoutScreen = ({ route }) => {
     name: `Workout ${state?.length + 1}`,
     description: "",
     date: new Date(),
-    time: 0,
+    time: newTime,
     exercises: [],
   });
+
+  console.log(workoutData);
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [finishModalVisible, setFinishlModalVisible] = useState(false);
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [exerciseModalVisible, setExerciseModalVisible] = useState(false);
-
-  const routine = route.params?.routine;
-
   const { addExerciseSets } = useExerciseSetsContext();
-
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (routine) {
+      setWorkoutData({ ...workoutData, ...routine, _id: null });
+    }
+  }, []);
+
+  const handleChangeTime = (time) => {
+    setWorkoutData((prevWorkoutData) => ({
+      ...prevWorkoutData,
+      time,
+    }));
+  };
 
   const handleValidation = () => {
     setErrors(validation(workoutData));
@@ -208,6 +221,7 @@ const CreateWorkoutScreen = ({ route }) => {
         setModalVisible={setFinishlModalVisible}
         handleSubmit={handleSubmit}
         handleValidation={handleValidation}
+        handleChangeTime={handleChangeTime}
       />
       <CancelModal
         modalVisible={cancelModalVisible}

@@ -5,10 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 import useRoutineContext from "../../../hooks/useRoutineContext";
 import CancelModal from "../../Workout/Modals/CancelModal";
 import DeleteModal from "../../DeleteModal";
+import useStateContext from "../../../hooks/useStateContext";
 
 const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
   const { deleteRoutine } = useRoutineContext();
   const navigation = useNavigation();
+  const { startStopTimer } = useStateContext();
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
 
@@ -52,6 +54,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                     screen: "CreateWorkout",
                     params: { routine: routine },
                   });
+                  startStopTimer(true);
                   setModalVisible(!modalVisible);
                 }}>
                 <AntDesign

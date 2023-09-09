@@ -15,16 +15,16 @@ export default function RoutineList({ limit, allRoutines }) {
   const navigation = useNavigation();
 
   return (
-    <View>
+    <View style={styles.container}>
       {allRoutines?.length >= 1 ? (
         <>
-          <FlatList
-            data={allRoutines.slice(0, limit)}
-            key={(item) => item._id}
-            renderItem={({ item }) => {
-              return <RoutineShow routine={item} />;
-            }}
-          />
+          {allRoutines.slice(0, limit).map((item) => {
+            return (
+              <View style={styles.defaultContainer}>
+                <RoutineShow routine={item} />
+              </View>
+            );
+          })}
         </>
       ) : (
         <NoResultsPlaceholder
@@ -41,7 +41,12 @@ export default function RoutineList({ limit, allRoutines }) {
 }
 
 const styles = StyleSheet.create({
-  defaultContainer: {},
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
   deafultText: {
     fontSize: 15,
     marginVertical: 5,

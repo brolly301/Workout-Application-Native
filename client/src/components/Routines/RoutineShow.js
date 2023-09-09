@@ -3,10 +3,17 @@ import React, { useState } from "react";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import RoutineStart from "./RoutineStart";
 import RoutineModal from "./Modals/RoutineModal";
+import useWorkoutContext from "../../hooks/useWorkoutContext";
+import Spacer from "../Spacer";
 
 export default function RoutineShow({ routine }) {
   const [isActive, setIsActive] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const { state } = useWorkoutContext();
+
+  const workoutsCompleted = Array.isArray(state)
+    ? state.filter((workout) => workout.routineID === routine.routineID)
+    : [];
 
   return (
     <>
@@ -17,22 +24,21 @@ export default function RoutineShow({ routine }) {
       />
       <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.container}>
-          <MaterialCommunityIcons
-            style={styles.dumbbell}
-            name="dumbbell"
-            size={32}
-            color="black"
-          />
           <View style={styles.textContainer}>
-            <Text style={styles.name}>{routine?.name}</Text>
-            <Text style={styles.type}>{routine?.description}</Text>
+            <Text numberOfLines={1} style={styles.name}>
+              {routine?.name}
+            </Text>
+            <Text numberOfLines={1} style={styles.description}>
+              {routine?.description}
+            </Text>
+            <Spacer />
+            <Text style={styles.workoutExercise}>
+              Exercises: {routine?.exercises.length}{" "}
+            </Text>
+            <Text style={styles.workoutExercise}>
+              Workouts: {workoutsCompleted?.length || 0}{" "}
+            </Text>
           </View>
-          <AntDesign
-            name="arrowright"
-            size={24}
-            color="black"
-            style={styles.icon}
-          />
         </View>
       </TouchableOpacity>
     </>
@@ -43,8 +49,9 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",
-    marginVertical: 5,
-    width: "100%",
+    marginVertical: 7,
+    width: 185,
+    justifyContent: "space-between",
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
@@ -52,27 +59,18 @@ const styles = StyleSheet.create({
 
   textContainer: {
     padding: 15,
-    marginLeft: 50,
   },
 
-  icon: {
-    alignSelf: "center",
-    display: "flex",
-    justifyContent: "flex-end",
-    marginLeft: "auto",
-    marginRight: 10,
-  },
   name: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
   },
-  type: {
+  description: {
     fontSize: 16,
   },
-  dumbbell: {
-    position: "absolute",
-    top: 24,
-    left: 15,
+  workoutExercise: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

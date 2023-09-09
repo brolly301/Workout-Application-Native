@@ -15,7 +15,18 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [routine, setRoutine] = useState(null);
 
-  console.log(state[0]);
+  const formatTime = (time) => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+    return (
+      <Text>
+        {hours.toString().padStart(2, "0")}:
+        {minutes.toString().padStart(2, "0")}:
+        {seconds.toString().padStart(2, "0")}
+      </Text>
+    );
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -62,13 +73,15 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
                         color="black"
                       />
                       <View style={styles.subContainer}>
-                        <View style={styles.textContainer}>
+                        <View style={styles.textContainer2}>
                           <Text style={styles.text}>{item.name}</Text>
 
                           <Text style={styles.text}>{date}</Text>
                         </View>
                         <View style={styles.textContainer}>
-                          <Text style={styles.text}>{item.time}hr 50min</Text>
+                          <Text style={styles.text}>
+                            {formatTime(item.time)}
+                          </Text>
                           <Text style={styles.text}>
                             {item.exercises.length || 0} Exercises
                           </Text>
@@ -110,6 +123,12 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   textContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    marginLeft: 20,
+  },
+  textContainer2: {
     display: "flex",
     flexDirection: "column",
     marginLeft: 20,

@@ -11,6 +11,7 @@ router.post("/addWorkout", workoutValidator, async (req, res) => {
     await workout.save();
     res.send(workout);
   } catch (e) {
+    console.error(e);
     return res.status(422).send(e.message);
   }
 });

@@ -8,6 +8,9 @@ const WorkoutSchema = new Schema({
   workoutID: {
     type: String,
   },
+  routineID: {
+    type: String,
+  },
   name: {
     type: String,
   },

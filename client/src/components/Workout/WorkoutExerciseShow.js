@@ -42,8 +42,6 @@ const WorkoutExerciseShow = ({
         <Text style={styles.header}>Reps</Text>
       </View>
       {item.sets?.map((item, index) => {
-        console.log(item);
-
         return (
           <Swipeable
             key={Math.floor(Math.random() * 1000000) + Date.now()}

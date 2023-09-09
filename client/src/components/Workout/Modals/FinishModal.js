@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useStateContext from "../../../hooks/useStateContext";
 
 const FinishModal = ({
@@ -7,8 +7,22 @@ const FinishModal = ({
   setModalVisible,
   handleSubmit,
   handleValidation,
+  handleChangeTime,
 }) => {
-  const { resetTimer, startStopTimer } = useStateContext();
+  const { resetTimer, startStopTimer, time } = useStateContext();
+
+  const onModalOpen = () => {
+    handleChangeTime(time);
+  };
+
+  // Use the useEffect hook to listen for changes in modalVisible
+  useEffect(() => {
+    if (modalVisible) {
+      startStopTimer(false);
+      // Call the function when the modal becomes visible
+      onModalOpen();
+    }
+  }, [modalVisible]);
 
   return (
     <View>
@@ -26,13 +40,18 @@ const FinishModal = ({
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.closeButton}
-                onPress={() => setModalVisible(!modalVisible)}>
+                onPress={() => {
+                  startStopTimer(true);
+
+                  setModalVisible(!modalVisible);
+                }}>
                 <Text style={styles.closeButtonText}>No</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.closeButton}
                 onPress={() => {
                   setModalVisible(!modalVisible);
+                  startStopTimer(true);
                   if (!handleValidation())
                     try {
                       handleSubmit(() => {
@@ -42,6 +61,8 @@ const FinishModal = ({
                     } catch (e) {
                       console.log(e);
                     }
+                  else {
+                  }
                 }}>
                 <Text style={styles.closeButtonText}>Yes</Text>
               </TouchableOpacity>
