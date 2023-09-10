@@ -21,7 +21,7 @@ export default function WorkoutDashboard() {
       <WorkoutCalendar />
       <QuickStart />
       <Text style={styles.routineText}>Recent Routines</Text>
-      <RoutineList allRoutines={allRoutines} limit={1} />
+      <RoutineList allRoutines={allRoutines} limit={2} />
     </HeaderPanel>
   );
 }
@@ -35,9 +35,10 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 30,
+    marginBottom: 20,
   },
   routineText: {
+    marginTop: 10,
     fontSize: 22,
     fontWeight: "bold",
   },

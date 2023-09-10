@@ -30,6 +30,7 @@ export default function HistoryScreen() {
           <Text style={styles.buttonText}>Runs</Text>
         </TouchableOpacity>
       </View>
+      <Text style={styles.subTitle}>All Workouts</Text>
       {active ? (
         <HistoryList state={state} handleDeleteWorkout={handleDeleteWorkout} />
       ) : (
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",
@@ -66,5 +67,9 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  subTitle: {
+    marginTop: 10,
+    fontSize: 18,
   },
 });

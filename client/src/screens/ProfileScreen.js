@@ -71,11 +71,11 @@ export default function ProfileScreen() {
       </Modal>
       <Text style={styles.title}>Profile</Text>
       <ProfileDetails />
-      <Text style={styles.subTitle}>Activity</Text>
+      <Text style={styles.activity}>Activity</Text>
       <ProfileCharts />
-      <Text style={styles.subTitle}>Recent Workouts</Text>
+      <Text style={styles.recentWorkout}>Recent Workouts</Text>
       <View style={styles.recentWorkoutsContainer}>
-        <HistoryList state={state} limit={3} />
+        <HistoryList state={state} limit={2} />
       </View>
     </HeaderPanel>
   );
@@ -91,9 +91,14 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: "bold",
   },
-  subTitle: {
-    fontSize: 28,
-    fontWeight: "500",
+  activity: {
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+  recentWorkout: {
+    marginTop: 15,
+    fontSize: 22,
+    fontWeight: "bold",
   },
   recentWorkoutsContainer: {
     flex: 1,

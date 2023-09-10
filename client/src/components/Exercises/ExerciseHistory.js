@@ -22,6 +22,7 @@ export default function ExerciseHistory({ exercise }) {
         />
       ) : (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={exercises}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => {

@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",

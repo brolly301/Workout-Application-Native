@@ -24,13 +24,12 @@ export default function ProfileDetails() {
   return (
     <View style={styles.container}>
       <Modal
-        animationType='fade'
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           toggleModal();
-        }}
-      >
+        }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.title}>Profile Details</Text>
@@ -44,8 +43,7 @@ export default function ProfileDetails() {
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.closeButton}
-                onPress={() => toggleModal()}
-              >
+                onPress={() => toggleModal()}>
                 <Text style={styles.closeButtonText}>Close</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -53,8 +51,7 @@ export default function ProfileDetails() {
                 onPress={() => {
                   editUserDetails({ firstName, lastName, email });
                   toggleModal();
-                }}
-              >
+                }}>
                 <Text style={styles.closeButtonText}>Save</Text>
               </TouchableOpacity>
             </View>
@@ -68,13 +65,12 @@ export default function ProfileDetails() {
         }}
       />
       <View style={styles.subContainer}>
-        <Text>
+        <Text style={styles.name}>
           {state.userDetails?.firstName} {state.userDetails?.lastName}
         </Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => setModalVisible(true)}
-        >
+          onPress={() => setModalVisible(true)}>
           <Text style={styles.buttonText}>View Profile</Text>
         </TouchableOpacity>
       </View>
@@ -92,7 +88,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#D5A8F8",
     fontWeight: "500",
-    marginTop: 5,
+    marginTop: 4,
+    fontSize: 15,
   },
   container: {
     display: "flex",
@@ -100,7 +97,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   subContainer: {
-    padding: 20,
+    padding: 18,
+    marginLeft: 5,
   },
   centeredView: {
     flex: 1,
@@ -132,5 +130,9 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

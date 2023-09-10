@@ -33,6 +33,7 @@ const WorkoutExerciseList = ({
   return (
     <View style={styles.container}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={workoutData.exercises}
         ListFooterComponentStyle={{ flex: 1, justifyContent: "flex-end" }}
         ListFooterComponent={renderFooter}

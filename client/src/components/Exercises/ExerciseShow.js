@@ -39,11 +39,12 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     borderWidth: 1,
+    borderBottomWidth: 0,
     borderColor: "black",
     display: "flex",
     flexDirection: "row",
-    marginVertical: 5,
     borderRadius: 5,
+    paddingVertical: 5,
   },
   textContainer: {
     padding: 15,

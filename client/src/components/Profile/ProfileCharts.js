@@ -1,59 +1,89 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { LineChart } from "react-native-chart-kit";
+import React, { useEffect, useState } from "react";
+import { BarChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
+import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
+import {
+  VictoryChart,
+  VictoryBar,
+  VictoryTheme,
+  VictoryLabel,
+  VictoryAxis,
+} from "victory-native";
 
 const ProfileCharts = () => {
+  const { state } = useExerciseSetsContext();
+
+  const topExercises = state.map((exerciseSet) => {
+    return exerciseSet.exerciseName;
+  });
+
+  const topExercisesCount = topExercises.reduce(
+    (totalExercises, currentExercise) => {
+      totalExercises[currentExercise]
+        ? totalExercises[currentExercise]++
+        : (totalExercises[currentExercise] = 1);
+      return totalExercises;
+    },
+    {}
+  );
+
+  const dataForVictoryBar = Object.keys(topExercisesCount).map((exercise) => ({
+    x: exercise,
+    y: topExercisesCount[exercise],
+  }));
+
   return (
-    <View>
-      <LineChart
-        data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
-          datasets: [
-            {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
-            },
-          ],
-        }}
-        width={Dimensions.get("window").width} // from react-native
-        height={220}
-        yAxisLabel='$'
-        yAxisSuffix='k'
-        yAxisInterval={1} // optional, defaults to 1
-        chartConfig={{
-          backgroundColor: "#e26a00",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-          propsForDots: {
-            r: "6",
-            strokeWidth: "2",
-            stroke: "#ffa726",
-          },
-        }}
-        bezier
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
+    <View style={styles.container}>
+      <View style={styles.chartContainer}>
+        <VictoryChart
+          style={styles.chart}
+          width={screenWidth - 40}
+          height={200}>
+          <Text style={styles.title}>Most Used Exercises</Text>
+          <VictoryAxis
+            label="Exercises" // Set the label to "Exercises"
+            style={{
+              axisLabel: { padding: 15, fontSize: 16 }, // Adjust label position if needed
+            }}
+            tickFormat={(tick) => (tick === "Exercises" ? "Exercises" : "")} // Customize tick format
+          />
+          {/* y-axis labels */}
+          <VictoryAxis dependentAxis tickValues={[]} />
+
+          <VictoryBar
+            barWidth={30}
+            data={dataForVictoryBar}
+            theme={VictoryTheme.material}
+            labels={({ datum }) => datum.x}
+            labelComponent={<VictoryLabel dx={15} />}
+            style={{
+              data: { fill: "rgb(213, 168, 248)", marginTop: 10 },
+            }}
+            alignment="start"
+          />
+        </VictoryChart>
+      </View>
     </View>
   );
 };
 
 export default ProfileCharts;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 10,
+
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0, 0.5)",
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "500",
+    textAlign: "center",
+  },
+  chartContainer: {
+    marginTop: 20, // Add padding/margin to the top of the chart
+  },
+});

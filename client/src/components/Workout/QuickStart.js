@@ -29,7 +29,7 @@ export default function QuickStart() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 15,
   },
   title: {
     fontSize: 22,
@@ -42,10 +42,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 10,
     marginTop: 10,
-    marginBottom: 15,
+    marginBottom: 5,
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",

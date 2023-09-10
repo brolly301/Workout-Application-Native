@@ -48,6 +48,7 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
       ) : (
         <>
           <FlatList
+            showsVerticalScrollIndicator={false}
             data={Array.isArray(state) ? state.slice(0, limit) : []}
             keyExtractor={(item) => item._id}
             renderItem={({ item, index }) => {
@@ -101,7 +102,7 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: 20,
+    marginTop: 10,
     flex: 1,
     borderRadius: 5,
   },

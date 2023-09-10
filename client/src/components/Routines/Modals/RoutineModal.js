@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -80,37 +87,39 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
               </Text>
             </View>
             <View>
-              {routine?.exercises?.map((exercise, index) => {
-                return (
-                  <>
-                    <Text
-                      style={styles.exerciseName}
-                      key={Math.floor(Math.random() * 1000)}>
-                      Exercises {index + 1} - {exercise?.name}
-                    </Text>
-                    <View style={styles.exerciseContainer}>
-                      <View style={styles.setsContainer}>
-                        <Text style={styles.exerciseText}>Set</Text>
-                        {exercise?.sets?.map((set, index) => (
-                          <Text style={styles.setText}>{set.set}</Text>
-                        ))}
+              <ScrollView>
+                {routine?.exercises?.map((exercise, index) => {
+                  return (
+                    <>
+                      <Text
+                        style={styles.exerciseName}
+                        key={Math.floor(Math.random() * 1000)}>
+                        Exercises {index + 1} - {exercise?.name}
+                      </Text>
+                      <View style={styles.exerciseContainer}>
+                        <View style={styles.setsContainer}>
+                          <Text style={styles.exerciseText}>Set</Text>
+                          {exercise?.sets?.map((set, index) => (
+                            <Text style={styles.setText}>{set.set}</Text>
+                          ))}
+                        </View>
+                        <View style={styles.setsContainer}>
+                          <Text style={styles.exerciseText}>Reps</Text>
+                          {exercise?.sets?.map((set, index) => (
+                            <Text style={styles.setText}>{set.reps || 0}</Text>
+                          ))}
+                        </View>
+                        <View style={styles.setsContainer}>
+                          <Text style={styles.exerciseText}>KG</Text>
+                          {exercise?.sets?.map((set, index) => (
+                            <Text style={styles.setText}>{set.kg || 0}</Text>
+                          ))}
+                        </View>
                       </View>
-                      <View style={styles.setsContainer}>
-                        <Text style={styles.exerciseText}>Reps</Text>
-                        {exercise?.sets?.map((set, index) => (
-                          <Text style={styles.setText}>{set.reps || 0}</Text>
-                        ))}
-                      </View>
-                      <View style={styles.setsContainer}>
-                        <Text style={styles.exerciseText}>KG</Text>
-                        {exercise?.sets?.map((set, index) => (
-                          <Text style={styles.setText}>{set.kg || 0}</Text>
-                        ))}
-                      </View>
-                    </View>
-                  </>
-                );
-              })}
+                    </>
+                  );
+                })}
+              </ScrollView>
             </View>
           </View>
         </View>
