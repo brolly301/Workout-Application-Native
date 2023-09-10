@@ -1,6 +1,7 @@
 import {
   Button,
   Modal,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -101,39 +102,45 @@ export default function HistoryModal({
                   </Text>
                 </View>
                 <View>
-                  {routine?.exercises?.map((exercise, index) => {
-                    return (
-                      <>
-                        <Text
-                          style={styles.exerciseName}
-                          key={Math.floor(Math.random() * 1000)}>
-                          Exercises {index + 1} - {exercise?.name}
-                        </Text>
-                        <View style={styles.exerciseContainer}>
-                          <View style={styles.setsContainer}>
-                            <Text style={styles.exerciseText}>Set</Text>
-                            {exercise?.sets?.map((set, index) => (
-                              <Text style={styles.setText}>{set.set}</Text>
-                            ))}
+                  <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    style={{ height: "72%" }}>
+                    {routine?.exercises?.map((exercise, index) => {
+                      return (
+                        <>
+                          <Text
+                            style={styles.exerciseName}
+                            key={Math.floor(Math.random() * 1000)}>
+                            Exercises {index + 1} - {exercise?.name}
+                          </Text>
+                          <View style={styles.exerciseContainer}>
+                            <View style={styles.setsContainer}>
+                              <Text style={styles.exerciseText}>Set</Text>
+                              {exercise?.sets?.map((set, index) => (
+                                <Text style={styles.setText}>{set.set}</Text>
+                              ))}
+                            </View>
+                            <View style={styles.setsContainer}>
+                              <Text style={styles.exerciseText}>Reps</Text>
+                              {exercise?.sets?.map((set, index) => (
+                                <Text style={styles.setText}>
+                                  {set.reps || 0}
+                                </Text>
+                              ))}
+                            </View>
+                            <View style={styles.setsContainer}>
+                              <Text style={styles.exerciseText}>KG</Text>
+                              {exercise?.sets?.map((set, index) => (
+                                <Text style={styles.setText}>
+                                  {set.kg || 0}
+                                </Text>
+                              ))}
+                            </View>
                           </View>
-                          <View style={styles.setsContainer}>
-                            <Text style={styles.exerciseText}>Reps</Text>
-                            {exercise?.sets?.map((set, index) => (
-                              <Text style={styles.setText}>
-                                {set.reps || 0}
-                              </Text>
-                            ))}
-                          </View>
-                          <View style={styles.setsContainer}>
-                            <Text style={styles.exerciseText}>KG</Text>
-                            {exercise?.sets?.map((set, index) => (
-                              <Text style={styles.setText}>{set.kg || 0}</Text>
-                            ))}
-                          </View>
-                        </View>
-                      </>
-                    );
-                  })}
+                        </>
+                      );
+                    })}
+                  </ScrollView>
                 </View>
               </>
             )}
@@ -155,6 +162,7 @@ export default function HistoryModal({
 const styles = StyleSheet.create({
   mainContainer: {
     paddingBottom: 10,
+    height: "100%",
   },
   hr: {
     borderBottomColor: "black",
@@ -213,6 +221,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     textAlign: "center",
+    fontWeight: "bold",
   },
   subTitle: {
     fontSize: 16,

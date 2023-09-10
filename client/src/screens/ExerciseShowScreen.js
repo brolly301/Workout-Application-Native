@@ -27,8 +27,8 @@ const ExerciseShowScreen = ({ route }) => {
     setSelected(boolean);
   };
 
-  let content = <ExerciseAbout exercise={exercise} />;
-  if (!selected) {
+  let content = <ExerciseHistory exercise={exercise} />;
+  if (!selected && exercise.force === "") {
     content = <ExerciseHistory exercise={exercise} />;
   }
 

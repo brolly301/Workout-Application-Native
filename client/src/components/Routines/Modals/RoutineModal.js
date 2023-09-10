@@ -87,7 +87,9 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
               </Text>
             </View>
             <View>
-              <ScrollView>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{ height: "72%" }}>
                 {routine?.exercises?.map((exercise, index) => {
                   return (
                     <>
@@ -168,6 +170,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     textAlign: "center",
+    fontWeight: "bold",
   },
   subTitle: {
     fontSize: 16,
