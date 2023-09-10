@@ -40,7 +40,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                   style={styles.modalIconDelete}
                   name="trash"
                   size={33}
-                  color="black"
+                  color="red"
                 />
               </TouchableOpacity>
               <TouchableOpacity
@@ -52,7 +52,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                   style={styles.modalIconClose}
                   name="pencil"
                   size={33}
-                  color="black"
+                  color="orange"
                 />
               </TouchableOpacity>
               <TouchableOpacity
@@ -65,10 +65,10 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                   setModalVisible(!modalVisible);
                 }}>
                 <AntDesign
-                  style={styles.modalIconClose}
+                  style={styles.modalIconStart}
                   name="caretright"
-                  size={28}
-                  color="black"
+                  size={24}
+                  color="green"
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
@@ -93,28 +93,36 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                 {routine?.exercises?.map((exercise, index) => {
                   return (
                     <>
-                      <Text
-                        style={styles.exerciseName}
-                        key={Math.floor(Math.random() * 1000)}>
+                      <Text style={styles.exerciseName} key={exercise._id}>
                         Exercises {index + 1} - {exercise?.name}
                       </Text>
                       <View style={styles.exerciseContainer}>
                         <View style={styles.setsContainer}>
                           <Text style={styles.exerciseText}>Set</Text>
                           {exercise?.sets?.map((set, index) => (
-                            <Text style={styles.setText}>{set.set}</Text>
+                            <Text
+                              key={set._id + set.set}
+                              style={styles.setText}>
+                              {set.set}
+                            </Text>
                           ))}
                         </View>
                         <View style={styles.setsContainer}>
                           <Text style={styles.exerciseText}>Reps</Text>
                           {exercise?.sets?.map((set, index) => (
-                            <Text style={styles.setText}>{set.reps || 0}</Text>
+                            <Text
+                              key={set._id + set.reps}
+                              style={styles.setText}>
+                              {set.reps || 0}
+                            </Text>
                           ))}
                         </View>
                         <View style={styles.setsContainer}>
                           <Text style={styles.exerciseText}>KG</Text>
                           {exercise?.sets?.map((set, index) => (
-                            <Text style={styles.setText}>{set.kg || 0}</Text>
+                            <Text key={set._id + set.kg} style={styles.setText}>
+                              {set.kg || 0}
+                            </Text>
                           ))}
                         </View>
                       </View>
@@ -176,6 +184,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginTop: 15,
+  },
+  modalIconStart: {
+    marginTop: 6,
   },
   modalIconClose: {
     marginBottom: 10,

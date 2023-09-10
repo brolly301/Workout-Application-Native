@@ -76,3 +76,15 @@ exports.routineValidator = (req, res, next) => {
 
   errors(req, res, next);
 };
+
+exports.authValidator = (req, res, next) => {
+  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  req.check("firstName", "Please enter your first name.").notEmpty();
+
+  req.check("lastName", "Please enter your last name.").notEmpty();
+
+  req.check("email", "Please enter an email address.").notEmpty();
+  req.check("email", "Email incorrect format").matches(emailRegex);
+
+  errors(req, res, next);
+};

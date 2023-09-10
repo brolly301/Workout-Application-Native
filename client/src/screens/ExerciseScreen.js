@@ -22,10 +22,6 @@ export default function ExerciseScreen() {
     setIsActive(!isActive);
   };
 
-  useEffect(() => {
-    getExercises();
-  }, []);
-
   const update = (sortBy) => {
     switch (sortBy) {
       case "search":

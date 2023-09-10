@@ -42,8 +42,6 @@ const CreateWorkoutScreen = ({ route }) => {
     exercises: [],
   });
 
-  console.log(workoutData);
-
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [finishModalVisible, setFinishlModalVisible] = useState(false);
   const [resetModalVisible, setResetModalVisible] = useState(false);
@@ -251,8 +249,12 @@ const CreateWorkoutScreen = ({ route }) => {
             setWorkoutData({ ...workoutData, description: text })
           }
         />
-        {errors.sets && <Text style={styles.errors}>{errors.sets}</Text>}
-
+        {errors.sets && (
+          <Text style={styles.exerciseErrors}>{errors.sets}</Text>
+        )}
+        {errors.exercises && (
+          <Text style={styles.exerciseErrors}>{errors.exercises}</Text>
+        )}
         <WorkoutExerciseList
           workoutData={workoutData}
           handleExerciseInputChange={handleExerciseInputChange}
@@ -263,10 +265,6 @@ const CreateWorkoutScreen = ({ route }) => {
           setExerciseModalVisible={setExerciseModalVisible}
           exerciseModalVisible={exerciseModalVisible}
         />
-
-        {errors.exercises && (
-          <Text style={styles.errors}>{errors.exercises}</Text>
-        )}
       </>
     </HeaderPanel>
   );
@@ -337,5 +335,9 @@ const styles = StyleSheet.create({
   errors: {
     color: "red",
     marginBottom: 10,
+  },
+  exerciseErrors: {
+    color: "red",
+    marginTop: 10,
   },
 });

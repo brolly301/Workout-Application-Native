@@ -14,10 +14,6 @@ const ExerciseShowScreen = ({ route }) => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    getExerciseSets();
-  }, []);
-
   const { state } = useExerciseContext();
   const id = route.params.id;
 

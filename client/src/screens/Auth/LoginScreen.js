@@ -12,12 +12,21 @@ import useUserContext from "../../hooks/useUserContext";
 import { useNavigation } from "@react-navigation/native";
 import HeaderPanel from "../../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
+import useExerciseContext from "../../hooks/useExerciseContext";
+import useWorkoutContext from "../../hooks/useWorkoutContext";
+import useRoutineContext from "../../hooks/useRoutineContext";
+import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const { state, login } = useUserContext();
   const navigation = useNavigation();
+
+  const { getExercises } = useExerciseContext();
+  const { getRoutines } = useRoutineContext();
+  const { getWorkouts } = useWorkoutContext();
+  const { getExerciseSets } = useExerciseSetsContext();
 
   return (
     <ImageBackground
@@ -39,11 +48,13 @@ export default function LoginScreen() {
           )}
           <TouchableOpacity
             style={styles.login}
-            onPress={() =>
-              login({ email, password }, () => {
-                // navigation.navigate("Tabs");
-              })
-            }>
+            onPress={() => {
+              login({ email, password });
+              getExercises();
+              getRoutines();
+              getWorkouts();
+              getExerciseSets();
+            }}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity

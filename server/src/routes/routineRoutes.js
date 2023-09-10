@@ -20,7 +20,7 @@ router.delete("/deleteRoutine/:id", async (req, res) => {
   res.send(routine);
 });
 
-router.patch("/editRoutine", async (req, res) => {
+router.patch("/editRoutine", routineValidator, async (req, res) => {
   const routine = await Routine.findByIdAndUpdate(req.body.id, {
     ...req.body,
   });

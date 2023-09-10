@@ -26,7 +26,7 @@ router.delete("/deleteWorkout/:id", async (req, res) => {
   res.send(workout);
 });
 
-router.patch("/editWorkout", async (req, res) => {
+router.patch("/editWorkout", workoutValidator, async (req, res) => {
   const workout = await Workout.findByIdAndUpdate(req.body.id, {
     ...req.body,
   });

@@ -18,21 +18,27 @@ const ExerciseHistoryShow = ({ item }) => {
         <View style={styles.headerContainer}>
           <Text style={styles.setHeading}>Set</Text>
           {item.sets.map((set) => (
-            <Text style={styles.setText}>{set.set}</Text>
+            <Text key={set._id + set.set} style={styles.setText}>
+              {set.set}
+            </Text>
           ))}
         </View>
 
         <View style={styles.headerContainer}>
           <Text style={styles.setHeading}>Kg</Text>
           {item.sets.map((set) => (
-            <Text style={styles.setText}>{set.kg}</Text>
+            <Text key={set._id + set.set} style={styles.setText}>
+              {set.kg}
+            </Text>
           ))}
         </View>
 
         <View style={styles.headerContainer}>
           <Text style={styles.setHeading}>Reps</Text>
           {item.sets.map((set) => (
-            <Text style={styles.setText}>{set.reps}</Text>
+            <Text key={set._id + set.reps} style={styles.setText}>
+              {set.reps}
+            </Text>
           ))}
         </View>
       </View>

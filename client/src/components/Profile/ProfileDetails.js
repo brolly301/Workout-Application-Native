@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import useUserContext from "../../hooks/useUserContext";
 import Input from "../Input";
+import validation from "./ProfileValidation";
 
 export default function ProfileDetails() {
   const { state, editUserDetails } = useUserContext();
@@ -19,6 +20,11 @@ export default function ProfileDetails() {
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+  const [errors, setErrors] = useState({});
+
+  const handleValidation = () => {
+    setErrors(validation({ firstName, lastName, email }));
   };
 
   return (
@@ -37,9 +43,20 @@ export default function ProfileDetails() {
               value={firstName}
               field={"First Name"}
               setText={setFirstName}
+              error={errors.firstName}
             />
-            <Input value={lastName} field={"Last Name"} setText={setLastName} />
-            <Input value={email} field={"Email"} setText={setEmail} />
+            <Input
+              value={lastName}
+              field={"Last Name"}
+              setText={setLastName}
+              error={errors.lastName}
+            />
+            <Input
+              value={email}
+              field={"Email"}
+              setText={setEmail}
+              error={errors.email}
+            />
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.closeButton}
@@ -49,8 +66,15 @@ export default function ProfileDetails() {
               <TouchableOpacity
                 style={styles.closeButton}
                 onPress={() => {
-                  editUserDetails({ firstName, lastName, email });
-                  toggleModal();
+                  if (!handleValidation()) {
+                    try {
+                      editUserDetails({ firstName, lastName, email }, () => {
+                        toggleModal();
+                      });
+                    } catch (err) {
+                      console.log(err);
+                    }
+                  }
                 }}>
                 <Text style={styles.closeButtonText}>Save</Text>
               </TouchableOpacity>

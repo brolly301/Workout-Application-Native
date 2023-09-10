@@ -162,10 +162,10 @@ const EditRoutineScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
 
-      {errors.name && <Text>{errors.name}</Text>}
-      {errors.exercises && <Text>{errors.exercises}</Text>}
       <Text style={styles.title}>Routines</Text>
       <Text style={styles.subTitle}>Edit Routine</Text>
+      {errors.name && <Text style={styles.errors}>{errors.name}</Text>}
+
       <TextInput
         placeholder="Name"
         style={styles.nameInput}
@@ -178,6 +178,10 @@ const EditRoutineScreen = ({ route }) => {
         value={routineText.description}
         onChangeText={(text) => handleUpdateText("description", text)}
       />
+      {errors.exercises && (
+        <Text style={styles.exerciseErrors}>{errors.exercises}</Text>
+      )}
+
       <WorkoutExerciseList
         workoutData={newRoutine}
         handleExerciseInputChange={handleExerciseInputChange}
@@ -256,5 +260,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  errors: {
+    color: "red",
+    marginBottom: 10,
+  },
+  exerciseErrors: {
+    color: "red",
+    marginTop: 10,
   },
 });

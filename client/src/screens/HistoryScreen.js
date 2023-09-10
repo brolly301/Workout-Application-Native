@@ -9,10 +9,6 @@ export default function HistoryScreen() {
   const [active, setActive] = useState(true);
   const { getWorkouts, deleteWorkout, state } = useWorkoutContext();
 
-  useEffect(() => {
-    getWorkouts();
-  }, []);
-
   const handleDeleteWorkout = async (id, workoutID) => {
     await deleteWorkout(id, workoutID);
   };

@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const { registerValidator } = require("../middlewares/validation");
+const {
+  registerValidator,
+  authValidator,
+} = require("../middlewares/validation");
 const requireAuth = require("../middlewares/requireAuth");
 
 router.post("/register", registerValidator, async (req, res) => {
@@ -52,11 +55,16 @@ router.get("/userDetails", requireAuth, async (req, res) => {
   res.send(userDetails);
 });
 
-router.patch("/editUserDetails", requireAuth, async (req, res) => {
-  const userDetails = await User.findOneAndUpdate(req.user._id, {
-    ...req.body,
-  });
-  res.send(userDetails);
-});
+router.patch(
+  "/editUserDetails",
+  requireAuth,
+  authValidator,
+  async (req, res) => {
+    const userDetails = await User.findOneAndUpdate(req.user._id, {
+      ...req.body,
+    });
+    res.send(userDetails);
+  }
+);
 
 module.exports = router;

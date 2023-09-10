@@ -69,7 +69,7 @@ const logout = (dispatch) => {
   };
 };
 
-const getUserDetails = (dispatch) => async () => {
+const getUserDetails = (dispatch) => async (callback) => {
   try {
     const token = await AsyncStorage.getItem("token");
     const res = await Server.get("/userDetails");
@@ -77,6 +77,9 @@ const getUserDetails = (dispatch) => async () => {
       type: "get_user_details",
       payload: { userDetails: res.data, token: token },
     });
+    if (callback) {
+      callback();
+    }
   } catch (e) {
     console.log(e);
   }

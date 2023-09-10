@@ -10,7 +10,7 @@ import AddExercise from "../components/Workout/AddExercise";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
-import validation from "../components/Routines/RoutineValidation";
+import validation from "../components/Workout/WorkoutValidation";
 import useUserContext from "../hooks/useUserContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
@@ -164,10 +164,9 @@ const EditWorkoutScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
 
-      {errors.name && <Text>{errors.name}</Text>}
-      {errors.exercises && <Text>{errors.exercises}</Text>}
       <Text style={styles.title}>Workouts</Text>
       <Text style={styles.subTitle}>Edit Workout</Text>
+      {errors.name && <Text style={styles.errors}>{errors.name}</Text>}
       <TextInput
         placeholder="Name"
         style={styles.nameInput}
@@ -180,6 +179,10 @@ const EditWorkoutScreen = ({ route }) => {
         value={workoutText.description}
         onChangeText={(text) => handleUpdateText("description", text)}
       />
+      {errors.sets && <Text style={styles.exerciseErrors}>{errors.sets}</Text>}
+      {errors.exercises && (
+        <Text style={styles.exerciseErrors}>{errors.exercises}</Text>
+      )}
       <WorkoutExerciseList
         workoutData={newWorkout}
         handleExerciseInputChange={handleExerciseInputChange}
@@ -259,5 +262,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  errors: {
+    color: "red",
+    marginBottom: 10,
+  },
+  exerciseErrors: {
+    color: "red",
+    marginTop: 10,
   },
 });

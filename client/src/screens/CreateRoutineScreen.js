@@ -167,6 +167,9 @@ const CreateRoutineScreen = () => {
           value={routine.description}
           onChangeText={(text) => setRoutine({ ...routine, description: text })}
         />
+        {errors.exercises && (
+          <Text style={styles.exerciseErrors}>{errors.exercises}</Text>
+        )}
         <WorkoutExerciseList
           workoutData={routine}
           handleExerciseInputChange={handleExerciseInputChange}
@@ -255,5 +258,9 @@ const styles = StyleSheet.create({
   errors: {
     color: "red",
     marginBottom: 10,
+  },
+  exerciseErrors: {
+    color: "red",
+    marginTop: 10,
   },
 });

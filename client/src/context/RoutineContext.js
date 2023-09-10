@@ -15,10 +15,6 @@ export function RoutineProvider({ children }) {
 
   const [allRoutines, setAllRoutines] = useState([]);
 
-  useEffect(() => {
-    getRoutines();
-  }, []);
-
   const getRoutines = async () => {
     try {
       const res = await Server.get("/routines/allRoutines");
@@ -84,6 +80,7 @@ export function RoutineProvider({ children }) {
     setWorkoutData,
     deleteRoutine,
     editRoutine,
+    getRoutines,
   };
 
   return (

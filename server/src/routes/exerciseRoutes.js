@@ -31,7 +31,7 @@ router.post("/addExercise", exerciseValidator, async (req, res) => {
   res.send(exercise);
 });
 
-router.patch("/editExercise", async (req, res) => {
+router.patch("/editExercise", exerciseValidator, async (req, res) => {
   try {
     const exercise = await UserExercise.findByIdAndUpdate(req.body.id, {
       ...req.body,
