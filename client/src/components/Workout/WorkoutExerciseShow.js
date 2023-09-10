@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",

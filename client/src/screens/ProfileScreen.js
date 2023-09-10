@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     width: "80%",
-    height: "20%",
+    height: "21%",
     marginBottom: 200,
   },
   closeButton: {
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 24,
+    marginBottom: 10,
     textAlign: "center",
     fontWeight: "bold",
   },

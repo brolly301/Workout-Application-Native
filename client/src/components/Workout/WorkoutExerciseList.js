@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",

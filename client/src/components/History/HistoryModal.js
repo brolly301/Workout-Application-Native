@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",
