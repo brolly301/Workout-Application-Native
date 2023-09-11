@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     width: "80%",
-    height: "18%",
   },
   closeButton: {
     marginTop: 20,
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: "lightgreen",
+    color: "#5bc255",
     textAlign: "center",
   },
   subTitle: {

@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     marginTop: 60,
     marginLeft: 15,
     width: "35%",
-    height: "10%",
     borderWidth: 1,
     borderColor: "black",
   },
@@ -78,6 +77,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
+    marginBottom: 15,
   },
   dropdownContainer: {
     display: "flex",

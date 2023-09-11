@@ -36,34 +36,36 @@ const ProfileCharts = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.chartContainer}>
-        <VictoryChart
-          style={styles.chart}
-          width={screenWidth - 40}
-          height={200}>
-          <Text style={styles.title}>Most Used Exercises</Text>
-          <VictoryAxis
-            label="Exercises" // Set the label to "Exercises"
-            style={{
-              axisLabel: { padding: 15, fontSize: 16 }, // Adjust label position if needed
-            }}
-            tickFormat={(tick) => (tick === "Exercises" ? "Exercises" : "")} // Customize tick format
-          />
-          {/* y-axis labels */}
-          <VictoryAxis dependentAxis tickValues={[]} />
+      <Text style={styles.title}>Top Exercises</Text>
+      <View>
+        <View style={styles.chartContainer}>
+          <VictoryChart
+            style={styles.chart}
+            width={screenWidth - 40}
+            height={200}>
+            <VictoryAxis
+              label="Exercises"
+              style={{
+                axisLabel: { padding: 15, fontSize: 16 },
+              }}
+              tickFormat={(tick) => (tick === "Exercises" ? "Exercises" : "")}
+            />
 
-          <VictoryBar
-            barWidth={30}
-            data={dataForVictoryBar}
-            theme={VictoryTheme.material}
-            labels={({ datum }) => datum.x}
-            labelComponent={<VictoryLabel dx={15} />}
-            style={{
-              data: { fill: "rgb(213, 168, 248)", marginTop: 10 },
-            }}
-            alignment="start"
-          />
-        </VictoryChart>
+            <VictoryAxis dependentAxis tickValues={[]} />
+
+            <VictoryBar
+              barWidth={30}
+              data={dataForVictoryBar.slice(0, 4)}
+              theme={VictoryTheme.material}
+              labels={({ datum }) => datum.x}
+              labelComponent={<VictoryLabel dx={15} />}
+              style={{
+                data: { fill: "rgb(213, 168, 248)", marginTop: 10 },
+              }}
+              alignment="start"
+            />
+          </VictoryChart>
+        </View>
       </View>
     </View>
   );
@@ -79,11 +81,9 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0,0,0, 0.5)",
   },
   title: {
+    marginTop: 15,
     fontSize: 18,
     fontWeight: "500",
     textAlign: "center",
-  },
-  chartContainer: {
-    marginTop: 20, // Add padding/margin to the top of the chart
   },
 });

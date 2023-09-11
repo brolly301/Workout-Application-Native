@@ -34,7 +34,9 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(422).send({ error: "Must provide Email and Password" });
+    return res
+      .status(422)
+      .send({ error: "Please provide your email and password." });
   }
 
   const user = await User.findOne({ email });

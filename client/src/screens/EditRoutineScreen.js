@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
   },
   finishButton: {
-    color: "lightgreen",
+    color: "#5bc255",
     fontSize: 18,
   },
   headerIcon: {

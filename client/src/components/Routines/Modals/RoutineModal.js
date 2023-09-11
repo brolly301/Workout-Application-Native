@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   startButtonText: {
-    color: "lightgreen",
+    color: "#5bc255",
     fontSize: 18,
     marginRight: 20,
   },

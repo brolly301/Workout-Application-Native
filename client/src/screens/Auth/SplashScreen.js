@@ -20,13 +20,13 @@ export default function SplashScreen({ navigation }) {
             style={styles.login}
             title="Login"
             onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.register}
             title="Register"
             onPress={() => navigation.navigate("Register")}>
-            <Text style={styles.buttonText}>Register</Text>
+            <Text style={styles.registerText}>Register</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -49,12 +49,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   login: {
-    width: "90%",
-    backgroundColor: "#D5A8F8",
+    width: "90.5%",
     borderWidth: 1,
+    backgroundColor: "rgba(213, 168, 248, 0.8)",
+    borderColor: "black",
     borderRadius: 5,
-    paddingVertical: 10,
+    paddingVertical: 11,
     marginVertical: 5,
+    // opacity: 0.8,
   },
   register: {
     width: "90%",
@@ -63,10 +65,20 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginVertical: 5,
     marginBottom: 40,
+    marginTop: 10,
+    borderColor: "white",
   },
-  buttonText: {
-    fontSize: 24,
+  loginText: {
+    fontSize: 19,
     fontWeight: "bold",
+    color: "black",
+    textAlign: "center",
+    justifyContent: "flex-end",
+  },
+  registerText: {
+    fontSize: 19,
+    fontWeight: "bold",
+    color: "white",
     textAlign: "center",
     justifyContent: "flex-end",
   },

@@ -39,7 +39,7 @@ export default function RegisterScreen() {
   return (
     <ImageBackground
       style={styles.background}
-      imageStyle={{ opacity: 0.3 }}
+      imageStyle={{ opacity: 0.13 }}
       source={{
         uri: "https://images.unsplash.com/photo-1637430308606-86576d8fef3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
       }}>
@@ -83,7 +83,9 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
   },
-
+  container: {
+    marginHorizontal: 15,
+  },
   title: {
     fontSize: 40,
     fontWeight: "bold",

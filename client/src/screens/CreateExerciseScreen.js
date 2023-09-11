@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   finishButton: {
-    color: "lightgreen",
+    color: "#5bc255",
     fontSize: 18,
   },
   cancelButton: {

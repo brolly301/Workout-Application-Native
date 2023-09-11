@@ -5,14 +5,12 @@ import HistoryList from "../components/History/HistoryList";
 import ProfileCharts from "../components/Profile/ProfileCharts";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import ProfileSettings from "../components/Profile/ProfileSettings";
 import useUserContext from "../hooks/useUserContext";
 import { EvilIcons } from "@expo/vector-icons";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import HeaderPanel from "../components/HeaderPanel";
 
 export default function ProfileScreen() {
-  const navigation = useNavigation();
   const { logout } = useUserContext();
   const { state } = useWorkoutContext();
 
@@ -20,20 +18,6 @@ export default function ProfileScreen() {
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={() => toggleModal()}>
-          <Ionicons
-            style={styles.headerRight}
-            name="settings-sharp"
-            size={24}
-            color="#D5A8F8"
-          />
-        </TouchableOpacity>
-      ),
-    });
-  }, [modalVisible]);
 
   return (
     <HeaderPanel>
@@ -114,7 +98,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     width: "80%",
-    height: "21%",
     marginBottom: 200,
   },
   closeButton: {

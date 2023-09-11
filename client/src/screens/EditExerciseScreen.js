@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   finishButton: {
-    color: "lightgreen",
+    color: "#5bc255",
     fontSize: 18,
   },
 });

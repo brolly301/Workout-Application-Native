@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import useUserContext from "../../hooks/useUserContext";
 import Input from "../Input";
 import validation from "./ProfileValidation";
+import { EvilIcons } from "@expo/vector-icons";
 
 export default function ProfileDetails() {
   const { state, editUserDetails } = useUserContext();
@@ -38,6 +39,11 @@ export default function ProfileDetails() {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
+            <TouchableOpacity
+              style={styles.closeIcon}
+              onPress={() => toggleModal()}>
+              <EvilIcons name="close" size={30} color="black" />
+            </TouchableOpacity>
             <Text style={styles.title}>Profile Details</Text>
             <Input
               value={firstName}
@@ -59,12 +65,7 @@ export default function ProfileDetails() {
             />
             <View style={styles.buttonContainer}>
               <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => toggleModal()}>
-                <Text style={styles.closeButtonText}>Close</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.closeButton}
+                style={styles.saveButton}
                 onPress={() => {
                   if (!handleValidation()) {
                     try {
@@ -76,7 +77,7 @@ export default function ProfileDetails() {
                     }
                   }
                 }}>
-                <Text style={styles.closeButtonText}>Save</Text>
+                <Text style={styles.saveButtonText}>Save</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -135,14 +136,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     width: "80%",
-    height: "40%",
   },
-  closeButton: {
-    marginTop: 30,
+  saveButton: {
+    marginTop: 10,
   },
-  closeButtonText: {
+  saveButtonText: {
     fontSize: 18,
-    color: "blue",
+    color: "#5bc255",
+    fontWeight: "500",
+  },
+  closeIcon: {
+    alignSelf: "flex-end",
+    marginBottom: 10,
   },
   title: {
     textAlign: "center",
