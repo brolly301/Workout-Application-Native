@@ -35,6 +35,9 @@ export default function ExerciseHistory({ exercise }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   listContainer: {
     borderColor: "black",
     borderWidth: 1,

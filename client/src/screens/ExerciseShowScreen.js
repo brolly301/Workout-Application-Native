@@ -24,8 +24,8 @@ const ExerciseShowScreen = ({ route }) => {
   };
 
   let content = <ExerciseHistory exercise={exercise} />;
-  if (!selected && exercise.force === "") {
-    content = <ExerciseHistory exercise={exercise} />;
+  if (selected) {
+    content = <ExerciseAbout exercise={exercise} />;
   }
 
   return (

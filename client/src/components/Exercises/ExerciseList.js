@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import ExerciseShow from "../../components/Exercises/ExerciseShow";
 import { useNavigation } from "@react-navigation/native";
+import Spacer from "../Spacer";
 
 export default function ExerciseList({ state }) {
   const navigation = useNavigation();
@@ -38,6 +39,7 @@ export default function ExerciseList({ state }) {
           );
         }}
       />
+      <Spacer />
     </View>
   );
 }

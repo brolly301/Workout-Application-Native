@@ -19,21 +19,24 @@ export default function ExerciseEditScreen({ route }) {
   const exercise = state.find((result) => result.exerciseID === id);
 
   const [name, setName] = useState(exercise?.name);
-  const [primaryMuscle, setPrimaryMuscle] = useState(exercise?.primaryMuscle);
-  const [secondaryMuscle, setSecondaryMuscle] = useState(
-    exercise?.secondaryMuscle
+  const [primaryMuscles, setPrimaryMuscles] = useState(
+    exercise?.primaryMuscles[0]
+  );
+  const [secondaryMuscles, setSecondaryMuscles] = useState(
+    exercise?.secondaryMuscles[0]
   );
   const [equipment, setEquipment] = useState(exercise?.equipment);
   const [category, setCategory] = useState(exercise?.category);
+  const [force, setForce] = useState(exercise?.force);
+  const [mechanic, setMechanic] = useState(exercise?.mechanic);
+  const [level, setLevel] = useState(exercise?.level);
 
   const [errors, setErrors] = useState({});
 
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleValidation = () => {
-    setErrors(
-      validation(name, primaryMuscle, secondaryMuscle, equipment, category)
-    );
+    setErrors(validation(name, primaryMuscles));
   };
 
   const handleSubmit = () => {
@@ -43,10 +46,13 @@ export default function ExerciseEditScreen({ route }) {
         exercise.exerciseID,
         user.userDetails._id,
         name,
-        primaryMuscle,
-        secondaryMuscle,
+        primaryMuscles,
+        secondaryMuscles,
         equipment,
         category,
+        force,
+        mechanic,
+        level,
         () => {
           navigation.navigate("Exercises");
         }
@@ -91,31 +97,29 @@ export default function ExerciseEditScreen({ route }) {
         <Spacer />
         <Input
           field={"Primary Muscle"}
-          value={primaryMuscle}
-          setText={setPrimaryMuscle}
+          value={primaryMuscles}
+          setText={setPrimaryMuscles}
           error={errors.primaryMuscle}
         />
         <Spacer />
         <Input
           field={"Secondary Muscle"}
-          value={secondaryMuscle}
-          setText={setSecondaryMuscle}
-          error={errors.secondaryMuscle}
+          value={secondaryMuscles}
+          setText={setSecondaryMuscles}
         />
         <Spacer />
-        <Input
-          value={equipment}
-          field={"Equipment"}
-          setText={setEquipment}
-          error={errors.equipment}
-        />
+        <Input value={equipment} field={"Equipment"} setText={setEquipment} />
         <Spacer />
-        <Input
-          value={category}
-          field={"Category"}
-          setText={setCategory}
-          error={errors.category}
-        />
+        <Input value={category} field={"Category"} setText={setCategory} />
+        <Spacer />
+
+        <Input value={force} field={"Force"} setText={setForce} />
+        <Spacer />
+
+        <Input value={mechanic} field={"Mechanic"} setText={setMechanic} />
+        <Spacer />
+
+        <Input value={level} field={"Level"} setText={setLevel} />
       </View>
     </HeaderPanel>
   );

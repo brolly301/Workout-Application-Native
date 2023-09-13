@@ -15,9 +15,9 @@ export default function Input({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{field}</Text>
       {error && <Text style={styles.error}>{error}</Text>}
       <TextInput
+        placeholder={field}
         defaultValue={value}
         multiline={multiline}
         numberOfLines={numberOfLines}

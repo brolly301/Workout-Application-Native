@@ -39,10 +39,13 @@ const addExercise =
     userID,
     exerciseID,
     name,
-    primaryMuscle,
-    secondaryMuscle,
+    primaryMuscles,
+    secondaryMuscles,
     equipment,
     category,
+    force,
+    mechanic,
+    level,
     callback
   ) => {
     try {
@@ -50,10 +53,13 @@ const addExercise =
         userID,
         exerciseID,
         name,
-        primaryMuscle,
-        secondaryMuscle,
+        primaryMuscles,
+        secondaryMuscles,
         equipment,
         category,
+        force,
+        mechanic,
+        level,
       });
       console.log(res);
       dispatch({
@@ -62,10 +68,13 @@ const addExercise =
           userID,
           exerciseID,
           name,
-          primaryMuscle,
-          secondaryMuscle,
+          primaryMuscles,
+          secondaryMuscles,
           equipment,
           category,
+          force,
+          mechanic,
+          level,
         },
       });
       if (callback) {
@@ -83,10 +92,13 @@ const editExercise =
     exerciseID,
     userID,
     name,
-    primaryMuscle,
-    secondaryMuscle,
+    primaryMuscles,
+    secondaryMuscles,
     equipment,
     category,
+    force,
+    mechanic,
+    level,
     callback
   ) => {
     try {
@@ -95,9 +107,12 @@ const editExercise =
         exerciseID,
         userID,
         name,
-        primaryMuscle,
-        secondaryMuscle,
+        primaryMuscles,
+        secondaryMuscles,
         equipment,
+        force,
+        mechanic,
+        level,
         category,
       });
       console.log(res);
@@ -108,9 +123,12 @@ const editExercise =
           exerciseID,
           userID,
           name,
-          primaryMuscle,
-          secondaryMuscle,
+          primaryMuscles,
+          secondaryMuscles,
           equipment,
+          force,
+          mechanic,
+          level,
           category,
         },
       });

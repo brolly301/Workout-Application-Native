@@ -15,17 +15,5 @@ export default validation = (
     errors.primaryMuscle = "Primary Muscle is required.";
   }
 
-  if (!secondaryMuscle) {
-    errors.secondaryMuscle = "Secondary Muscle is required.";
-  }
-
-  if (!equipment) {
-    errors.equipment = "Equipment is required.";
-  }
-
-  if (!category) {
-    errors.category = "Category is required.";
-  }
-
   return errors;
 };

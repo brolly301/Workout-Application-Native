@@ -56,15 +56,7 @@ exports.exerciseSetsValidator = (req, res, next) => {
 exports.exerciseValidator = (req, res, next) => {
   req.check("name", "Exercise name is required.").notEmpty();
 
-  req.check("primaryMuscle", "Primary Muscle must not be empty").notEmpty();
-
-  req
-    .check("secondaryMuscle", "Secondary Muscle must not be empty.")
-    .notEmpty();
-
-  req.check("equipment", "Equipment must not be empty.").notEmpty();
-
-  req.check("category", "Category must not be empty.").notEmpty();
+  req.check("primaryMuscles", "Primary Muscle must not be empty").notEmpty();
 
   errors(req, res, next);
 };
