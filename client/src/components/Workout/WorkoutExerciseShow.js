@@ -64,7 +64,7 @@ const WorkoutExerciseShow = ({
               <TextInput
                 style={styles.kg}
                 placeholder="0"
-                defaultValue={item?.kg?.toString() ?? ""}
+                value={item?.kg?.toString() ?? ""}
                 onChangeText={(text) =>
                   handleExerciseInputChange(exerciseIndex, index, "kg", text)
                 }

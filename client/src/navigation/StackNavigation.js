@@ -10,20 +10,17 @@ import React from "react";
 import SplashScreen from "../screens/Auth/SplashScreen";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import RegisterScreen from "../screens/Auth/RegisterScreen";
-import { Feather, Ionicons, EvilIcons } from "@expo/vector-icons";
 import CreateWorkoutScreen from "../screens/CreateWorkoutScreen";
 import CreateTrackScreen from "../screens/CreateTrackScreen";
 import CreateRoutineScreen from "../screens/CreateRoutineScreen";
-import useStateContext from "../hooks/useStateContext";
 import EditExerciseScreen from "../screens/EditExerciseScreen";
 import EditRoutineScreen from "../screens/EditRoutineScreen";
 import EditWorkoutScreen from "../screens/EditWorkoutScreen";
-import useRoutineContext from "../hooks/useRoutineContext";
 import CreateExerciseScreen from "../screens/CreateExerciseScreen";
 
 const Stack = createStackNavigator();
 
-const WorkoutStack = ({ navigation }) => {
+const WorkoutStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Workout" component={WorkoutDashboard} />
@@ -40,8 +37,7 @@ const HistoryStack = () => {
     </Stack.Navigator>
   );
 };
-const RoutinesStack = ({ navigation }) => {
-  const { setRoutine } = useRoutineContext();
+const RoutinesStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Routines" component={RoutineScreen} />
@@ -51,7 +47,7 @@ const RoutinesStack = ({ navigation }) => {
     </Stack.Navigator>
   );
 };
-const ExercisesStack = ({ navigation }) => {
+const ExercisesStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Exercises" component={ExerciseScreen} />
@@ -91,30 +87,3 @@ export {
   ProfileStack,
   AuthStack,
 };
-
-const styles = StyleSheet.create({
-  headerRight: {
-    display: "flex",
-    flexDirection: "row",
-    marginRight: 10,
-  },
-  headerRightText: {
-    marginRight: 10,
-    alignSelf: "center",
-    fontSize: 18,
-  },
-  cancelButton: {
-    color: "red",
-    fontSize: 18,
-    marginLeft: 20,
-  },
-  resetButton: {
-    color: "#D5A8F8",
-    fontSize: 18,
-  },
-  finishButton: {
-    color: "lightgreen",
-    fontSize: 18,
-    marginRight: 20,
-  },
-});

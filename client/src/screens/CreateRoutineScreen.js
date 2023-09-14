@@ -6,7 +6,6 @@ import {
   TextInput,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import AddExercise from "../components/Workout/AddExercise";
 import useRoutineContext from "../hooks/useRoutineContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
@@ -18,7 +17,6 @@ import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 import HeaderPanel from "../components/HeaderPanel";
 
 const CreateRoutineScreen = () => {
-  const [addExercise, setAddExercise] = useState(false);
   const { routine, setRoutine, addRoutine } = useRoutineContext();
   const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});

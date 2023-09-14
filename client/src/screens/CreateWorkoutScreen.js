@@ -8,14 +8,12 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Timer from "../components/Workout/Timer";
-import AddExercise from "../components/Workout/AddExercise";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import useUserContext from "../hooks/useUserContext";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Workout/WorkoutValidation";
-import useStateContext from "../hooks/useStateContext";
 import FinishModal from "../components/Workout/Modals/FinishModal";
 import CancelModal from "../components/Workout/Modals/CancelModal";
 import ResetModal from "../components/Workout/Modals/ResetModal";

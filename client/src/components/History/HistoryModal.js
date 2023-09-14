@@ -107,8 +107,8 @@ export default function HistoryModal({
                     style={{ height: "72%" }}>
                     {routine?.exercises?.map((exercise, index) => {
                       return (
-                        <>
-                          <Text style={styles.exerciseName} key={exercise._id}>
+                        <View key={exercise._id}>
+                          <Text style={styles.exerciseName}>
                             Exercises {index + 1} - {exercise?.name}
                           </Text>
                           <View style={styles.exerciseContainer}>
@@ -143,7 +143,8 @@ export default function HistoryModal({
                               ))}
                             </View>
                           </View>
-                        </>
+                          <View />
+                        </View>
                       );
                     })}
                   </ScrollView>

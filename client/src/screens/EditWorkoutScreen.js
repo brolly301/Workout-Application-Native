@@ -5,8 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import AddExercise from "../components/Workout/AddExercise";
+import React, { useState } from "react";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";

@@ -6,7 +6,6 @@ import {
   TextInput,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import AddExercise from "../components/Workout/AddExercise";
 import useRoutineContext from "../hooks/useRoutineContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
