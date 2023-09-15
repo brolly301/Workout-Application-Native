@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import React, { useMemo } from "react";
+import React from "react";
 import WorkoutExerciseShow from "./WorkoutExerciseShow";
 
 const WorkoutExerciseList = ({

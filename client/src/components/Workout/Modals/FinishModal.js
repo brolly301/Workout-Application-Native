@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useStateContext from "../../../hooks/useStateContext";
 
 const FinishModal = ({

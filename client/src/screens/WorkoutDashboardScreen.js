@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
 import WorkoutCalendar from "../components/Workout/WorkoutCalender";
 import QuickStart from "../components/Workout/QuickStart";
@@ -6,7 +6,6 @@ import RoutineList from "../components/Routines/RoutineList";
 import useUserContext from "../hooks/useUserContext";
 import useRoutineContext from "../hooks/useRoutineContext";
 import HeaderPanel from "../components/HeaderPanel";
-import { EvilIcons } from "@expo/vector-icons";
 
 export default function WorkoutDashboard() {
   const { state } = useUserContext();

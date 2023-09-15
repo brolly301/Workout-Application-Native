@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const CancelExerciseModal = ({ modalVisible, setModalVisible, setRoutine }) => {
+const CancelExerciseModal = ({ modalVisible, setModalVisible }) => {
   const navigation = useNavigation();
 
   return (

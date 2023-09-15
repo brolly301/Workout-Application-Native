@@ -2,12 +2,7 @@ import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-const SortByModal = ({
-  modalVisible,
-  setModalVisible,
-  selected,
-  setSelected,
-}) => {
+const SortByModal = ({ modalVisible, setModalVisible, setSelected }) => {
   return (
     <View>
       <Modal

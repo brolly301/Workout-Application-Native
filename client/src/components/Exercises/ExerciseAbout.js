@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, View, Button, FlatList } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, View, FlatList } from "react-native";
+import React from "react";
 import ExerciseDetails from "./ExerciseDetails";
 
 export default function ExerciseAbout({ exercise }) {

@@ -2,7 +2,6 @@ import Server from "../api/Server";
 import createDataContext from "./createDataContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { useNavigation } from "@react-navigation/native";
 
 const ToastMessage = (type, message) => {
   Toast.show({

@@ -1,9 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View, Modal } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProfileDetails from "../components/Profile/ProfileDetails";
 import HistoryList from "../components/History/HistoryList";
 import ProfileCharts from "../components/Profile/ProfileCharts";
-import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import useUserContext from "../hooks/useUserContext";
 import { EvilIcons } from "@expo/vector-icons";

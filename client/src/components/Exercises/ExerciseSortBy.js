@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
-import useExerciseContext from "../../hooks/useExerciseContext";
-import useStateContext from "../../hooks/useStateContext";
+import React, { useState } from "react";
 import SortByModal from "./Modals/SortByModal";
 
 const ExerciseSortBy = ({ selected, setSelected }) => {

@@ -4,7 +4,6 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Timer from "../components/Workout/Timer";
@@ -27,7 +26,6 @@ const CreateWorkoutScreen = ({ route }) => {
   const [newTime, setNewTime] = useState(0);
   const routine = route.params?.routine;
 
-  const [addExercise, setAddExercise] = useState(false);
   const [workoutData, setWorkoutData] = useState({
     userID: user.userDetails._id,
     workoutID: `${user.userDetails._id}${Math.floor(

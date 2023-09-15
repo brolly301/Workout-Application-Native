@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import React, { useEffect, useState } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import React from "react";
 import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
 import ExerciseHistoryShow from "./ExerciseHistoryShow";
 import NoResultsPlaceholder from "../NoResultsPlaceholder";

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   WorkoutStack,
@@ -11,7 +11,6 @@ import {
   FontAwesome5,
   Feather,
   MaterialIcons,
-  Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 

@@ -1,12 +1,11 @@
 import {
-  Button,
   StyleSheet,
   Text,
   View,
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ExerciseShow from "../../components/Exercises/ExerciseShow";
 import { useNavigation } from "@react-navigation/native";
 import Spacer from "../Spacer";

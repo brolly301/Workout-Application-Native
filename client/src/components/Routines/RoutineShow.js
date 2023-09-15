@@ -1,13 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import RoutineStart from "./RoutineStart";
 import RoutineModal from "./Modals/RoutineModal";
 import useWorkoutContext from "../../hooks/useWorkoutContext";
 import Spacer from "../Spacer";
 
 export default function RoutineShow({ routine }) {
-  const [isActive, setIsActive] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const { state } = useWorkoutContext();
 

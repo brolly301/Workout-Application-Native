@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Animated,
 } from "react-native";
 import React from "react";
 import Spacer from "../Spacer";

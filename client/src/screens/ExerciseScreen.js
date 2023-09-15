@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import ExerciseList from "../components/Exercises/ExerciseList";
 import SearchBar from "../components/SearchBar";
 import useExerciseContext from "../hooks/useExerciseContext";
-import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import ExerciseSortBy from "../components/Exercises/ExerciseSortBy";
 import { GestureHandlerRootView } from "react-native-gesture-handler";

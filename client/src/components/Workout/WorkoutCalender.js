@@ -1,6 +1,6 @@
-import { Modal, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useState } from "react";
-import { Calendar, LocaleConfig } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 import useWorkoutContext from "../../hooks/useWorkoutContext";
 import HistoryModal from "../History/HistoryModal";
 

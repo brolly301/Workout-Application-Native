@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import WorkoutDashboard from "../screens/WorkoutDashboardScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import HistoryScreen from "../screens/HistoryScreen";

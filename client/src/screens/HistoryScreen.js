@@ -1,5 +1,5 @@
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import HistoryList from "../components/History/HistoryList";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import TrackList from "../components/History/TrackList";

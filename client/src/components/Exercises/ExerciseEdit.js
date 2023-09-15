@@ -22,8 +22,6 @@ const ExerciseEdit = ({ state }) => {
     exercise.userID ? exercise : null
   );
 
-  // console.log(updatedState);
-
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>Edit Exercises</Text>

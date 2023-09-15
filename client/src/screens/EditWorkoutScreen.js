@@ -10,7 +10,6 @@ import useWorkoutContext from "../hooks/useWorkoutContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Workout/WorkoutValidation";
-import useUserContext from "../hooks/useUserContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
 import SaveEditModal from "../components/SaveEditModal";
@@ -19,7 +18,6 @@ import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 const EditWorkoutScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
   const { editWorkout } = useWorkoutContext();
-  const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
   const workout = route.params?.workout;

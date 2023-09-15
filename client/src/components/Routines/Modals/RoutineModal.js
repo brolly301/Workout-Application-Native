@@ -10,7 +10,6 @@ import React, { useState } from "react";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import useRoutineContext from "../../../hooks/useRoutineContext";
-import CancelModal from "../../Workout/Modals/CancelModal";
 import DeleteModal from "../../DeleteModal";
 import useStateContext from "../../../hooks/useStateContext";
 

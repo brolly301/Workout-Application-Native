@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Workout = require("../models/workout");
-const ExerciseSets = require("../models/exerciseSets");
 const { workoutValidator } = require("../middlewares/validation");
 const requireAuth = require("../middlewares/requireAuth");
 

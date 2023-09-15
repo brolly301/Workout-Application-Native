@@ -2,7 +2,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigation from "./TabNavigation";
 import { AuthStack } from "./StackNavigation";
-import { useState } from "react";
 import useUserContext from "../hooks/useUserContext";
 
 const Stack = createStackNavigator();

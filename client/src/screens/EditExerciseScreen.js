@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Input from "../components/Input";
 import Spacer from "../components/Spacer";

@@ -1,10 +1,4 @@
-export default validation = (
-  name,
-  primaryMuscle,
-  secondaryMuscle,
-  equipment,
-  category
-) => {
+export default validation = (name, primaryMuscle) => {
   const errors = {};
 
   if (!name) {

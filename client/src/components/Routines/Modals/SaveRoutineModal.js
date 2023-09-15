@@ -6,7 +6,6 @@ const SaveRoutineModal = ({
   setModalVisible,
   handleSubmit,
   handleValidation,
-  setRoutine,
 }) => {
   return (
     <View>

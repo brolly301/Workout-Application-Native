@@ -1,5 +1,4 @@
 import {
-  Button,
   Modal,
   ScrollView,
   StyleSheet,
@@ -8,9 +7,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import useWorkoutContext from "../../hooks/useWorkoutContext";
-import { EvilIcons, AntDesign } from "@expo/vector-icons";
-
+import { EvilIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import DeleteModal from "../DeleteModal";
 

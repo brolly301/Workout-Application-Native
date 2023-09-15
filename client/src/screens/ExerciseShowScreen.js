@@ -1,16 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import ExerciseAbout from "../components/Exercises/ExerciseAbout";
 import ExerciseHistory from "../components/Exercises/ExerciseHistory";
 import useExerciseContext from "../hooks/useExerciseContext";
-import useExerciseSetsContext from "../hooks/useExerciseSetsContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
 
 const ExerciseShowScreen = ({ route }) => {
   const [selected, setSelected] = useState(true);
-  const { state: exerciseSets, getExerciseSets } = useExerciseSetsContext();
 
   const navigation = useNavigation();
 

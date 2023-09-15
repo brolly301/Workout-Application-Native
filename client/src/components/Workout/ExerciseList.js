@@ -1,14 +1,6 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
+import React from "react";
 import ExerciseShow from "../../components/Exercises/ExerciseShow";
-import { useNavigation } from "@react-navigation/native";
 
 const upperCaseChar = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);

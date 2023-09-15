@@ -1,19 +1,9 @@
-import {
-  StyleSheet,
-  FlatList,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import useRoutineContext from "../../hooks/useRoutineContext";
 import RoutineShow from "./RoutineShow";
-import { useNavigation } from "@react-navigation/native";
 import NoResultsPlaceholder from "../NoResultsPlaceholder";
 
 export default function RoutineList({ limit, allRoutines }) {
-  const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
       {allRoutines?.length >= 1 ? (

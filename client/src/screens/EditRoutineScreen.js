@@ -5,12 +5,11 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useRoutineContext from "../hooks/useRoutineContext";
 import WorkoutExerciseList from "../components/Workout/WorkoutExerciseList";
 import { useNavigation } from "@react-navigation/native";
 import validation from "../components/Routines/RoutineValidation";
-import useUserContext from "../hooks/useUserContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
 import SaveEditModal from "../components/SaveEditModal";
@@ -19,7 +18,6 @@ import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 const EditRoutineScreen = ({ route }) => {
   const [addExercise, setAddExercise] = useState(false);
   const { setRoutine, editRoutine } = useRoutineContext();
-  const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
   const routine = route.params?.routine;

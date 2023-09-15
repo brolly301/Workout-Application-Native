@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import RoutineList from "../components/Routines/RoutineList";
@@ -9,7 +9,6 @@ import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 export default function RoutineScreen() {
-  const [text, setText] = useState();
   const [search, setSearch] = useState();
   const { getUserDetails, state } = useUserContext();
   const { allRoutines } = useRoutineContext();
