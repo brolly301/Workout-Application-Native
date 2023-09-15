@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import useStateContext from "../../hooks/useStateContext";
+import useTimerContext from "../../hooks/useTimerContext.js";
 
 const Timer = () => {
-  const { time } = useStateContext();
+  const { time } = useTimerContext();
 
   // Hours calculation
   const hours = Math.floor(time / 3600);

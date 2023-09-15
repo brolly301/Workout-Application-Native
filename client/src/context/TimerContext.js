@@ -1,10 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 
-const StateContext = createContext();
+const TimerContext = createContext();
 
-export const StateProvider = ({ children }) => {
-  const [selected, setSelected] = useState();
-
+export const TimerProvider = ({ children }) => {
   const [time, setTimer] = useState(0);
   //State to start & stop timer
   const [isRunning, setIsRunning] = useState(false);
@@ -31,16 +29,14 @@ export const StateProvider = ({ children }) => {
   };
 
   const values = {
-    selected,
-    setSelected,
     time,
     resetTimer,
     startStopTimer,
   };
 
   return (
-    <StateContext.Provider value={values}>{children}</StateContext.Provider>
+    <TimerContext.Provider value={values}>{children}</TimerContext.Provider>
   );
 };
 
-export default StateContext;
+export default TimerContext;

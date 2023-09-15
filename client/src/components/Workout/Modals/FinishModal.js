@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
-import useStateContext from "../../../hooks/useStateContext";
+// import useTimerContext from "../../../hooks/useTimerContext";
 
 const FinishModal = ({
   modalVisible,
@@ -9,7 +9,7 @@ const FinishModal = ({
   handleValidation,
   handleChangeTime,
 }) => {
-  const { resetTimer, startStopTimer, time } = useStateContext();
+  // const { resetTimer, startStopTimer, time } = useTimerContext();
 
   const onModalOpen = () => {
     handleChangeTime(time);

@@ -11,12 +11,12 @@ import { EvilIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import useRoutineContext from "../../../hooks/useRoutineContext";
 import DeleteModal from "../../DeleteModal";
-import useStateContext from "../../../hooks/useStateContext";
+import useTimerContext from "../../../hooks/useTimerContext.js";
 
 const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
   const { deleteRoutine } = useRoutineContext();
   const navigation = useNavigation();
-  const { startStopTimer } = useStateContext();
+  const { startStopTimer } = useTimerContext();
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
 

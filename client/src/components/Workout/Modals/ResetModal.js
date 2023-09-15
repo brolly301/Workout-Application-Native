@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import useStateContext from "../../../hooks/useStateContext";
+import useTimerContext from "../../../hooks/useTimerContext.js";
 
 const ResetModal = ({ modalVisible, setModalVisible }) => {
-  const { resetTimer } = useStateContext();
+  const { resetTimer } = useTimerContext();
 
   return (
     <View>

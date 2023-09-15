@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import useStateContext from "../../../hooks/useStateContext";
+import useTimerContext from "../../../hooks/useTimerContext.js";
 import { useNavigation } from "@react-navigation/native";
 
 const CancelModal = ({ modalVisible, setModalVisible }) => {
-  const { resetTimer, startStopTimer } = useStateContext();
+  const { resetTimer, startStopTimer } = useTimerContext();
 
   const navigation = useNavigation();
 

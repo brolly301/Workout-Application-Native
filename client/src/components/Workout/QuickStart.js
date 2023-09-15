@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import useStateContext from "../../hooks/useStateContext";
+import useTimerContext from "../../hooks/useTimerContext.js";
 
 export default function QuickStart() {
   const navigation = useNavigation();
-  const { startStopTimer } = useStateContext();
+  const { startStopTimer } = useTimerContext();
 
   return (
     <View style={styles.container}>
