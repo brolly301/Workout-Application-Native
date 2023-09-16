@@ -19,7 +19,7 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="WorkoutTab">
       <Tab.Screen
         name="RoutinesTab"
         component={RoutinesStack}
@@ -31,7 +31,7 @@ const TabNavigation = () => {
               name="clipboard-list"
               size={30}
               color={focused ? "#D5A8F8" : "black"}
-              style={focused ? styles.icon : {}}
+              style={focused ? styles.iconFocused : styles.icon}
             />
           ),
         })}
@@ -48,7 +48,7 @@ const TabNavigation = () => {
               name="history"
               size={33}
               color={focused ? "#D5A8F8" : "black"}
-              style={focused ? styles.icon : {}}
+              style={focused ? styles.iconFocused : styles.icon}
             />
           ),
         }}
@@ -60,12 +60,13 @@ const TabNavigation = () => {
           headerShown: false,
           tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <View style={styles.workoutTab}>
+            <View
+              style={focused ? styles.workoutTabFocused : styles.workoutTab}>
               <Feather
                 name="plus"
                 size={30}
                 color={"black"}
-                style={focused ? styles.icon : {}}
+                style={focused ? styles.workoutIconFocused : {}}
               />
             </View>
           ),
@@ -83,7 +84,7 @@ const TabNavigation = () => {
               name="weight-lifter"
               size={32}
               color={focused ? "#D5A8F8" : "black"}
-              style={focused ? styles.icon : {}}
+              style={focused ? styles.iconFocused : styles.icon}
             />
           ),
         })}
@@ -99,7 +100,7 @@ const TabNavigation = () => {
               name="user"
               size={28}
               color={focused ? "#D5A8F8" : "black"}
-              style={focused ? styles.icon : {}}
+              style={focused ? styles.iconFocused : styles.icon}
             />
           ),
         }}
@@ -114,24 +115,30 @@ const styles = StyleSheet.create({
   workoutTab: {
     backgroundColor: "#D5A8F8",
     borderRadius: 50,
-    height: 50,
-    width: 50,
+    height: 48,
+    width: 48,
     justifyContent: "center",
     alignItems: "center",
     top: -10,
   },
-  icon: {
+  workoutTabFocused: {
+    backgroundColor: "#D5A8F8",
+    borderRadius: 50,
+    height: 48,
+    width: 48,
+    justifyContent: "center",
+    alignItems: "center",
+    top: -10,
+    transform: [{ scale: 1.1 }],
+  },
+  iconFocused: {
     transform: [{ scale: 1.2 }],
+    marginBottom: 5,
   },
-  tabBar: {
-    backgroundColor: "white", // Background color of the tab bar
-    borderTopWidth: 1, // Optional: You can add a border at the top
-    borderTopColor: "#D5A8F8", // Border color
-    elevation: 10, // Add elevation for the pop-out effect
+  workoutIconFocused: {
+    transform: [{ scale: 1.1 }],
   },
-  tabLabel: {
-    fontSize: 16,
-    fontWeight: "bold",
-    paddingBottom: 5, // Adjust padding as needed
+  icon: {
+    marginBottom: 5,
   },
 });
