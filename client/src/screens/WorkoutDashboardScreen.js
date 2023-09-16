@@ -9,7 +9,7 @@ import HeaderPanel from "../components/HeaderPanel";
 
 export default function WorkoutDashboard() {
   const { state } = useUserContext();
-  const { allRoutines } = useRoutineContext();
+  const { state: allRoutines } = useRoutineContext();
 
   return (
     <HeaderPanel>

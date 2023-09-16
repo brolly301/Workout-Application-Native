@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   WorkoutStack,
@@ -11,6 +11,7 @@ import {
   FontAwesome5,
   Feather,
   MaterialIcons,
+  EvilIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
@@ -24,12 +25,13 @@ const TabNavigation = () => {
         component={RoutinesStack}
         options={() => ({
           headerShown: false,
-          tabBarLabel: () => <Text>Routines</Text>,
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
               name="clipboard-list"
               size={30}
               color={focused ? "#D5A8F8" : "black"}
+              style={focused ? styles.icon : {}}
             />
           ),
         })}
@@ -40,12 +42,13 @@ const TabNavigation = () => {
         plus
         options={{
           headerShown: false,
-          tabBarLabel: () => <Text>History</Text>,
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
             <MaterialIcons
               name="history"
-              size={30}
+              size={33}
               color={focused ? "#D5A8F8" : "black"}
+              style={focused ? styles.icon : {}}
             />
           ),
         }}
@@ -55,13 +58,16 @@ const TabNavigation = () => {
         component={WorkoutStack}
         options={{
           headerShown: false,
-          tabBarLabel: () => <Text>Workout</Text>,
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Feather
-              name="plus-square"
-              size={30}
-              color={focused ? "#D5A8F8" : "black"}
-            />
+            <View style={styles.workoutTab}>
+              <Feather
+                name="plus"
+                size={30}
+                color={"black"}
+                style={focused ? styles.icon : {}}
+              />
+            </View>
           ),
         }}
       />
@@ -71,12 +77,13 @@ const TabNavigation = () => {
         component={ExercisesStack}
         options={() => ({
           headerShown: false,
-          tabBarLabel: () => <Text>Exercises</Text>,
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
             <MaterialCommunityIcons
               name="weight-lifter"
-              size={30}
+              size={32}
               color={focused ? "#D5A8F8" : "black"}
+              style={focused ? styles.icon : {}}
             />
           ),
         })}
@@ -86,12 +93,13 @@ const TabNavigation = () => {
         component={ProfileStack}
         options={{
           headerShown: false,
-          tabBarLabel: () => <Text>Profile</Text>,
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
               name="user"
-              size={30}
+              size={28}
               color={focused ? "#D5A8F8" : "black"}
+              style={focused ? styles.icon : {}}
             />
           ),
         }}
@@ -102,4 +110,28 @@ const TabNavigation = () => {
 
 export default TabNavigation;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  workoutTab: {
+    backgroundColor: "#D5A8F8",
+    borderRadius: 50,
+    height: 50,
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    top: -10,
+  },
+  icon: {
+    transform: [{ scale: 1.2 }],
+  },
+  tabBar: {
+    backgroundColor: "white", // Background color of the tab bar
+    borderTopWidth: 1, // Optional: You can add a border at the top
+    borderTopColor: "#D5A8F8", // Border color
+    elevation: 10, // Add elevation for the pop-out effect
+  },
+  tabLabel: {
+    fontSize: 16,
+    fontWeight: "bold",
+    paddingBottom: 5, // Adjust padding as needed
+  },
+});
