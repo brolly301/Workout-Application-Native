@@ -9,16 +9,15 @@ import React from "react";
 import Spacer from "../Spacer";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
-
-const WorkoutExerciseShow = ({
-  item,
-  exerciseIndex,
+import {
+  removeExercise,
+  removeSet,
   handleExerciseInputChange,
   addSetToExercise,
   handleExerciseNotesChange,
-  removeExercise,
-  removeSet,
-}) => {
+} from "../WorkoutFunctions";
+
+const WorkoutExerciseShow = ({ item, exerciseIndex, state, setState }) => {
   const setLength = item.sets.length;
 
   return (
@@ -29,7 +28,8 @@ const WorkoutExerciseShow = ({
         <Text style={styles.title}>
           Exercise {exerciseIndex + 1} - {item.name}
         </Text>
-        <TouchableOpacity onPress={() => removeExercise(exerciseIndex)}>
+        <TouchableOpacity
+          onPress={() => removeExercise(exerciseIndex, setState)}>
           <Ionicons name="remove-circle-outline" size={24} color="black" />
         </TouchableOpacity>
       </View>
@@ -49,7 +49,7 @@ const WorkoutExerciseShow = ({
                 {setLength > 1 ? (
                   <TouchableOpacity
                     style={styles.swipeableButton}
-                    onPress={() => removeSet(exerciseIndex, index)}>
+                    onPress={() => removeSet(exerciseIndex, index, setState)}>
                     <EvilIcons name="trash" size={30} color="red" />
                   </TouchableOpacity>
                 ) : null}
@@ -65,7 +65,13 @@ const WorkoutExerciseShow = ({
                 placeholder="0"
                 value={item?.kg?.toString() ?? ""}
                 onChangeText={(text) =>
-                  handleExerciseInputChange(exerciseIndex, index, "kg", text)
+                  handleExerciseInputChange(
+                    exerciseIndex,
+                    index,
+                    "kg",
+                    text,
+                    setState
+                  )
                 }
               />
               <TextInput
@@ -73,7 +79,13 @@ const WorkoutExerciseShow = ({
                 placeholder="0"
                 value={item?.reps?.toString() ?? ""}
                 onChangeText={(text) =>
-                  handleExerciseInputChange(exerciseIndex, index, "reps", text)
+                  handleExerciseInputChange(
+                    exerciseIndex,
+                    index,
+                    "reps",
+                    text,
+                    setState
+                  )
                 }
               />
             </View>
@@ -86,12 +98,12 @@ const WorkoutExerciseShow = ({
         style={styles.input}
         placeholder="Exercise notes"
         onChangeText={(text) =>
-          handleExerciseNotesChange(exerciseIndex, "notes", text)
+          handleExerciseNotesChange(exerciseIndex, "notes", text, setState)
         }
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => addSetToExercise(exerciseIndex)}>
+        onPress={() => addSetToExercise(exerciseIndex, state, setState)}>
         <Text style={styles.buttonText}>Add Set</Text>
       </TouchableOpacity>
     </View>

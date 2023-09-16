@@ -15,12 +15,22 @@ import CancelRoutineModal from "../components/Routines/Modals/CancelRoutineModal
 import SaveRoutineModal from "../components/Routines/Modals/SaveRoutineModal";
 import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 import HeaderPanel from "../components/HeaderPanel";
+import { handleExerciseInput } from "../components/WorkoutFunctions";
 
 const CreateRoutineScreen = () => {
-  const { routine, setRoutine, addRoutine } = useRoutineContext();
+  const { addRoutine } = useRoutineContext();
   const { state: user } = useUserContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
+
+  const [routine, setRoutine] = useState({
+    routineID: "",
+    userID: "",
+    name: "",
+    description: "",
+    date: new Date(),
+    exercises: [],
+  });
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
@@ -44,70 +54,6 @@ const CreateRoutineScreen = () => {
     });
   };
 
-  const handleExerciseInput = (name, level, category) => {
-    const updatedRoutine = { ...routine };
-    updatedRoutine.exercises.push({
-      name,
-      level,
-      category,
-      sets: [{ set: 1, kg: "", reps: "" }],
-    });
-    setRoutine(updatedRoutine);
-  };
-
-  const removeExercise = (index) => {
-    const updatedExercises = routine.exercises.filter(
-      (exercise, idx) => index !== idx
-    );
-    setRoutine({
-      ...routine,
-      exercises: updatedExercises,
-    });
-  };
-
-  const removeSet = (exerciseIndex, setIndex) => {
-    const updatedExercises = routine.exercises.map((exercise, idx) => {
-      if (idx === exerciseIndex) {
-        return {
-          ...exercise,
-          sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
-        };
-      }
-      return exercise;
-    });
-
-    setRoutine({
-      ...routine,
-      exercises: updatedExercises,
-    });
-  };
-
-  //Take copy of state, use the exercises index to choose that exercise
-  //Use set index to specify that exact set then field to update a specific field
-  //Then spcify the value to update and use this as an onChangeText event
-  const handleExerciseInputChange = (exerciseIndex, setIndex, field, value) => {
-    const updatedRoutine = { ...routine };
-    updatedRoutine.exercises[exerciseIndex].sets[setIndex][field] = value;
-    setRoutine(updatedRoutine);
-  };
-
-  const handleExerciseNotesChange = (exerciseIndex, field, value) => {
-    const updatedRoutine = { ...routine };
-    updatedRoutine.exercises[exerciseIndex][field] = value;
-    setRoutine(updatedRoutine);
-  };
-
-  //
-  const addSetToExercise = (exerciseIndex) => {
-    const updatedRoutine = { ...routine };
-    updatedRoutine.exercises[exerciseIndex].sets.push({
-      set: updatedRoutine.exercises[exerciseIndex].sets.length + 1,
-      kg: "",
-      reps: "",
-    });
-    setRoutine(updatedRoutine);
-  };
-
   return (
     <HeaderPanel>
       <View style={styles.headerIcon}>
@@ -122,12 +68,12 @@ const CreateRoutineScreen = () => {
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       </View>
-
       <>
         <AddExerciseModal
           handleSubmit={handleExerciseInput}
           modalVisible={exerciseModalVisible}
           setModalVisible={setExerciseModalVisible}
+          setState={setRoutine}
         />
         <CancelRoutineModal
           modalVisible={cancelModalVisible}
@@ -169,12 +115,8 @@ const CreateRoutineScreen = () => {
           <Text style={styles.exerciseErrors}>{errors.exercises}</Text>
         )}
         <WorkoutExerciseList
-          workoutData={routine}
-          handleExerciseInputChange={handleExerciseInputChange}
-          handleExerciseNotesChange={handleExerciseNotesChange}
-          addSetToExercise={addSetToExercise}
-          removeExercise={removeExercise}
-          removeSet={removeSet}
+          state={routine}
+          setState={setRoutine}
           exerciseModalVisible={exerciseModalVisible}
           setExerciseModalVisible={setExerciseModalVisible}
         />

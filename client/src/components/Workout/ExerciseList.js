@@ -11,6 +11,7 @@ export default function ExerciseList({
   handleSubmit,
   setModalVisible,
   modalVisible,
+  setState,
 }) {
   return (
     <View style={styles.container}>
@@ -24,7 +25,7 @@ export default function ExerciseList({
           return (
             <TouchableOpacity
               onPress={() => {
-                handleSubmit(item.name, item.category, item.level);
+                handleSubmit(item.name, item.category, item.level, setState);
                 setModalVisible(!modalVisible);
               }}>
               <ExerciseShow exercise={item} />

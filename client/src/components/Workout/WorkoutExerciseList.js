@@ -9,14 +9,10 @@ import React from "react";
 import WorkoutExerciseShow from "./WorkoutExerciseShow";
 
 const WorkoutExerciseList = ({
-  workoutData,
-  handleExerciseInputChange,
-  addSetToExercise,
-  handleExerciseNotesChange,
-  removeExercise,
-  removeSet,
   setExerciseModalVisible,
   exerciseModalVisible,
+  state,
+  setState,
 }) => {
   const renderFooter = () => {
     return (
@@ -34,7 +30,7 @@ const WorkoutExerciseList = ({
     <View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={workoutData.exercises}
+        data={state.exercises}
         ListFooterComponentStyle={{ flex: 1, justifyContent: "flex-end" }}
         ListFooterComponent={renderFooter}
         keyExtractor={(item) =>
@@ -45,11 +41,8 @@ const WorkoutExerciseList = ({
             <WorkoutExerciseShow
               item={item}
               exerciseIndex={index}
-              handleExerciseInputChange={handleExerciseInputChange}
-              addSetToExercise={addSetToExercise}
-              handleExerciseNotesChange={handleExerciseNotesChange}
-              removeExercise={removeExercise}
-              removeSet={removeSet}
+              state={state}
+              setState={setState}
               key={Math.floor(Math.random() * 100000)}
             />
           );
@@ -71,7 +64,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingVertical: 8,
-    // marginTop: "auto",
     marginBottom: 15,
   },
   buttonText: {

@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function RoutineScreen() {
   const [search, setSearch] = useState();
   const { getUserDetails, state } = useUserContext();
-  const { allRoutines } = useRoutineContext();
+  const { state: allRoutines } = useRoutineContext();
 
   const navigation = useNavigation();
 

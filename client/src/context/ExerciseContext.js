@@ -4,18 +4,7 @@ import Server from "../api/Server";
 const reducer = (state, action) => {
   switch (action.type) {
     case "add_exercise":
-      return [
-        ...state,
-        {
-          userID: action.payload.userID,
-          exerciseID: action.payload.exerciseID,
-          name: action.payload.name,
-          primaryMuscle: action.payload.primaryMuscle,
-          secondaryMuscle: action.payload.secondaryMuscle,
-          equipment: action.payload.equipment,
-          category: action.payload.category,
-        },
-      ];
+      return Array.isArray(state) ? [...state, { ...action.payload }] : state;
     case "edit_exercise":
       return state.map((exercise) => {
         return exercise.exerciseID === action.payload.exerciseID
@@ -32,112 +21,41 @@ const reducer = (state, action) => {
   }
 };
 
-const addExercise =
-  (dispatch) =>
-  async (
-    userID,
-    exerciseID,
-    name,
-    primaryMuscles,
-    secondaryMuscles,
-    equipment,
-    category,
-    force,
-    mechanic,
-    level,
-    callback
-  ) => {
-    try {
-      const res = await Server.post("/exercises/addExercise", {
-        userID,
-        exerciseID,
-        name,
-        primaryMuscles,
-        secondaryMuscles,
-        equipment,
-        category,
-        force,
-        mechanic,
-        level,
-      });
-      console.log(res);
-      dispatch({
-        type: "add_exercise",
-        payload: {
-          userID,
-          exerciseID,
-          name,
-          primaryMuscles,
-          secondaryMuscles,
-          equipment,
-          category,
-          force,
-          mechanic,
-          level,
-        },
-      });
-      if (callback) {
-        callback();
-      }
-    } catch (e) {
-      console.log(e.response.data);
+const addExercise = (dispatch) => async (exerciseData, callback) => {
+  try {
+    const res = await Server.post("/exercises/addExercise", {
+      ...exerciseData,
+    });
+    console.log(res);
+    dispatch({
+      type: "add_exercise",
+      payload: { ...exerciseData },
+    });
+    if (callback) {
+      callback();
     }
-  };
+  } catch (e) {
+    console.log(e.response.data);
+  }
+};
 
-const editExercise =
-  (dispatch) =>
-  async (
-    id,
-    exerciseID,
-    userID,
-    name,
-    primaryMuscles,
-    secondaryMuscles,
-    equipment,
-    category,
-    force,
-    mechanic,
-    level,
-    callback
-  ) => {
-    try {
-      const res = await Server.patch("/exercises/editExercise", {
-        id,
-        exerciseID,
-        userID,
-        name,
-        primaryMuscles,
-        secondaryMuscles,
-        equipment,
-        force,
-        mechanic,
-        level,
-        category,
-      });
-      console.log(res);
-      dispatch({
-        type: "edit_exercise",
-        payload: {
-          id,
-          exerciseID,
-          userID,
-          name,
-          primaryMuscles,
-          secondaryMuscles,
-          equipment,
-          force,
-          mechanic,
-          level,
-          category,
-        },
-      });
-      if (callback) {
-        callback();
-      }
-    } catch (e) {
-      console.log(e.response.data);
+const editExercise = (dispatch) => async (exerciseData, callback) => {
+  try {
+    const res = await Server.patch("/exercises/editExercise", {
+      ...exerciseData,
+    });
+    console.log(res);
+    dispatch({
+      type: "edit_exercise",
+      payload: { ...exerciseData },
+    });
+    if (callback) {
+      callback();
     }
-  };
+  } catch (e) {
+    console.log(e.response.data);
+  }
+};
 
 const deleteExercise = (dispatch) => async (id, exerciseID) => {
   const res = await Server.delete(`/exercises/deleteExercise/${exerciseID}`);

@@ -4,7 +4,12 @@ import ExerciseList from "../ExerciseList";
 import SearchBar from "../../SearchBar";
 import useExerciseContext from "../../../hooks/useExerciseContext";
 import { EvilIcons } from "@expo/vector-icons";
-const AddExerciseModal = ({ modalVisible, setModalVisible, handleSubmit }) => {
+const AddExerciseModal = ({
+  modalVisible,
+  setModalVisible,
+  handleSubmit,
+  setState,
+}) => {
   const { state } = useExerciseContext();
   const [search, setSearch] = useState();
 
@@ -39,6 +44,7 @@ const AddExerciseModal = ({ modalVisible, setModalVisible, handleSubmit }) => {
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
                 handleSubmit={handleSubmit}
+                setState={setState}
               />
             </View>
           </View>

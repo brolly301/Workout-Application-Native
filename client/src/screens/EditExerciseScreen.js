@@ -39,24 +39,24 @@ export default function ExerciseEditScreen({ route }) {
     setErrors(validation(name, primaryMuscles));
   };
 
+  const exerciseData = {
+    id: exercise._id,
+    exerciseID: exercise.exerciseID,
+    name,
+    primaryMuscles,
+    secondaryMuscles,
+    equipment,
+    category,
+    force,
+    mechanic,
+    level,
+  };
+
   const handleSubmit = () => {
     try {
-      editExercise(
-        exercise._id,
-        exercise.exerciseID,
-        user.userDetails._id,
-        name,
-        primaryMuscles,
-        secondaryMuscles,
-        equipment,
-        category,
-        force,
-        mechanic,
-        level,
-        () => {
-          navigation.navigate("Exercises");
-        }
-      );
+      editExercise(exerciseData, () => {
+        navigation.navigate("Exercises");
+      });
     } catch (e) {
       console.log("error");
     }

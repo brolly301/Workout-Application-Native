@@ -32,24 +32,25 @@ export default function CreateExerciseScreen() {
     setErrors(validation(name, primaryMuscles));
   };
 
+  const exerciseData = {
+    userID: user.userDetails._id,
+    exerciseID: `${user.userDetails._id}${Math.floor(
+      Math.random() * 100000
+    )}${Date.now()}`,
+    name,
+    primaryMuscles,
+    secondaryMuscles,
+    equipment,
+    category,
+    force,
+    mechanic,
+    level,
+  };
+
   const handleSubmit = () => {
-    addExercise(
-      user.userDetails._id,
-      `${user.userDetails._id}${Math.floor(
-        Math.random() * 100000
-      )}${Date.now()}`,
-      name,
-      primaryMuscles,
-      secondaryMuscles,
-      equipment,
-      category,
-      force,
-      mechanic,
-      level,
-      () => {
-        navigation.navigate("Exercises");
-      }
-    );
+    addExercise(exerciseData, () => {
+      navigation.navigate("Exercises");
+    });
   };
 
   return (

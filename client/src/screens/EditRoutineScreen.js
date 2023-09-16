@@ -14,10 +14,10 @@ import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
 import SaveEditModal from "../components/SaveEditModal";
 import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
+import { handleExerciseInput } from "../components/WorkoutFunctions";
 
 const EditRoutineScreen = ({ route }) => {
-  const [addExercise, setAddExercise] = useState(false);
-  const { setRoutine, editRoutine } = useRoutineContext();
+  const { editRoutine } = useRoutineContext();
   const [errors, setErrors] = useState({});
   const navigation = useNavigation();
   const routine = route.params?.routine;
@@ -54,88 +54,13 @@ const EditRoutineScreen = ({ route }) => {
     });
   };
 
-  const handleExerciseInput = (name, level, category) => {
-    setNewRoutine((prevData) => ({
-      ...prevData,
-      exercises: [
-        ...prevData.exercises,
-        {
-          name,
-          level,
-          category,
-          sets: [{ set: 1, kg: "", reps: "" }],
-        },
-      ],
-    }));
-  };
-
-  const removeExercise = (index) => {
-    setNewRoutine((prevWorkoutData) => {
-      // Use filter to create a new array without the exercise at the specified index
-      const updatedExercises = prevWorkoutData.exercises.filter(
-        (exercise, idx) => idx !== index
-      );
-
-      return {
-        ...prevWorkoutData,
-        exercises: updatedExercises,
-      };
-    });
-  };
-
-  const removeSet = (exerciseIndex, setIndex) => {
-    setNewRoutine((prevWorkoutData) => {
-      const updatedExercises = prevWorkoutData.exercises.map(
-        (exercise, idx) => {
-          if (idx === exerciseIndex) {
-            return {
-              ...exercise,
-              sets: exercise.sets.filter((set, setIdx) => setIdx !== setIndex),
-            };
-          }
-          return exercise;
-        }
-      );
-
-      return {
-        ...prevWorkoutData,
-        exercises: updatedExercises,
-      };
-    });
-  };
-  //Take copy of state, use the exercises index to choose that exercise
-  //Use set index to specify that exact set then field to update a specific field
-  //Then spcify the value to update and use this as an onChangeText event
-  const handleExerciseInputChange = (exerciseIndex, setIndex, field, value) => {
-    const updatedRoutine = { ...newRoutine };
-    updatedRoutine.exercises[exerciseIndex].sets[setIndex][field] = value;
-    setNewRoutine(updatedRoutine);
-  };
-
-  const handleExerciseNotesChange = (exerciseIndex, field, value) => {
-    const updatedRoutine = { ...newRoutine };
-    updatedRoutine.exercises[exerciseIndex][field] = value;
-    setNewRoutine(updatedRoutine);
-  };
-
-  //
-  const addSetToExercise = (exerciseIndex) => {
-    const updatedRoutine = { ...newRoutine };
-    updatedRoutine.exercises[exerciseIndex].sets.push({
-      set: updatedRoutine.exercises[exerciseIndex].sets.length + 1,
-      kg: "",
-      reps: "",
-    });
-    setNewRoutine(updatedRoutine);
-  };
-
   return (
     <HeaderPanel>
       <AddExerciseModal
-        setAddExercise={setAddExercise}
         handleSubmit={handleExerciseInput}
         modalVisible={exerciseModalVisible}
         setModalVisible={setExerciseModalVisible}
+        setState={setNewRoutine}
       />
       <SaveEditModal
         setModalVisible={setModalVisible}
@@ -180,12 +105,8 @@ const EditRoutineScreen = ({ route }) => {
       )}
 
       <WorkoutExerciseList
-        workoutData={newRoutine}
-        handleExerciseInputChange={handleExerciseInputChange}
-        handleExerciseNotesChange={handleExerciseNotesChange}
-        addSetToExercise={addSetToExercise}
-        removeExercise={removeExercise}
-        removeSet={removeSet}
+        state={newRoutine}
+        setState={setNewRoutine}
         setExerciseModalVisible={setExerciseModalVisible}
         exerciseModalVisible={exerciseModalVisible}
       />

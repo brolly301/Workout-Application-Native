@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import RoutineContext from "../context/RoutineContext";
+import { Context } from "../context/RoutineContext";
 
 export default function useRoutineContext() {
-  return useContext(RoutineContext);
+  return useContext(Context);
 }

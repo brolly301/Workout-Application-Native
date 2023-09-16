@@ -18,6 +18,7 @@ import CancelModal from "../components/Workout/Modals/CancelModal";
 import ResetModal from "../components/Workout/Modals/ResetModal";
 import AddExerciseModal from "../components/Workout/Modals/AddExerciseModal";
 import HeaderPanel from "../components/HeaderPanel";
+import { handleExerciseInput } from "../components/WorkoutFunctions";
 
 const CreateWorkoutScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -79,108 +80,6 @@ const CreateWorkoutScreen = ({ route }) => {
     });
   };
 
-  const removeExercise = (index) => {
-    setWorkoutData((prevWorkoutData) => {
-      // Use filter to create a new array without the exercise at the specified index
-      const updatedExercises = prevWorkoutData.exercises.filter(
-        (exercise, idx) => idx !== index
-      );
-
-      return {
-        ...prevWorkoutData,
-        exercises: updatedExercises,
-      };
-    });
-  };
-
-  const removeSet = (exerciseIndex, setIndex) => {
-    setWorkoutData((prevWorkoutData) => {
-      const updatedWorkout = { ...prevWorkoutData };
-      const exerciseToUpdate = updatedWorkout.exercises[exerciseIndex];
-
-      // Remove the set at the specified index
-      const updatedSets = exerciseToUpdate.sets.filter(
-        (set, idx) => idx !== setIndex
-      );
-
-      // Renumber the remaining sets
-      const renumberedSets = updatedSets.map((set, idx) => ({
-        ...set,
-        set: idx + 1,
-      }));
-
-      // Update the exercise in the workout data with the renumbered sets
-      updatedWorkout.exercises[exerciseIndex] = {
-        ...exerciseToUpdate,
-        sets: renumberedSets,
-      };
-
-      return updatedWorkout;
-    });
-  };
-
-  //Take copy of state, push the exercise into the exercises array and give default set values
-  const handleExerciseInput = (name, level, category) => {
-    setWorkoutData((prevData) => ({
-      ...prevData,
-      exercises: [
-        ...prevData.exercises,
-        {
-          name,
-          level,
-          category,
-          sets: [{ set: 1, kg: "", reps: "" }],
-        },
-      ],
-    }));
-  };
-
-  //Take copy of state, use the exercises index to choose that exercise
-  //Use set index to specify that exact set then field to update a specific field
-  //Then spcify the value to update and use this as an onChangeText event
-  const handleExerciseInputChange = (exerciseIndex, setIndex, field, value) => {
-    setWorkoutData((prevData) => ({
-      ...prevData,
-      exercises: prevData.exercises.map((exercise, idx) => {
-        if (idx === exerciseIndex) {
-          return {
-            ...exercise,
-            sets: exercise.sets.map((set, setIdx) => {
-              if (setIdx === setIndex) {
-                return { ...set, [field]: value };
-              }
-              return set;
-            }),
-          };
-        }
-        return exercise;
-      }),
-    }));
-  };
-
-  const handleExerciseNotesChange = (exerciseIndex, field, value) => {
-    setWorkoutData((prevData) => ({
-      ...prevData,
-      exercises: prevData.exercises.map((exercise, idx) => {
-        if (idx === exerciseIndex) {
-          return { ...exercise, [field]: value };
-        }
-        return exercise;
-      }),
-    }));
-  };
-
-  //
-  const addSetToExercise = (exerciseIndex) => {
-    const updatedWorkout = { ...workoutData };
-    updatedWorkout.exercises[exerciseIndex].sets.push({
-      set: updatedWorkout.exercises[exerciseIndex].sets.length + 1,
-      kg: "",
-      reps: "",
-    });
-    setWorkoutData(updatedWorkout);
-  };
-
   return (
     <HeaderPanel>
       <View style={styles.headerIcon}>
@@ -205,6 +104,7 @@ const CreateWorkoutScreen = ({ route }) => {
         handleSubmit={handleExerciseInput}
         modalVisible={exerciseModalVisible}
         setModalVisible={setExerciseModalVisible}
+        setState={setWorkoutData}
       />
       <ResetModal
         modalVisible={resetModalVisible}
@@ -252,12 +152,8 @@ const CreateWorkoutScreen = ({ route }) => {
           <Text style={styles.exerciseErrors}>{errors.exercises}</Text>
         )}
         <WorkoutExerciseList
-          workoutData={workoutData}
-          handleExerciseInputChange={handleExerciseInputChange}
-          handleExerciseNotesChange={handleExerciseNotesChange}
-          addSetToExercise={addSetToExercise}
-          removeExercise={removeExercise}
-          removeSet={removeSet}
+          state={workoutData}
+          setState={setWorkoutData}
           setExerciseModalVisible={setExerciseModalVisible}
           exerciseModalVisible={exerciseModalVisible}
         />
