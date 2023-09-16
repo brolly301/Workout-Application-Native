@@ -4,6 +4,7 @@ import HistoryList from "../components/History/HistoryList";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import TrackList from "../components/History/TrackList";
 import HeaderPanel from "../components/HeaderPanel";
+import Spacer from "../components/Spacer";
 
 export default function HistoryScreen() {
   const [active, setActive] = useState(true);
@@ -15,6 +16,7 @@ export default function HistoryScreen() {
 
   return (
     <HeaderPanel>
+      <View style={styles.spacer} />
       <Text style={styles.title}>History</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => setActive(true)}>
@@ -67,5 +69,8 @@ const styles = StyleSheet.create({
   subTitle: {
     marginTop: 10,
     fontSize: 18,
+  },
+  spacer: {
+    height: 32,
   },
 });

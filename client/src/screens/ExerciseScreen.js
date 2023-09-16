@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import ExerciseList from "../components/Exercises/ExerciseList";
 import SearchBar from "../components/SearchBar";
 import useExerciseContext from "../hooks/useExerciseContext";
 import { useNavigation } from "@react-navigation/native";
-import ExerciseSortBy from "../components/Exercises/ExerciseSortBy";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import ExerciseEdit from "../components/Exercises/ExerciseEdit";
 import HeaderPanel from "../components/HeaderPanel";
+import ExerciseSortByFilter from "../components/Exercises/ExerciseSortByFilter";
+import exerciseSortFunction from "../components/ExerciseSortFunction";
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
@@ -21,12 +21,16 @@ export default function ExerciseScreen() {
     setIsActive(!isActive);
   };
 
-  const update = (sortBy) => {
+  const updateSortBy = (sortBy) => {
     switch (sortBy) {
       case "search":
         return state?.filter((exercise) => exercise.name.match(search));
       case "reverse":
         return state?.slice().reverse();
+      case "hamstrings":
+        return state?.filter((exercise) =>
+          exercise.primaryMuscles.includes("adductors")
+        );
       default:
         return state;
     }
@@ -35,7 +39,6 @@ export default function ExerciseScreen() {
   return (
     <HeaderPanel>
       <View style={styles.headerContainer}>
-        <ExerciseSortBy selected={selected} setSelected={setSelected} />
         {/* Pushes any other data to the right */}
         <View style={{ flex: 1 }} />
         <TouchableOpacity onPress={() => handleEdit()}>
@@ -51,9 +54,12 @@ export default function ExerciseScreen() {
       <Text style={styles.title}>Exercises</Text>
       <SearchBar setText={setSearch} placeholder={"exercises"} />
       {isActive ? (
-        <ExerciseEdit state={update(selected)} />
+        <ExerciseEdit state={updateSortBy(selected)} />
       ) : (
-        <ExerciseList state={update(selected)} />
+        <ExerciseSortByFilter
+          sortByState={exerciseSortFunction(search, state, selected)}
+          setSelected={setSelected}
+        />
       )}
     </HeaderPanel>
   );

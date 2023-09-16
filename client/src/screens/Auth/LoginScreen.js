@@ -19,9 +19,9 @@ import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
 export default function LoginScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const { state, login } = useUserContext();
   const navigation = useNavigation();
 
+  const { state, login, getUserDetails } = useUserContext();
   const { getExercises } = useExerciseContext();
   const { getRoutines } = useRoutineContext();
   const { getWorkouts } = useWorkoutContext();
@@ -53,6 +53,7 @@ export default function LoginScreen() {
               getRoutines();
               getWorkouts();
               getExerciseSets();
+              getUserDetails();
             }}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>

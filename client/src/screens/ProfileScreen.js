@@ -1,4 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View, Modal } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
 import ProfileDetails from "../components/Profile/ProfileDetails";
 import HistoryList from "../components/History/HistoryList";
@@ -8,6 +15,7 @@ import useUserContext from "../hooks/useUserContext";
 import { EvilIcons } from "@expo/vector-icons";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import HeaderPanel from "../components/HeaderPanel";
+import Spacer from "../components/Spacer";
 
 export default function ProfileScreen() {
   const { logout } = useUserContext();
@@ -19,48 +27,53 @@ export default function ProfileScreen() {
   };
 
   return (
-    <HeaderPanel>
-      <TouchableOpacity style={styles.headerIcon} onPress={() => toggleModal()}>
-        <Ionicons
-          style={styles.headerRight}
-          name="settings-sharp"
-          size={32}
-          color="#D5A8F8"
-        />
-      </TouchableOpacity>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          toggleModal();
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <TouchableOpacity onPress={() => toggleModal()}>
-              <EvilIcons
-                style={styles.modalIcon}
-                name="close"
-                size={24}
-                color="black"
-              />
-            </TouchableOpacity>
-            <Text style={styles.modalTitle}>Settings</Text>
-            <TouchableOpacity style={styles.button} onPress={() => logout()}>
-              <Text style={styles.buttonText}>Logout</Text>
-            </TouchableOpacity>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <HeaderPanel>
+        <TouchableOpacity
+          style={styles.headerIcon}
+          onPress={() => toggleModal()}>
+          <Ionicons
+            style={styles.headerRight}
+            name="settings-sharp"
+            size={32}
+            color="#D5A8F8"
+          />
+        </TouchableOpacity>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            toggleModal();
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <TouchableOpacity onPress={() => toggleModal()}>
+                <EvilIcons
+                  style={styles.modalIcon}
+                  name="close"
+                  size={24}
+                  color="black"
+                />
+              </TouchableOpacity>
+              <Text style={styles.modalTitle}>Settings</Text>
+              <TouchableOpacity style={styles.button} onPress={() => logout()}>
+                <Text style={styles.buttonText}>Logout</Text>
+              </TouchableOpacity>
+            </View>
           </View>
+        </Modal>
+        <Text style={styles.title}>Profile</Text>
+        <ProfileDetails />
+        <Text style={styles.activity}>Activity</Text>
+        <ProfileCharts />
+        <Text style={styles.recentWorkout}>Recent Workouts</Text>
+        <View style={styles.recentWorkoutsContainer}>
+          <HistoryList state={state} limit={4} />
         </View>
-      </Modal>
-      <Text style={styles.title}>Profile</Text>
-      <ProfileDetails />
-      <Text style={styles.activity}>Activity</Text>
-      <ProfileCharts />
-      <Text style={styles.recentWorkout}>Recent Workouts</Text>
-      <View style={styles.recentWorkoutsContainer}>
-        <HistoryList state={state} limit={2} />
-      </View>
-    </HeaderPanel>
+        <Spacer />
+      </HeaderPanel>
+    </ScrollView>
   );
 }
 

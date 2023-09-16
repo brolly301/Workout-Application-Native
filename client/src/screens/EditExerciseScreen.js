@@ -94,30 +94,23 @@ export default function ExerciseEditScreen({ route }) {
           setText={setName}
           error={errors.name}
         />
-        <Spacer />
         <Input
           field={"Primary Muscle"}
           value={primaryMuscles}
           setText={setPrimaryMuscles}
           error={errors.primaryMuscle}
         />
-        <Spacer />
         <Input
           field={"Secondary Muscle"}
           value={secondaryMuscles}
           setText={setSecondaryMuscles}
         />
-        <Spacer />
         <Input value={equipment} field={"Equipment"} setText={setEquipment} />
-        <Spacer />
         <Input value={category} field={"Category"} setText={setCategory} />
-        <Spacer />
 
         <Input value={force} field={"Force"} setText={setForce} />
-        <Spacer />
 
         <Input value={mechanic} field={"Mechanic"} setText={setMechanic} />
-        <Spacer />
 
         <Input value={level} field={"Level"} setText={setLevel} />
       </View>

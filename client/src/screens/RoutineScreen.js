@@ -2,7 +2,6 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import RoutineList from "../components/Routines/RoutineList";
-import useUserContext from "../hooks/useUserContext";
 import useRoutineContext from "../hooks/useRoutineContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Feather } from "@expo/vector-icons";
@@ -10,14 +9,9 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function RoutineScreen() {
   const [search, setSearch] = useState();
-  const { getUserDetails, state } = useUserContext();
   const { state: allRoutines } = useRoutineContext();
 
   const navigation = useNavigation();
-
-  useEffect(() => {
-    getUserDetails();
-  }, []);
 
   const updatedState = allRoutines?.filter((routine) =>
     routine.name.match(search)

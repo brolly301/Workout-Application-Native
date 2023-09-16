@@ -25,7 +25,7 @@ export default function ExerciseShow({ exercise }) {
           {exercise.primaryMuscle ? upperCase(exercise.primaryMuscle) : null}
         </Text>
       </View>
-      <EvilIcons style={styles.icon} name="pencil" size={34} color="black" />
+      <EvilIcons style={styles.icon} name="pencil" size={34} color="#D5A8F8" />
     </View>
   );
 }

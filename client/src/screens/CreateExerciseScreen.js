@@ -81,23 +81,16 @@ export default function CreateExerciseScreen() {
         <Text style={styles.title}>Exercises</Text>
         <Text style={styles.subTitle}>Create New Exercise</Text>
         <Input field={"Exercise Name"} setText={setName} error={errors.name} />
-        <Spacer />
         <Input
           field={"Primary Muscle"}
           setText={setPrimaryMuscles}
           error={errors.primaryMuscles}
         />
-        <Spacer />
         <Input field={"Secondary Muscle"} setText={setSecondaryMuscles} />
-        <Spacer />
         <Input field={"Equipment"} setText={setEquipment} />
-        <Spacer />
         <Input field={"Category"} setText={setCategory} />
-        <Spacer />
         <Input field={"Force"} setText={setForce} />
-        <Spacer />
         <Input field={"Mechanic"} setText={setMechanic} />
-        <Spacer />
         <Input field={"Level"} setText={setLevel} />
       </HeaderPanel>
     </>

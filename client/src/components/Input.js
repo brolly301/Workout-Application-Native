@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
-
+    fontSize: 16,
     width: "100%",
-    paddingVertical: 7,
+    paddingVertical: 13,
     paddingLeft: 7,
-    marginBottom: 5,
+    marginBottom: 4,
   },
   error: {
     color: "red",

@@ -5,40 +5,41 @@ import { Ionicons } from "@expo/vector-icons";
 const SortByModal = ({ modalVisible, setModalVisible, setSelected }) => {
   return (
     <View>
-      <Modal
-        visible={modalVisible}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={styles.closeButton}>
-              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                <Ionicons name="close" size={18} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.buttonContainer}>
-              <View style={styles.dropdownContainer}>
-                <Text style={styles.title}>Exercise Name</Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    setSelected("search");
-                    setModalVisible(!modalVisible);
-                  }}>
-                  <Text style={styles.sortText}>A - Z</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    setSelected("reverse");
-                    setModalVisible(!modalVisible);
-                  }}>
-                  <Text style={styles.sortText}>Z - A</Text>
-                </TouchableOpacity>
+      {modalVisible ? (
+        <Modal
+          visible={modalVisible}
+          animationType="fade"
+          transparent={true}
+          onRequestClose={() => setModalVisible(!modalVisible)}>
+          <TouchableOpacity
+            style={styles.overlay} // Transparent overlay covering the entire screen
+            activeOpacity={1} // Prevents the TouchableOpacity from catching touches
+            onPress={() => setModalVisible(!modalVisible)}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <View style={styles.buttonContainer}>
+                  <View style={styles.dropdownContainer}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setSelected("search");
+                        setModalVisible(!modalVisible);
+                      }}>
+                      <Text style={styles.sortText}>A - Z</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setSelected("reverse");
+                        setModalVisible(!modalVisible);
+                      }}>
+                      <Text style={styles.sortText}>Z - A</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
-        </View>
-      </Modal>
+          </TouchableOpacity>
+        </Modal>
+      ) : null}
     </View>
   );
 };
@@ -48,31 +49,22 @@ export default SortByModal;
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    alignItems: "flex-start",
   },
   modalView: {
     backgroundColor: "white",
     borderRadius: 10,
-    marginTop: 60,
+    marginTop: 175,
     marginLeft: 15,
-    width: "35%",
     borderWidth: 1,
+    width: "45%",
     borderColor: "black",
   },
-  closeButton: {
-    alignSelf: "flex-end",
-    marginRight: 10,
-    marginTop: 5,
-  },
-  closeButtonText: {
-    color: "blue",
-    fontSize: 15,
-  },
+
   buttonContainer: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    marginBottom: 15,
+    marginVertical: 15,
   },
   dropdownContainer: {
     display: "flex",
@@ -84,7 +76,13 @@ const styles = StyleSheet.create({
     textDecorationStyle: "solid",
   },
   sortText: {
-    fontSize: 13,
-    marginVertical: 3,
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginVertical: 10,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
   },
 });

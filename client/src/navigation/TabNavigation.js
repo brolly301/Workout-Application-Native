@@ -11,7 +11,6 @@ import {
   FontAwesome5,
   Feather,
   MaterialIcons,
-  EvilIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
@@ -19,7 +18,17 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   return (
-    <Tab.Navigator initialRouteName="WorkoutTab">
+    <Tab.Navigator
+      initialRouteName="WorkoutTab"
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: null,
+          borderTopWidth: 1,
+          elevation: 0,
+        },
+
+        headerShown: false,
+      }}>
       <Tab.Screen
         name="RoutinesTab"
         component={RoutinesStack}

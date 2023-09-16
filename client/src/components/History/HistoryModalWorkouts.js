@@ -18,6 +18,13 @@ const HistoryModalWorkouts = ({
 }) => {
   const navigation = useNavigation();
 
+  // i want the new date to display the day of the week, the month, the day, and the year
+  const date = new Date(routine?.date).toLocaleDateString("en-US", {
+    weekday: "short",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   return (
     <View>
       <View style={styles.iconContainer}>
@@ -29,7 +36,7 @@ const HistoryModalWorkouts = ({
           <EvilIcons
             style={styles.modalIconDelete}
             name="trash"
-            size={33}
+            size={39}
             color="red"
           />
         </TouchableOpacity>
@@ -41,8 +48,8 @@ const HistoryModalWorkouts = ({
           <EvilIcons
             style={styles.modalIconClose}
             name="pencil"
-            size={33}
-            color="orange"
+            size={39}
+            color="#D5A8F8"
           />
         </TouchableOpacity>
 
@@ -57,9 +64,7 @@ const HistoryModalWorkouts = ({
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{routine?.name}</Text>
-        <Text style={styles.subTitle}>
-          {routine?.description || "No description"}
-        </Text>
+        <Text style={styles.subTitle}>{date || "No description"}</Text>
       </View>
       <View>
         <ScrollView

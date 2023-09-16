@@ -38,7 +38,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                 <EvilIcons
                   style={styles.modalIconDelete}
                   name="trash"
-                  size={33}
+                  size={39}
                   color="red"
                 />
               </TouchableOpacity>
@@ -50,8 +50,8 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                 <EvilIcons
                   style={styles.modalIconClose}
                   name="pencil"
-                  size={33}
-                  color="orange"
+                  size={39}
+                  color="#D5A8F8"
                 />
               </TouchableOpacity>
               <TouchableOpacity
@@ -66,8 +66,8 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                 <AntDesign
                   style={styles.modalIconStart}
                   name="caretright"
-                  size={24}
-                  color="green"
+                  size={28}
+                  color="#80DF68"
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   editButtonText: {
-    color: "#D5A8F8",
+    color: "#F9B754",
     fontSize: 18,
   },
   iconContainer: {
