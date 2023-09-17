@@ -1,20 +1,17 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { images } from "../Images";
+import FastImage from "react-native-fast-image";
 
 const upperCase = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export default function ExerciseShow({ exercise }) {
+export default function ExerciseShow({ exercise, image }) {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: "https://res.cloudinary.com/dtcoefjmm/image/upload/v1692471110/exercises/images/3_4_Sit-Up/images/0_y0xzyp.jpg",
-        }}
-      />
+      <Image style={styles.image} source={image.image} />
       <View style={styles.textContainer}>
         <Text style={styles.name}>{upperCase(exercise.name)}</Text>
 

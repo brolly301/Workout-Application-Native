@@ -9,6 +9,7 @@ import React from "react";
 import ExerciseShow from "../../components/Exercises/ExerciseShow";
 import { useNavigation } from "@react-navigation/native";
 import Spacer from "../Spacer";
+import { images } from "../Images";
 
 export default function ExerciseList({ state }) {
   const navigation = useNavigation();
@@ -27,13 +28,15 @@ export default function ExerciseList({ state }) {
         keyExtractor={(item) =>
           Math.floor(Math.random() * 1000000) + Date.now()
         }
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
+          // const imageIndex = index < images.length ? index : 0;
+          const exerciseImage = images[item.id] || {};
           return (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("ExerciseShow", { id: item.id })
               }>
-              <ExerciseShow exercise={item} />
+              <ExerciseShow exercise={item} image={exerciseImage} />
             </TouchableOpacity>
           );
         }}

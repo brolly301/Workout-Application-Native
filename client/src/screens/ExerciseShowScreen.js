@@ -6,6 +6,7 @@ import ExerciseHistory from "../components/Exercises/ExerciseHistory";
 import useExerciseContext from "../hooks/useExerciseContext";
 import HeaderPanel from "../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
+import { images } from "../components/Images";
 
 const ExerciseShowScreen = ({ route }) => {
   const [selected, setSelected] = useState(true);
@@ -17,13 +18,15 @@ const ExerciseShowScreen = ({ route }) => {
 
   const exercise = state.find((result) => result.id === id);
 
+  const exerciseImage = images[exercise.id] || {};
+
   const handleSelected = (boolean) => {
     setSelected(boolean);
   };
 
   let content = <ExerciseHistory exercise={exercise} />;
   if (selected) {
-    content = <ExerciseAbout exercise={exercise} />;
+    content = <ExerciseAbout exercise={exercise} image={exerciseImage} />;
   }
 
   return (

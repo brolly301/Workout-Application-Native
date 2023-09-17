@@ -6,7 +6,7 @@ const { exerciseValidator } = require("../middlewares/validation");
 const requireAuth = require("../middlewares/requireAuth");
 
 router.get("/allExercises", requireAuth, async (req, res) => {
-  const exercises = await Exercise.find({}).limit(10);
+  const exercises = await Exercise.find({});
   const userExercises = await UserExercise.find({
     userID: req.user._id,
   });
