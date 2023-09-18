@@ -12,6 +12,10 @@ import validation from "../../components/RegisterValidation";
 import HeaderPanel from "../../components/HeaderPanel";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import useExerciseContext from "../../hooks/useExerciseContext";
+import useWorkoutContext from "../../hooks/useWorkoutContext";
+import useRoutineContext from "../../hooks/useRoutineContext";
+import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState();
@@ -20,6 +24,10 @@ export default function RegisterScreen() {
   const [lastName, setLastName] = useState();
   const [errors, setErrors] = useState({});
   const { register, getUserDetails } = useUserContext();
+  const { getExercises } = useExerciseContext();
+  const { getRoutines } = useRoutineContext();
+  const { getWorkouts } = useWorkoutContext();
+  const { getExerciseSets } = useExerciseSetsContext();
   const navigation = useNavigation();
 
   const handleValidation = () => {
@@ -31,6 +39,10 @@ export default function RegisterScreen() {
       try {
         register({ firstName, lastName, email, password }, () => {
           getUserDetails();
+          getExercises();
+          getRoutines();
+          getWorkouts();
+          getExerciseSets();
         });
       } catch (e) {
         console.log(e);
