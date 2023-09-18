@@ -27,21 +27,19 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
         />
       ) : (
         <>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={Array.isArray(state) ? state.slice(0, limit) : []}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item, index }) => {
-              return (
-                <HistoryShow
-                  setRoutine={setRoutine}
-                  setModalVisible={setModalVisible}
-                  modalVisible={modalVisible}
-                  item={item}
-                />
-              );
-            }}
-          />
+          {Array.isArray(state)
+            ? state.slice(0, limit).map((item) => {
+                return (
+                  <HistoryShow
+                    setRoutine={setRoutine}
+                    setModalVisible={setModalVisible}
+                    modalVisible={modalVisible}
+                    item={item}
+                    key={item._id}
+                  />
+                );
+              })
+            : []}
         </>
       )}
     </View>

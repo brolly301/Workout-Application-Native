@@ -33,20 +33,23 @@ const reducer = (state, action) => {
 };
 
 const login = (dispatch) => {
-  return async ({ email, password, callback }) => {
+  return async ({ email, password }, callback) => {
     // const navigation = useNavigation();
     try {
       const res = await Server.post("/login", { email, password });
       await AsyncStorage.setItem("token", res.data.token);
       dispatch({ type: "login", payload: res.data.token });
       ToastMessage("success", "You have successfully logged in. Welcome back.");
+      if (callback) {
+        callback();
+      }
     } catch (e) {
       dispatch({ type: "add_error", payload: e.response.data.error });
     }
   };
 };
 const register = (dispatch) => {
-  return async ({ firstName, lastName, email, password }) => {
+  return async ({ firstName, lastName, email, password }, callback) => {
     try {
       const res = await Server.post("/register", {
         firstName,
@@ -57,6 +60,9 @@ const register = (dispatch) => {
       await AsyncStorage.setItem("token", res.data.token);
       dispatch({ type: "register", payload: res.data.token });
       ToastMessage("success", "You have successfully registered. Welcome.");
+      if (callback) {
+        callback();
+      }
     } catch (e) {
       console.log(e.response.data);
     }

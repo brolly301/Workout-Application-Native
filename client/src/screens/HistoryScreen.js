@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
 import HistoryList from "../components/History/HistoryList";
 import useWorkoutContext from "../hooks/useWorkoutContext";
@@ -28,12 +34,17 @@ export default function HistoryScreen() {
           <Text style={styles.buttonText}>Runs</Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.subTitle}>All Workouts</Text>
-      {active ? (
-        <HistoryList state={state} handleDeleteWorkout={handleDeleteWorkout} />
-      ) : (
-        <TrackList />
-      )}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.subTitle}>All Workouts</Text>
+        {active ? (
+          <HistoryList
+            state={state}
+            handleDeleteWorkout={handleDeleteWorkout}
+          />
+        ) : (
+          <TrackList />
+        )}
+      </ScrollView>
     </HeaderPanel>
   );
 }

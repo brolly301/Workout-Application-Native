@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import RoutineList from "../components/Routines/RoutineList";
@@ -26,8 +26,10 @@ export default function RoutineScreen() {
       </TouchableOpacity>
       <Text style={styles.title}>Routine</Text>
       <SearchBar setText={setSearch} placeholder={"routines"} />
-      <Text style={styles.subTitle}>All Routines</Text>
-      <RoutineList allRoutines={updatedState} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.subTitle}>All Routines</Text>
+        <RoutineList allRoutines={updatedState} />
+      </ScrollView>
     </HeaderPanel>
   );
 }

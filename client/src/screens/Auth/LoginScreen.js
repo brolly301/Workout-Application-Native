@@ -48,12 +48,13 @@ export default function LoginScreen() {
           <TouchableOpacity
             style={styles.login}
             onPress={() => {
-              login({ email, password });
-              getExercises();
-              getRoutines();
-              getWorkouts();
-              getExerciseSets();
-              getUserDetails();
+              login({ email, password }, () => {
+                getUserDetails();
+                getExercises();
+                getRoutines();
+                getWorkouts();
+                getExerciseSets();
+              });
             }}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>

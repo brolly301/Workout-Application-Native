@@ -4,7 +4,7 @@ import FilterModal from "./Modals/FilterModal";
 import SortByModal from "./Modals/SortByModal";
 import ExerciseList from "./ExerciseList";
 
-const ExerciseSortByFilter = ({ sortByState, setSelected }) => {
+const ExerciseSortByFilter = ({ sortByState, setSelected, selected }) => {
   const [sortByModalVisible, setSortByModalVisible] = useState(false);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
 
@@ -29,7 +29,7 @@ const ExerciseSortByFilter = ({ sortByState, setSelected }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => setFilterModalVisible(!filterModalVisible)}>
-          <Text style={styles.buttonText}>All Muscles</Text>
+          <Text style={styles.buttonText}>Filter</Text>
         </TouchableOpacity>
       </View>
       <ExerciseList state={sortByState} />

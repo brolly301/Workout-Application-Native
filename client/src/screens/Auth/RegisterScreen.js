@@ -19,7 +19,7 @@ export default function RegisterScreen() {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [errors, setErrors] = useState({});
-  const { register } = useUserContext();
+  const { register, getUserDetails } = useUserContext();
   const navigation = useNavigation();
 
   const handleValidation = () => {
@@ -29,7 +29,9 @@ export default function RegisterScreen() {
   const handleSubmit = () => {
     if (!handleValidation())
       try {
-        register({ firstName, lastName, email, password });
+        register({ firstName, lastName, email, password }, () => {
+          getUserDetails();
+        });
       } catch (e) {
         console.log(e);
       }

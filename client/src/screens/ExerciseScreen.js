@@ -59,6 +59,7 @@ export default function ExerciseScreen() {
         <ExerciseSortByFilter
           sortByState={exerciseSortFunction(search, state, selected)}
           setSelected={setSelected}
+          selected={selected}
         />
       )}
     </HeaderPanel>
