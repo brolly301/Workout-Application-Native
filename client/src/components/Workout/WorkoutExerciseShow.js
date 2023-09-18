@@ -1,11 +1,5 @@
-import {
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import Spacer from "../Spacer";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
@@ -16,9 +10,17 @@ import {
   addSetToExercise,
   handleExerciseNotesChange,
 } from "../WorkoutFunctions";
+import { TextInput } from "react-native-gesture-handler";
 
 const WorkoutExerciseShow = ({ item, exerciseIndex, state, setState }) => {
   const setLength = item.sets.length;
+
+  let defaultTemp = { editingIndex: -1, text: "" };
+  let [temp, setTemp] = useState(defaultTemp);
+  let defaultTemp2 = { editingIndex: -1, text: "" };
+  let [temp2, setTemp2] = useState(defaultTemp2);
+  let defaultTemp3 = { editingIndex: -1, text: "" };
+  let [temp3, setTemp3] = useState(defaultTemp3);
 
   return (
     <View>
@@ -43,7 +45,7 @@ const WorkoutExerciseShow = ({ item, exerciseIndex, state, setState }) => {
       {item.sets?.map((item, index) => {
         return (
           <Swipeable
-            key={Math.floor(Math.random() * 1000000) + Date.now()}
+            key={index}
             renderRightActions={() => (
               <View>
                 {setLength > 1 ? (
@@ -55,38 +57,46 @@ const WorkoutExerciseShow = ({ item, exerciseIndex, state, setState }) => {
                 ) : null}
               </View>
             )}>
-            <View
-              key={Math.floor(Math.random() * 1000000) + Date.now()}
-              style={styles.setHeaderContainer}>
+            <View style={styles.setHeaderContainer}>
               <Text style={styles.set}>{item.set}</Text>
 
               <TextInput
-                style={styles.kg}
                 placeholder="0"
-                value={item?.kg?.toString() ?? ""}
-                onChangeText={(text) =>
+                style={styles.kg}
+                keyboardType="number-pad"
+                value={temp.editingIndex === index ? temp.text : item.kg}
+                onFocus={() => setTemp({ editingIndex: index, text: item.kg })}
+                onBlur={() => {
                   handleExerciseInputChange(
                     exerciseIndex,
                     index,
                     "kg",
-                    text,
+                    temp.text,
                     setState
-                  )
-                }
+                  );
+                  setTemp(defaultTemp);
+                }}
+                onChangeText={(text) => setTemp({ text, editingIndex: index })}
               />
               <TextInput
-                style={styles.kg}
                 placeholder="0"
-                value={item?.reps?.toString() ?? ""}
-                onChangeText={(text) =>
+                style={styles.kg}
+                keyboardType="number-pad"
+                value={temp2.editingIndex === index ? temp2.text : item.reps}
+                onFocus={() =>
+                  setTemp2({ editingIndex: index, text: item.reps })
+                }
+                onBlur={() => {
                   handleExerciseInputChange(
                     exerciseIndex,
                     index,
                     "reps",
-                    text,
+                    temp2.text,
                     setState
-                  )
-                }
+                  );
+                  setTemp2(defaultTemp2);
+                }}
+                onChangeText={(text) => setTemp2({ text, editingIndex: index })}
               />
             </View>
           </Swipeable>
@@ -94,13 +104,31 @@ const WorkoutExerciseShow = ({ item, exerciseIndex, state, setState }) => {
       })}
       <Spacer />
       <TextInput
+        placeholder="Exercise notes"
+        style={styles.input}
+        value={temp3.editingIndex === exerciseIndex ? temp3.text : item.notes}
+        onFocus={() =>
+          setTemp3({ editingIndex: exerciseIndex, text: item.reps })
+        }
+        onBlur={() => {
+          handleExerciseNotesChange(
+            exerciseIndex,
+            "notes",
+            temp3.text,
+            setState
+          );
+          setTemp3(defaultTemp3);
+        }}
+        onChangeText={(text) => setTemp3({ text, editingIndex: exerciseIndex })}
+      />
+      {/* <TextInput
         value={item.notes}
         style={styles.input}
         placeholder="Exercise notes"
         onChangeText={(text) =>
           handleExerciseNotesChange(exerciseIndex, "notes", text, setState)
         }
-      />
+      /> */}
       <TouchableOpacity
         style={styles.button}
         onPress={() => addSetToExercise(exerciseIndex, state, setState)}>
