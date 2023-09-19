@@ -9,8 +9,6 @@ const DeleteModal = ({
   routine,
   id,
 }) => {
-  console.log(id);
-
   return (
     <View>
       <Modal

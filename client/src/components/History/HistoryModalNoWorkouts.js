@@ -4,7 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import { EvilIcons } from "@expo/vector-icons";
 import useTimerContext from "../../hooks/useTimerContext.js";
 
-const HistoryModalNoWorkouts = ({ setModalVisible, modalVisible }) => {
+const HistoryModalNoWorkouts = ({
+  setModalVisible,
+  modalVisible,
+  calenderDate,
+}) => {
   const navigation = useNavigation();
   const { startStopTimer } = useTimerContext();
 
@@ -24,7 +28,7 @@ const HistoryModalNoWorkouts = ({ setModalVisible, modalVisible }) => {
         style={styles.button}
         onPress={() => {
           startStopTimer(true);
-          navigation.navigate("CreateWorkout");
+          navigation.navigate("CreateWorkout", { calenderDate: calenderDate });
         }}>
         <Text style={styles.buttonText}>Start Workout</Text>
       </TouchableOpacity>

@@ -8,6 +8,7 @@ export default function HistoryModal({
   routine,
   handleDeleteWorkout,
   modalVisible,
+  calenderDate,
   setModalVisible,
 }) {
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
@@ -25,6 +26,7 @@ export default function HistoryModal({
               <HistoryModalNoWorkouts
                 setModalVisible={setModalVisible}
                 modalVisible={modalVisible}
+                calenderDate={calenderDate}
               />
             ) : (
               <HistoryModalWorkouts

@@ -53,11 +53,15 @@ const deleteWorkout = (dispatch) => async (id, workoutID) => {
 };
 
 const editWorkout = (dispatch) => async (id, workout, callback) => {
-  const res = await Server.patch("/workouts/editWorkout", { id, ...workout });
-  dispatch({ type: "edit_workout", payload: { id, ...workout } });
+  try {
+    const res = await Server.patch("/workouts/editWorkout", { id, ...workout });
+    dispatch({ type: "edit_workout", payload: { id, ...workout } });
 
-  if (callback) {
-    callback();
+    if (callback) {
+      callback();
+    }
+  } catch (e) {
+    console.log(e);
   }
 };
 

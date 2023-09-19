@@ -26,6 +26,7 @@ const CreateWorkoutScreen = ({ route }) => {
   const { state, addWorkout } = useWorkoutContext();
   const [newTime, setNewTime] = useState(0);
   const routine = route.params?.routine;
+  const calenderDate = route.params?.calenderDate;
 
   const [workoutData, setWorkoutData] = useState({
     userID: user.userDetails._id,
@@ -34,7 +35,7 @@ const CreateWorkoutScreen = ({ route }) => {
     )}${Date.now()}`,
     name: `Workout ${state?.length + 1}`,
     description: "",
-    date: new Date(),
+    date: calenderDate ? new Date(calenderDate) : new Date(),
     time: newTime,
     exercises: [],
   });

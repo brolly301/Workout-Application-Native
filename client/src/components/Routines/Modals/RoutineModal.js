@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import useRoutineContext from "../../../hooks/useRoutineContext";
 import DeleteModal from "../../DeleteModal";
 import useTimerContext from "../../../hooks/useTimerContext.js";
+import Spacer from "../../Spacer";
 
 const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
   const { deleteRoutine } = useRoutineContext();
@@ -91,7 +92,7 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                 style={{ height: "72%" }}>
                 {routine?.exercises?.map((exercise, index) => {
                   return (
-                    <View key={exercise._id}>
+                    <View key={exercise.name + index + routine.routineID}>
                       <Text style={styles.exerciseName}>
                         Exercises {index + 1} - {exercise?.name}
                       </Text>
@@ -99,33 +100,30 @@ const RoutineModal = ({ modalVisible, setModalVisible, routine }) => {
                         <View style={styles.setsContainer}>
                           <Text style={styles.exerciseText}>Set</Text>
                           {exercise?.sets?.map((set, index) => (
-                            <Text
-                              key={set._id + set.set}
-                              style={styles.setText}>
-                              {set.set}
-                            </Text>
+                            <View key={set._id + set.set}>
+                              <Text style={styles.setText}>{set.set}</Text>
+                            </View>
                           ))}
                         </View>
                         <View style={styles.setsContainer}>
                           <Text style={styles.exerciseText}>Reps</Text>
                           {exercise?.sets?.map((set, index) => (
-                            <Text
-                              key={set._id + set.reps}
-                              style={styles.setText}>
-                              {set.reps || 0}
-                            </Text>
+                            <View key={set._id + set.reps + set.set}>
+                              <Text style={styles.setText}>
+                                {set.reps || 0}
+                              </Text>
+                            </View>
                           ))}
                         </View>
                         <View style={styles.setsContainer}>
                           <Text style={styles.exerciseText}>KG</Text>
                           {exercise?.sets?.map((set, index) => (
-                            <Text key={set._id + set.kg} style={styles.setText}>
-                              {set.kg || 0}
-                            </Text>
+                            <View key={set.kg + set._id}>
+                              <Text style={styles.setText}>{set.kg || 0}</Text>
+                            </View>
                           ))}
                         </View>
                       </View>
-                      <View />
                     </View>
                   );
                 })}

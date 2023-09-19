@@ -35,7 +35,7 @@ export default function HistoryList({ limit, state, handleDeleteWorkout }) {
                     setModalVisible={setModalVisible}
                     modalVisible={modalVisible}
                     item={item}
-                    key={item._id}
+                    key={item.workoutID}
                   />
                 );
               })

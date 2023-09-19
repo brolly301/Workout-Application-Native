@@ -18,6 +18,7 @@ export default function WorkoutCalender() {
   let newDate = new Date().toISOString().slice(0, 10);
 
   const [selected, setSelected] = useState(newDate);
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const { state, deleteWorkout } = useWorkoutContext();
@@ -35,6 +36,7 @@ export default function WorkoutCalender() {
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
         handleDeleteWorkout={deleteWorkout}
+        calenderDate={selected}
       />
       <View>
         <Calendar

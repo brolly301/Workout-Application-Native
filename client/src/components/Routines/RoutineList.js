@@ -10,7 +10,7 @@ export default function RoutineList({ limit, allRoutines }) {
         <>
           {allRoutines.slice(0, limit).map((item) => {
             return (
-              <View key={item._id} style={styles.defaultContainer}>
+              <View key={item.routineID} style={styles.defaultContainer}>
                 <RoutineShow routine={item} />
               </View>
             );
