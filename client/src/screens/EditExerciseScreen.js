@@ -23,7 +23,7 @@ export default function ExerciseEditScreen({ route }) {
     exercise?.primaryMuscles[0]
   );
   const [secondaryMuscles, setSecondaryMuscles] = useState(
-    exercise?.secondaryMuscles[0]
+    exercise?.secondaryMuscles[0] || ""
   );
   const [equipment, setEquipment] = useState(exercise?.equipment);
   const [category, setCategory] = useState(exercise?.category);
@@ -41,6 +41,7 @@ export default function ExerciseEditScreen({ route }) {
 
   const exerciseData = {
     id: exercise._id,
+    userID: user.userDetails._id,
     exerciseID: exercise.exerciseID,
     name,
     primaryMuscles,
@@ -51,6 +52,8 @@ export default function ExerciseEditScreen({ route }) {
     mechanic,
     level,
   };
+
+  console.log(exerciseData);
 
   const handleSubmit = () => {
     try {

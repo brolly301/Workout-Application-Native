@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import Input from "../../components/Input";
@@ -19,6 +20,7 @@ import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
 export default function LoginScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   const { state, login, getUserDetails } = useUserContext();
@@ -48,16 +50,19 @@ export default function LoginScreen() {
           <TouchableOpacity
             style={styles.login}
             onPress={() => {
+              setIsLoading(true);
               login({ email, password }, () => {
                 getUserDetails();
                 getExercises();
                 getRoutines();
                 getWorkouts();
                 getExerciseSets();
+                setIsLoading(false);
               });
             }}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
+          {isLoading && <ActivityIndicator size="large" color="#D5A8F8" />}
           <TouchableOpacity
             style={styles.forgotPassword}
             onPress={() => navigation.navigate("Home")}>

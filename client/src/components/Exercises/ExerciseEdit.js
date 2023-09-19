@@ -15,8 +15,6 @@ import DeleteModal from "../DeleteModal";
 
 const ExerciseEdit = ({ state }) => {
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
-  const { deleteExercise } = useExerciseContext();
 
   const updatedState = state.filter((exercise) =>
     exercise.userID ? exercise : null
@@ -37,28 +35,11 @@ const ExerciseEdit = ({ state }) => {
       ) : (
         <FlatList
           data={updatedState}
-          keyExtractor={(item) => item._id}
+          keyExtractor={(item) => item.exerciseID}
           renderItem={({ item }) => {
             return (
               <>
-                <DeleteModal
-                  modalVisible={modalVisible}
-                  setModalVisible={setModalVisible}
-                  routine={item}
-                  deleteFunction={deleteExercise}
-                  id={item.exerciseID}
-                  deleteText={"Exercise"}
-                />
                 <View style={styles.editContainer}>
-                  <TouchableOpacity
-                    onPress={() => setModalVisible(!modalVisible)}>
-                    <Ionicons
-                      name="remove-circle-outline"
-                      size={24}
-                      color="black"
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("ExerciseEdit", {

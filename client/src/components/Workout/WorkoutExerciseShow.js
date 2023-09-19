@@ -65,7 +65,7 @@ const WorkoutExerciseShow = ({ item, exerciseIndex, state, setState }) => {
                 style={styles.kg}
                 keyboardType="number-pad"
                 value={
-                  temp.editingIndex === index ? temp.text : item.kg.toString()
+                  temp.editingIndex === index ? temp.text : item?.kg?.toString()
                 }
                 onFocus={() => setTemp({ editingIndex: index, text: item.kg })}
                 onBlur={() => {
@@ -87,7 +87,7 @@ const WorkoutExerciseShow = ({ item, exerciseIndex, state, setState }) => {
                 value={
                   temp2.editingIndex === index
                     ? temp2.text
-                    : item.reps.toString()
+                    : item?.reps?.toString()
                 }
                 onFocus={() =>
                   setTemp2({ editingIndex: index, text: item.reps })

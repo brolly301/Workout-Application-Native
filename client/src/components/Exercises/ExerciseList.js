@@ -24,7 +24,7 @@ export default function ExerciseList({ state }) {
 
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={state.slice(0, 60)}
+        data={state.slice(0, 5)}
         keyExtractor={(item) =>
           Math.floor(Math.random() * 1000000) + Date.now()
         }
