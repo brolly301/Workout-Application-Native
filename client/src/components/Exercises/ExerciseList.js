@@ -11,10 +11,17 @@ import { useNavigation } from "@react-navigation/native";
 import Spacer from "../Spacer";
 import { images } from "../Images";
 
-export default function ExerciseList({ state }) {
+export default function ExerciseList({
+  state,
+  workout,
+  handleSubmit,
+  modalVisible,
+  setModalVisible,
+  setState,
+}) {
   const navigation = useNavigation();
 
-  const newState = state.filter((exercise) =>
+  const newState = state?.filter((exercise) =>
     exercise.userID ? exercise : null
   );
 
@@ -24,7 +31,7 @@ export default function ExerciseList({ state }) {
 
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={state.slice(0, 5)}
+        data={state?.slice(0, 5)}
         keyExtractor={(item) =>
           Math.floor(Math.random() * 1000000) + Date.now()
         }
@@ -32,12 +39,29 @@ export default function ExerciseList({ state }) {
           // const imageIndex = index < images.length ? index : 0;
           const exerciseImage = images[item.id] || {};
           return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("ExerciseShow", { id: item.id })
-              }>
-              <ExerciseShow exercise={item} image={exerciseImage} />
-            </TouchableOpacity>
+            <>
+              {!workout ? (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("ExerciseShow", { id: item.id })
+                  }>
+                  <ExerciseShow exercise={item} image={exerciseImage} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    handleSubmit(
+                      item.name,
+                      item.category,
+                      item.level,
+                      setState
+                    );
+                    setModalVisible(!modalVisible);
+                  }}>
+                  <ExerciseShow exercise={item} image={exerciseImage} />
+                </TouchableOpacity>
+              )}
+            </>
           );
         }}
       />

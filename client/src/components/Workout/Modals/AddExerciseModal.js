@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import ExerciseList from "../ExerciseList";
+// import ExerciseList from "../ExerciseList";
+import exerciseSortFunction from "../../ExerciseSortFunction";
+import ExerciseSortByFilter from "../../../components/Exercises/ExerciseSortByFilter";
+import ExerciseList from "../../Exercises/ExerciseList";
 import SearchBar from "../../SearchBar";
 import useExerciseContext from "../../../hooks/useExerciseContext";
 import { EvilIcons } from "@expo/vector-icons";
@@ -12,6 +15,7 @@ const AddExerciseModal = ({
 }) => {
   const { state } = useExerciseContext();
   const [search, setSearch] = useState();
+  const [selected, setSelected] = useState("search");
 
   const updatedState = (term) =>
     state?.filter((exercise) => exercise.name.match(term));
@@ -39,7 +43,11 @@ const AddExerciseModal = ({
 
             <SearchBar placeholder={"exercises"} setText={setSearch} />
             <View style={{ flex: 1 }}>
-              <ExerciseList
+              <ExerciseSortByFilter
+                sortByState={exerciseSortFunction(search, state, selected)}
+                setSelected={setSelected}
+                selected={selected}
+                workout={true}
                 state={state}
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
