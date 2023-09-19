@@ -22,18 +22,14 @@ export default function RoutineShow({ routine }) {
       <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.container}>
           <View style={styles.textContainer}>
-            <Text numberOfLines={1} style={styles.name}>
-              {routine?.name}
-            </Text>
-            <Text numberOfLines={1} style={styles.description}>
-              {routine?.description}
-            </Text>
+            <Text style={styles.name}>{routine?.name}</Text>
+            <Text style={styles.description}>{routine?.description}</Text>
             <Spacer />
             <Text style={styles.workoutExercise}>
-              Exercises: {routine?.exercises.length}{" "}
+              Exercises: {routine?.exercises.length}
             </Text>
             <Text style={styles.workoutExercise}>
-              Workouts: {workoutsCompleted?.length || 0}{" "}
+              Workouts: {workoutsCompleted?.length || 0}
             </Text>
           </View>
         </View>

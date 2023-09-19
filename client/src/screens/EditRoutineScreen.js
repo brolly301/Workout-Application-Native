@@ -32,6 +32,8 @@ const EditRoutineScreen = ({ route }) => {
     description: routine?.description,
   });
 
+  console.log(routineText);
+
   const handleUpdateText = (field, text) => {
     setRoutineText({
       ...routineText,
@@ -39,8 +41,7 @@ const EditRoutineScreen = ({ route }) => {
     });
     setNewRoutine({
       ...newRoutine,
-      name: routineText.name,
-      description: routineText.description,
+      [field]: text,
     });
   };
 
