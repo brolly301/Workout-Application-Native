@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { images } from "../Images";
-import FastImage from "react-native-fast-image";
 import { useRoute } from "@react-navigation/native";
 import { capitalizeEveryWord } from "../WorkoutFunctions";
 
@@ -10,10 +8,14 @@ const upperCase = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export default function ExerciseShow({ exercise, image }) {
+export default function ExerciseShow({ exercise, image, index, state }) {
   const route = useRoute();
+
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        index === state?.length - 1 ? styles.lastContainer : styles.container
+      }>
       <Image style={styles.image} source={image.image} />
       <View style={styles.textContainer}>
         <Text
@@ -48,6 +50,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 5,
     paddingVertical: 5,
+  },
+  lastContainer: {
+    width: "100%",
+    borderWidth: 1,
+
+    borderColor: "black",
+    display: "flex",
+    flexDirection: "row",
+    borderRadius: 5,
+    paddingVertical: 5,
+    marginBottom: 10,
   },
   textContainer: {
     padding: 15,

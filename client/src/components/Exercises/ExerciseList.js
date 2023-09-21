@@ -1,11 +1,5 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React from "react";
 import ExerciseShow from "../../components/Exercises/ExerciseShow";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Spacer from "../Spacer";
@@ -37,7 +31,6 @@ export default function ExerciseList({
         estimatedItemSize={800}
         key={(item) => item.id}
         renderItem={({ item, index }) => {
-          // const imageIndex = index < images.length ? index : 0;
           const exerciseImage = images[item.id] || {};
           return (
             <>
@@ -46,7 +39,12 @@ export default function ExerciseList({
                   onPress={() => {
                     navigation.navigate("ExerciseShow", { id: item.id });
                   }}>
-                  <ExerciseShow exercise={item} image={exerciseImage} />
+                  <ExerciseShow
+                    exercise={item}
+                    image={exerciseImage}
+                    index={index}
+                    state={state}
+                  />
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -59,7 +57,12 @@ export default function ExerciseList({
                     );
                     setModalVisible(!modalVisible);
                   }}>
-                  <ExerciseShow exercise={item} image={exerciseImage} />
+                  <ExerciseShow
+                    exercise={item}
+                    image={exerciseImage}
+                    index={index}
+                    state={state}
+                  />
                 </TouchableOpacity>
               )}
             </>
@@ -74,6 +77,7 @@ export default function ExerciseList({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    borderBottomColor: "black",
   },
   subTitle: {
     fontSize: 18,
