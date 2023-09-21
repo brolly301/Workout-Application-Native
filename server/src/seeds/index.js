@@ -19,7 +19,7 @@ mongoose
   });
 
 const seedDatabase = async () => {
-  // await Exercise.deleteMany({});
+  await Exercise.deleteMany({});
   await Exercise.insertMany(exercises);
 };
 

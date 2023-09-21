@@ -8,10 +8,7 @@ import { Feather } from "@expo/vector-icons";
 import ExerciseEdit from "../components/Exercises/ExerciseEdit";
 import HeaderPanel from "../components/HeaderPanel";
 import ExerciseSortByFilter from "../components/Exercises/ExerciseSortByFilter";
-
-const upperCaseFirstCharacter = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
+import { capitalizeEveryWord } from "../components/WorkoutFunctions";
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
@@ -25,7 +22,7 @@ export default function ExerciseScreen() {
   };
 
   const searchBy = state?.filter((exercise) =>
-    exercise.name.match(upperCaseFirstCharacter(search))
+    exercise.name.match(capitalizeEveryWord(search))
   );
 
   return (

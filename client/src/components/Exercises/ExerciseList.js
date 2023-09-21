@@ -10,6 +10,7 @@ import ExerciseShow from "../../components/Exercises/ExerciseShow";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Spacer from "../Spacer";
 import { images } from "../Images";
+import { FlashList } from "@shopify/flash-list";
 
 export default function ExerciseList({
   state,
@@ -30,12 +31,11 @@ export default function ExerciseList({
     <View style={styles.container}>
       <Text style={styles.subTitle}>All Exercises</Text>
 
-      <FlatList
+      <FlashList
         showsVerticalScrollIndicator={false}
-        data={state?.slice(0, 5)}
-        keyExtractor={(item) =>
-          Math.floor(Math.random() * 1000000) + Date.now()
-        }
+        data={state}
+        estimatedItemSize={800}
+        key={(item) => item.id}
         renderItem={({ item, index }) => {
           // const imageIndex = index < images.length ? index : 0;
           const exerciseImage = images[item.id] || {};
@@ -57,7 +57,6 @@ export default function ExerciseList({
                       item.level,
                       setState
                     );
-                    setWorkoutState((prevState) => !prevState);
                     setModalVisible(!modalVisible);
                   }}>
                   <ExerciseShow exercise={item} image={exerciseImage} />

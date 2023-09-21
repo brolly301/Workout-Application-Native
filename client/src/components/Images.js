@@ -287,7 +287,7 @@ export const images = {
     image: require("../images/Bench_Jump/images/0.jpg"),
     image2: require("../images/Bench_Jump/images/1.jpg"),
   },
-  " Bench_Press_-_Powerlifting": {
+  "Bench_Press_-_Powerlifting": {
     image: require("../images/Bench_Press_-_Powerlifting/images/0.jpg"),
     image2: require("../images/Bench_Press_-_Powerlifting/images/1.jpg"),
   },
@@ -311,7 +311,7 @@ export const images = {
     image: require("../images/Bent-Arm_Dumbbell_Pullover/images/0.jpg"),
     image2: require("../images/Bent-Arm_Dumbbell_Pullover/images/1.jpg"),
   },
-  " Bent-Knee_Hip_Raise": {
+  "Bent-Knee_Hip_Raise": {
     image: require("../images/Bent-Knee_Hip_Raise/images/0.jpg"),
     image2: require("../images/Bent-Knee_Hip_Raise/images/1.jpg"),
   },
@@ -607,7 +607,7 @@ export const images = {
     image: require("../images/Chair_Upper_Body_Stretch/images/0.jpg"),
     image2: require("../images/Chair_Upper_Body_Stretch/images/1.jpg"),
   },
-  " Chest_And_Front_Of_Shoulder_Stretch": {
+  Chest_And_Front_Of_Shoulder_Stretch: {
     image: require("../images/Chest_And_Front_Of_Shoulder_Stretch/images/0.jpg"),
     image2: require("../images/Chest_And_Front_Of_Shoulder_Stretch/images/1.jpg"),
   },
@@ -695,10 +695,7 @@ export const images = {
     image: require("../images/Close-Grip_EZ-Bar_Press/images/0.jpg"),
     image2: require("../images/Close-Grip_EZ-Bar_Press/images/1.jpg"),
   },
-  // "Close-Grip_EZ_Bar_Curl": {
-  //   image: require("../images/Close-Grip_EZ-Bar_Curl/images/0.jpg"),
-  //   image2: require("../images/Close-Grip_EZ-Bar_Curl/images/1.jpg"),
-  // },
+
   "Close-Grip_Front_Lat_Pulldown": {
     image: require("../images/Close-Grip_Front_Lat_Pulldown/images/0.jpg"),
     image2: require("../images/Close-Grip_Front_Lat_Pulldown/images/1.jpg"),
@@ -1059,7 +1056,7 @@ export const images = {
     image: require("../images/EZ-Bar_Curl/images/0.jpg"),
     image2: require("../images/EZ-Bar_Curl/images/1.jpg"),
   },
-  " EZ-Bar_Skullcrusher": {
+  "EZ-Bar_Skullcrusher": {
     image: require("../images/EZ-Bar_Skullcrusher/images/0.jpg"),
     image2: require("../images/EZ-Bar_Skullcrusher/images/1.jpg"),
   },

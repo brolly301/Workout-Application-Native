@@ -3,24 +3,30 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { images } from "../Images";
 import FastImage from "react-native-fast-image";
+import { useRoute } from "@react-navigation/native";
+import { capitalizeEveryWord } from "../WorkoutFunctions";
 
 const upperCase = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 export default function ExerciseShow({ exercise, image }) {
+  const route = useRoute();
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={image.image} />
       <View style={styles.textContainer}>
-        <Text style={styles.name}>{upperCase(exercise.name)}</Text>
-
-        <Text style={styles.type}>
-          {exercise.primaryMuscles
-            ? upperCase(exercise.primaryMuscles[0])
-            : null}
-          {exercise.primaryMuscle ? upperCase(exercise.primaryMuscle) : null}
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={[
+            styles.name,
+            route.name === "Exercises" ? { width: 240 } : { width: 195 },
+          ]}>
+          {capitalizeEveryWord(exercise.name)}
         </Text>
+
+        <Text style={styles.type}>{upperCase(exercise.primaryMuscles[0])}</Text>
       </View>
       <AntDesign
         style={styles.icon}

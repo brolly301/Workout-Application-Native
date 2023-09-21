@@ -8,7 +8,7 @@ export default function SearchBar({ placeholder, setText, search }) {
         <EvilIcons style={styles.icon} name="search" size={24} color="black" />
         <TextInput
           style={styles.input}
-          placeholder={`Search ...${placeholder}`}
+          placeholder={`Search ${placeholder}`}
           onChangeText={(text) => setText(text)}
           value={search}
         />

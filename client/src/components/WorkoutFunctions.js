@@ -109,6 +109,27 @@ const addSetToExercise = (exerciseIndex, state, setState) => {
   setState(updatedWorkout);
 };
 
+const capitalizeEveryWord = (string) => {
+  // Split the input string into an array of words
+  const words = string.split(" ");
+
+  // Iterate through each word and capitalize the first letter
+  const capitalizedWords = words.map((word) => {
+    // Handle empty strings
+    if (word.length === 0) {
+      return word;
+    }
+
+    // Capitalize the first letter and make the rest of the word lowercase
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+
+  // Join the capitalized words back into a single string
+  const resultString = capitalizedWords.join(" ");
+
+  return resultString;
+};
+
 export {
   removeExercise,
   removeSet,
@@ -116,4 +137,5 @@ export {
   handleExerciseInputChange,
   handleExerciseNotesChange,
   addSetToExercise,
+  capitalizeEveryWord,
 };
