@@ -47,22 +47,28 @@ export default function LoginScreen() {
           {state.errorMessage && (
             <Text style={styles.error}>{state.errorMessage}</Text>
           )}
+          {isLoading && <ActivityIndicator size="large" color="#D5A8F8" />}
+
           <TouchableOpacity
             style={styles.login}
             onPress={() => {
-              setIsLoading(true);
-              login({ email, password }, () => {
-                getUserDetails();
-                getExercises();
-                getRoutines();
-                getWorkouts();
-                getExerciseSets();
+              try {
+                setIsLoading(true);
+                login({ email, password }, () => {
+                  getUserDetails();
+                  getExercises();
+                  getRoutines();
+                  getWorkouts();
+                  getExerciseSets();
+                  setIsLoading(false);
+                });
+              } catch (e) {
+                console.log(e);
                 setIsLoading(false);
-              });
+              }
             }}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
-          {isLoading && <ActivityIndicator size="large" color="#D5A8F8" />}
           <TouchableOpacity
             style={styles.forgotPassword}
             onPress={() => navigation.navigate("Home")}>

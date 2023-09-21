@@ -8,12 +8,15 @@ import { Feather } from "@expo/vector-icons";
 import ExerciseEdit from "../components/Exercises/ExerciseEdit";
 import HeaderPanel from "../components/HeaderPanel";
 import ExerciseSortByFilter from "../components/Exercises/ExerciseSortByFilter";
-import exerciseSortFunction from "../components/ExerciseSortFunction";
+
+const upperCaseFirstCharacter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const { state, getExercises } = useExerciseContext();
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState("search");
 
@@ -21,20 +24,9 @@ export default function ExerciseScreen() {
     setIsActive(!isActive);
   };
 
-  const updateSortBy = (sortBy) => {
-    switch (sortBy) {
-      case "search":
-        return state?.filter((exercise) => exercise.name.match(search));
-      case "reverse":
-        return state?.slice().reverse();
-      case "hamstrings":
-        return state?.filter((exercise) =>
-          exercise.primaryMuscles.includes("adductors")
-        );
-      default:
-        return state;
-    }
-  };
+  const searchBy = state?.filter((exercise) =>
+    exercise.name.match(upperCaseFirstCharacter(search))
+  );
 
   return (
     <HeaderPanel>
@@ -54,10 +46,10 @@ export default function ExerciseScreen() {
       <Text style={styles.title}>Exercises</Text>
       <SearchBar setText={setSearch} placeholder={"exercises"} />
       {isActive ? (
-        <ExerciseEdit state={updateSortBy(selected)} />
+        <ExerciseEdit state={searchBy} />
       ) : (
         <ExerciseSortByFilter
-          sortByState={exerciseSortFunction(search, state, selected)}
+          sortByState={searchBy}
           setSelected={setSelected}
           selected={selected}
         />

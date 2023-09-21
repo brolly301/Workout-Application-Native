@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import Input from "../../components/Input";
@@ -28,25 +29,36 @@ export default function RegisterScreen() {
   const { getRoutines } = useRoutineContext();
   const { getWorkouts } = useWorkoutContext();
   const { getExerciseSets } = useExerciseSetsContext();
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigation = useNavigation();
 
   const handleValidation = () => {
-    setErrors(validation(firstName, lastName, email, password));
+    const validationErrors = validation(firstName, lastName, email, password);
+    setErrors(validationErrors);
+
+    // Check if there are any errors
+    return Object.keys(validationErrors).length === 0;
   };
 
   const handleSubmit = () => {
-    if (!handleValidation())
+    const isValidationSuccessful = handleValidation();
+
+    if (isValidationSuccessful) {
       try {
+        setIsLoading(true);
         register({ firstName, lastName, email, password }, () => {
           getUserDetails();
           getExercises();
           getRoutines();
           getWorkouts();
           getExerciseSets();
+          setIsLoading(true);
         });
       } catch (e) {
         console.log(e);
       }
+    }
   };
 
   return (
@@ -82,6 +94,8 @@ export default function RegisterScreen() {
             setText={setPassword}
             error={errors.password}
           />
+          {isLoading && <ActivityIndicator size="large" color="#D5A8F8" />}
+
           <TouchableOpacity
             style={styles.register}
             onPress={() => handleSubmit()}>

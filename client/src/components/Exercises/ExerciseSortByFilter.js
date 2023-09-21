@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import FilterModal from "./Modals/FilterModal";
 import SortByModal from "./Modals/SortByModal";
 import ExerciseList from "./ExerciseList";
+import exerciseFilterFunction from "../ExerciseFilterFunction";
+import exerciseSortFunction from "../ExerciseSortFunction";
 
 const ExerciseSortByFilter = ({
   sortByState,
@@ -16,6 +18,9 @@ const ExerciseSortByFilter = ({
 }) => {
   const [sortByModalVisible, setSortByModalVisible] = useState(false);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
+
+  const filteredState = exerciseFilterFunction(sortByState, selected);
+  const sortedState = exerciseSortFunction(filteredState, selected);
 
   return (
     <View style={{ flex: 1 }}>
@@ -42,8 +47,7 @@ const ExerciseSortByFilter = ({
         </TouchableOpacity>
       </View>
       <ExerciseList
-        workout={true}
-        state={sortByState}
+        state={sortedState}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         handleSubmit={handleSubmit}

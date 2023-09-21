@@ -39,7 +39,7 @@ const removeSet = (exerciseIndex, setIndex, setState) => {
 };
 
 //Take copy of state, push the exercise into the exercises array and give default set values
-const handleExerciseInput = (name, level, category, setState) => {
+const handleExerciseInput = (name, level, category, setState, callback) => {
   setState((prevData) => ({
     ...prevData,
     exercises: [
@@ -52,6 +52,9 @@ const handleExerciseInput = (name, level, category, setState) => {
       },
     ],
   }));
+  if (callback) {
+    callback();
+  }
 };
 
 //Take copy of state, use the exercises index to choose that exercise
@@ -104,10 +107,6 @@ const addSetToExercise = (exerciseIndex, state, setState) => {
     reps: "",
   });
   setState(updatedWorkout);
-};
-
-const handleValidation = () => {
-  setErrors(validation(workoutData));
 };
 
 export {

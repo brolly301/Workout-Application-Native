@@ -26,6 +26,12 @@ const FilterModal = ({ modalVisible, setModalVisible, setSelected }) => {
               <ScrollView style={styles.scrollView}>
                 <FilterModalOptions
                   setSelected={setSelected}
+                  name="All Exercises"
+                  setModalVisible={setModalVisible}
+                  modalVisible={modalVisible}
+                />
+                <FilterModalOptions
+                  setSelected={setSelected}
                   name="Custom Exercises"
                   setModalVisible={setModalVisible}
                   modalVisible={modalVisible}
