@@ -19,7 +19,7 @@ const reducer = (state, action) => {
     case "login":
       return { errorMessage: "", token: action.payload };
     case "logout":
-      return { token: "" };
+      return { token: "", userDetails: {} };
     case "get_user_details":
       return {
         userDetails: action.payload.userDetails,
@@ -39,7 +39,12 @@ const login = (dispatch) => {
       const res = await Server.post("/login", { email, password });
       await AsyncStorage.setItem("token", res.data.token);
       dispatch({ type: "login", payload: res.data.token });
-      ToastMessage("success", "You have successfully logged in. Welcome back.");
+      setTimeout(() => {
+        ToastMessage(
+          "success",
+          "You have successfully logged in. Welcome back."
+        );
+      }, 1000);
       if (callback) {
         callback();
       }
@@ -59,7 +64,9 @@ const register = (dispatch) => {
       });
       await AsyncStorage.setItem("token", res.data.token);
       dispatch({ type: "register", payload: res.data.token });
-      ToastMessage("success", "You have successfully registered. Welcome.");
+      setTimeout(() => {
+        ToastMessage("success", "You have successfully registered. Welcome.");
+      }, 1000);
       if (callback) {
         callback();
       }

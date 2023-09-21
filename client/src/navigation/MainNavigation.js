@@ -8,10 +8,11 @@ const Stack = createStackNavigator();
 
 const MainNavigation = () => {
   const { state } = useUserContext();
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {state.token ? (
+        {state.token && state.userDetails ? (
           <Stack.Screen name="Tabs" component={TabNavigation} />
         ) : (
           <Stack.Screen name="Auth" component={AuthStack} />
