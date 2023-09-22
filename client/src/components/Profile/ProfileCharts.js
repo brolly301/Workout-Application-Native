@@ -49,30 +49,46 @@ const ProfileCharts = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Top Exercises</Text>
       <View style={styles.hr} />
-      <View style={styles.chart}>
-        <View style={styles.chartContainer}>
-          <PieChart
-            data={dataForChart.slice(0, 5)}
-            width={screenWidth}
-            height={200}
-            accessor={"exercisesComplete"}
-            backgroundColor={"transparent"}
-            center={[35, 0]}
-            chartConfig={{
-              backgroundColor: "#e26a00",
-              backgroundGradientFrom: "#fb8c00",
-              backgroundGradientTo: "#ffa726",
-              decimalPlaces: 2, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            }}
-            style={{
-              borderRadius: 16,
-              marginRight: 10,
-            }}
-          />
+      {!state.length ? (
+        <View>
+          <View style={styles.chartContainer}>
+            <Text
+              style={{
+                textAlign: "center",
+                marginVertical: 15,
+                marginHorizontal: 30,
+              }}>
+              Sorry, there is no workout data available. To view the chart,
+              please begin a new workout
+            </Text>
+          </View>
         </View>
-      </View>
+      ) : (
+        <View style={styles.chart}>
+          <View style={styles.chartContainer}>
+            <PieChart
+              data={dataForChart.slice(0, 5)}
+              width={screenWidth}
+              height={200}
+              accessor={"exercisesComplete"}
+              backgroundColor={"transparent"}
+              center={[35, 0]}
+              chartConfig={{
+                backgroundColor: "#e26a00",
+                backgroundGradientFrom: "#fb8c00",
+                backgroundGradientTo: "#ffa726",
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              }}
+              style={{
+                borderRadius: 16,
+                marginRight: 10,
+              }}
+            />
+          </View>
+        </View>
+      )}
     </View>
   );
 };

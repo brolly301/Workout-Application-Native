@@ -58,34 +58,52 @@ const ProfileCharts = () => {
       <View style={styles.container}>
         <Text style={styles.title}>Monthly Workouts</Text>
         <View style={styles.hr} />
-        <View style={styles.chart}>
-          <View style={styles.chartContainer}>
-            <ContributionGraph
-              values={commitsData}
-              endDate={new Date(Date.now())}
-              numDays={91}
-              width={screenWidth - 50}
-              height={220}
-              chartConfig={{
-                backgroundGradientFrom: "#D5A8F8",
-                backgroundGradientTo: "#D5A8F8",
-                decimalPlaces: 2,
-                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                labelColor: (opacity = 1) => `black`,
-              }}
-              squareSize={20}
-              gutterSize={2}
-              onDayPress={(day) => {
-                setCalenderDate(day.date);
-                setModalVisible(true);
-              }}
-              style={{
-                marginTop: 10,
-                borderRadius: 5,
-              }}
-            />
+        {!state.length ? (
+          <View>
+            <View style={styles.chartContainer}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  marginVertical: 15,
+                  marginHorizontal: 30,
+                }}>
+                Sorry, there is no workout data available. To view the chart,
+                please begin a new workout
+              </Text>
+            </View>
           </View>
-        </View>
+        ) : (
+          <>
+            <View style={styles.chart}>
+              <View style={styles.chartContainer}>
+                <ContributionGraph
+                  values={commitsData}
+                  endDate={new Date(Date.now())}
+                  numDays={91}
+                  width={screenWidth - 50}
+                  height={220}
+                  chartConfig={{
+                    backgroundGradientFrom: "#D5A8F8",
+                    backgroundGradientTo: "#D5A8F8",
+                    decimalPlaces: 2,
+                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                    labelColor: (opacity = 1) => `black`,
+                  }}
+                  squareSize={20}
+                  gutterSize={2}
+                  onDayPress={(day) => {
+                    setCalenderDate(day.date);
+                    setModalVisible(true);
+                  }}
+                  style={{
+                    marginTop: 10,
+                    borderRadius: 5,
+                  }}
+                />
+              </View>
+            </View>
+          </>
+        )}
       </View>
     </>
   );
