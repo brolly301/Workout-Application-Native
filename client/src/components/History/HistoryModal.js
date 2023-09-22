@@ -13,6 +13,8 @@ export default function HistoryModal({
 }) {
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
 
+  console.log(calenderDate);
+
   return (
     <View>
       <Modal

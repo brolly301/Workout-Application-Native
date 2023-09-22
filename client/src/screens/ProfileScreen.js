@@ -5,17 +5,20 @@ import {
   View,
   Modal,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import React, { useState } from "react";
 import ProfileDetails from "../components/Profile/ProfileDetails";
 import HistoryList from "../components/History/HistoryList";
 import ProfileCharts from "../components/Profile/ProfileCharts";
+import ProfileWorkoutChart from "../components/Profile/ProfileWorkoutChart";
 import { Ionicons } from "@expo/vector-icons";
 import useUserContext from "../hooks/useUserContext";
 import { EvilIcons } from "@expo/vector-icons";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import HeaderPanel from "../components/HeaderPanel";
 import Spacer from "../components/Spacer";
+const screenWidth = Dimensions.get("window").width;
 
 export default function ProfileScreen() {
   const { logout } = useUserContext();
@@ -66,7 +69,17 @@ export default function ProfileScreen() {
         <Text style={styles.title}>Profile</Text>
         <ProfileDetails />
         <Text style={styles.activity}>Activity</Text>
-        <ProfileCharts />
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          style={styles.chartContainer}>
+          <View style={styles.exerciseChart}>
+            <ProfileCharts />
+          </View>
+          <View style={styles.workoutChart}>
+            <ProfileWorkoutChart />
+          </View>
+        </ScrollView>
         <Text style={styles.recentWorkout}>Recent Workouts</Text>
         <View style={styles.recentWorkoutsContainer}>
           <HistoryList state={state} limit={4} />
@@ -146,5 +159,14 @@ const styles = StyleSheet.create({
   },
   headerIcon: {
     alignSelf: "flex-end",
+  },
+
+  exerciseChart: {
+    width: screenWidth - 30,
+    // marginLeft: 20,
+  },
+  workoutChart: {
+    width: screenWidth - 30,
+    marginLeft: 20,
   },
 });

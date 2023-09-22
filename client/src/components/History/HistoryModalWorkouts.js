@@ -25,6 +25,7 @@ const HistoryModalWorkouts = ({
     month: "long",
     day: "numeric",
   });
+
   return (
     <View>
       <View style={styles.iconContainer}>
