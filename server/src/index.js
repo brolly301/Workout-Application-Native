@@ -35,11 +35,13 @@ const exerciseRoutes = require("./routes/exerciseRoutes");
 const workoutRoutes = require("./routes/workoutRoutes");
 const exerciseSetsRoutes = require("./routes/exerciseSetRoutes");
 const routineRoutes = require("./routes/routineRoutes");
+const trackRoutes = require("./routes/trackRoutes");
 app.use("/", authRoutes);
 app.use("/exercises", exerciseRoutes);
 app.use("/workouts", workoutRoutes);
 app.use("/exerciseSets", exerciseSetsRoutes);
 app.use("/routines", routineRoutes);
+app.use("/track", trackRoutes);
 
 app.get("", requireAuth, (req, res) => {
   res.send(req.body.email);

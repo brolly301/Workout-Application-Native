@@ -10,12 +10,12 @@ import SplashScreen from "../screens/Auth/SplashScreen";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import RegisterScreen from "../screens/Auth/RegisterScreen";
 import CreateWorkoutScreen from "../screens/CreateWorkoutScreen";
-import CreateTrackScreen from "../screens/CreateTrackScreen";
 import CreateRoutineScreen from "../screens/CreateRoutineScreen";
 import EditExerciseScreen from "../screens/EditExerciseScreen";
 import EditRoutineScreen from "../screens/EditRoutineScreen";
 import EditWorkoutScreen from "../screens/EditWorkoutScreen";
 import CreateExerciseScreen from "../screens/CreateExerciseScreen";
+import TrackCreateScreen from "../screens/Tracks/TrackCreateScreen";
 
 const Stack = createStackNavigator();
 
@@ -24,7 +24,7 @@ const WorkoutStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Workout" component={WorkoutDashboard} />
       <Stack.Screen name="CreateWorkout" component={CreateWorkoutScreen} />
-      <Stack.Screen name="CreateTrack" component={CreateTrackScreen} />
+      <Stack.Screen name="CreateTrack" component={TrackCreateScreen} />
     </Stack.Navigator>
   );
 };

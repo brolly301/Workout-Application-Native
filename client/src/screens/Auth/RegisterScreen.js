@@ -17,6 +17,7 @@ import useExerciseContext from "../../hooks/useExerciseContext";
 import useWorkoutContext from "../../hooks/useWorkoutContext";
 import useRoutineContext from "../../hooks/useRoutineContext";
 import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
+import useTrackContext from "../../hooks/useTrackContext";
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState();
@@ -28,6 +29,7 @@ export default function RegisterScreen() {
   const { getExercises } = useExerciseContext();
   const { getRoutines } = useRoutineContext();
   const { getWorkouts } = useWorkoutContext();
+  const { getTracks } = useTrackContext();
   const { getExerciseSets } = useExerciseSetsContext();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,6 +55,7 @@ export default function RegisterScreen() {
           getRoutines();
           getWorkouts();
           getExerciseSets();
+          getTracks();
           setIsLoading(true);
         });
       } catch (e) {

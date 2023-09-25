@@ -16,6 +16,7 @@ import useExerciseContext from "../../hooks/useExerciseContext";
 import useWorkoutContext from "../../hooks/useWorkoutContext";
 import useRoutineContext from "../../hooks/useRoutineContext";
 import useExerciseSetsContext from "../../hooks/useExerciseSetsContext";
+import useTrackContext from "../../hooks/useTrackContext";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState();
@@ -28,6 +29,7 @@ export default function LoginScreen() {
   const { getRoutines } = useRoutineContext();
   const { getWorkouts } = useWorkoutContext();
   const { getExerciseSets } = useExerciseSetsContext();
+  const { getTracks } = useTrackContext();
 
   return (
     <ImageBackground
@@ -60,6 +62,7 @@ export default function LoginScreen() {
                   getRoutines();
                   getWorkouts();
                   getExerciseSets();
+                  getTracks();
                   setIsLoading(false);
                 });
               } catch (e) {
