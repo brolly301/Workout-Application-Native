@@ -23,6 +23,7 @@ const TrackCreateScreen = () => {
     stopRecording,
     reset,
     changeName,
+    changeDescription,
   } = useLocationContext();
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [finishModalVisible, setFinishModalVisible] = useState(false);
@@ -73,7 +74,11 @@ const TrackCreateScreen = () => {
         onChangeText={changeName}
         placeholder="Name"
       />
-      {/* <TextInput style={styles.descriptionInput} placeholder='Description' /> */}
+      <TextInput
+        style={styles.descriptionInput}
+        placeholder="Description"
+        onChangeText={changeDescription}
+      />
       <View style={{ marginBottom: 15 }} />
       {isFocused ? <Map /> : null}
       {err ? <Text>Please enable location services to continue.</Text> : null}

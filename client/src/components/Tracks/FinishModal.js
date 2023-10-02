@@ -7,8 +7,10 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
   const { addTrack } = useTrackContext();
   const navigation = useNavigation();
 
+  console.log(state);
+
   const saveTrack = async () => {
-    await addTrack(state.name, state.locations);
+    await addTrack(state.name, state.description, state.locations);
     reset();
     navigation.navigate("Workout");
   };
