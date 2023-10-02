@@ -22,6 +22,14 @@ const TrackSchema = new Schema({
     type: String,
     default: "",
   },
+  description: {
+    type: String,
+    default: "",
+  },
+  date: {
+    type: String,
+    default: Date.now(),
+  },
   locations: [PointSchema],
 });
 

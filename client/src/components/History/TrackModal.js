@@ -1,48 +1,65 @@
 import { Modal, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { EvilIcons, MaterialIcons } from "@expo/vector-icons";
 import MapView, { Polyline, Circle } from "react-native-maps";
+import DeleteModal from "../DeleteModal";
+import useTrackContext from "../../hooks/useTrackContext";
 
 const TrackModal = ({ modalVisible, setModalVisible, item }) => {
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
+  const { deleteTrack } = useTrackContext();
+
   return (
     <View>
+      <DeleteModal
+        modalVisible={deleteModalVisible}
+        setModalVisible={setDeleteModalVisible}
+        deleteText={"Run"}
+        deleteFunction={deleteTrack}
+        routine={item}
+        id={item._id}
+      />
       <Modal
         visible={modalVisible}
-        animationType="fade"
+        animationType='fade'
         transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.iconContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}>
+                  setDeleteModalVisible(!deleteModalVisible);
+                }}
+              >
                 <EvilIcons
                   style={styles.modalIconDelete}
-                  name="trash"
+                  name='trash'
                   size={39}
-                  color="red"
+                  color='red'
                 />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setModalVisible(!modalVisible);
-                }}>
+                }}
+              >
                 <EvilIcons
                   style={styles.modalIconClose}
-                  name="pencil"
+                  name='pencil'
                   size={39}
-                  color="#D5A8F8"
+                  color='#D5A8F8'
                 />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <EvilIcons
                   style={styles.modalIconClose}
-                  name="close"
+                  name='close'
                   size={32}
-                  color="black"
+                  color='black'
                 />
               </TouchableOpacity>
             </View>
@@ -56,7 +73,8 @@ const TrackModal = ({ modalVisible, setModalVisible, item }) => {
                   ...item.locations[0].coords,
                   latitudeDelta: 0.01,
                   longitudeDelta: 0.01,
-                }}>
+                }}
+              >
                 <Polyline
                   coordinates={item.locations.map(
                     (location) => location.coords

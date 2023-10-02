@@ -7,12 +7,12 @@ export default () => {
   const { addTrack } = useContext(TrackContext);
   const navigation = useNavigation();
   const {
-    state: { locations, name },
+    state: { locations, name, description },
     reset,
   } = useContext(LocationContext);
 
   const saveTrack = async () => {
-    await addTrack(name, locations);
+    await addTrack(name, description, locations);
     reset();
     navigation.navigate("Workout");
   };

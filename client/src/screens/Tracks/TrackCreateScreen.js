@@ -1,15 +1,32 @@
-import "../../_mockLocation";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useCallback, useEffect } from "react";
+// import "../../_mockLocation";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
 import Map from "../../components/Tracks/Map";
 import { useIsFocused } from "@react-navigation/native";
 import HeaderPanel from "../../components/HeaderPanel";
 import useLocationContext from "../../hooks/useLocationContext";
 import useLocation from "../../hooks/useLocation";
-import TrackForm from "../../components/Tracks/TrackForm";
+import CancelModal from "../../components/Tracks/CancelModal";
+import useSaveTrack from "../../hooks/useSaveTrack";
+import FinishModal from "../../components/Tracks/FinishModal";
 
 const TrackCreateScreen = () => {
-  const { addLocation, state } = useLocationContext();
+  const {
+    addLocation,
+    state,
+    startRecording,
+    stopRecording,
+    changeDescription,
+    changeName,
+  } = useLocationContext();
+  const [cancelModalVisible, setCancelModalVisible] = useState(false);
+  const [finishModalVisible, setFinishModalVisible] = useState(false);
   const isFocused = useIsFocused();
 
   const callback = useCallback(
@@ -30,20 +47,42 @@ const TrackCreateScreen = () => {
 
   return (
     <HeaderPanel>
+      <FinishModal
+        modalVisible={finishModalVisible}
+        setModalVisible={setFinishModalVisible}
+      />
+
+      <CancelModal
+        setModalVisible={setCancelModalVisible}
+        modalVisible={cancelModalVisible}
+      />
       <View style={styles.headerIcon}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => setCancelModalVisible(!cancelModalVisible)}
+        >
           <Text style={styles.cancelButton}>Cancel</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => setFinishModalVisible(true)}>
           <Text style={styles.finishButton}>Finish</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.title}>Track Run</Text>
-      {/* Render the Map component based on screen focus */}
+      <TextInput
+        style={styles.nameInput}
+        onPressIn={changeName}
+        placeholder='Name'
+      />
+      {/* <TextInput style={styles.descriptionInput} placeholder='Description' /> */}
+      <View style={{ marginBottom: 15 }} />
       {isFocused ? <Map /> : null}
       {err ? <Text>Please enable location services to continue.</Text> : null}
-      <TrackForm />
+      <TouchableOpacity style={styles.button} onPress={stopRecording}>
+        <Text style={styles.buttonText}>Stop Run</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={startRecording}>
+        <Text style={styles.buttonText}>Begin Run</Text>
+      </TouchableOpacity>
     </HeaderPanel>
   );
 };
@@ -74,5 +113,40 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
+  },
+  nameInput: {
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 5,
+    width: "100%",
+    height: 35,
+    marginBottom: 10,
+    paddingVertical: 7,
+    paddingLeft: 7,
+  },
+  descriptionInput: {
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 5,
+    width: "100%",
+    height: 50,
+    paddingVertical: 7,
+    paddingLeft: 7,
+    paddingBottom: 25,
+  },
+  button: {
+    width: "100%",
+    backgroundColor: "#D5A8F8",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingVertical: 8,
+    // marginTop: "auto",
+    marginBottom: 15,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: "500",
+    textAlign: "center",
+    justifyContent: "flex-end",
   },
 });

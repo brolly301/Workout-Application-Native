@@ -12,20 +12,30 @@ import useLocationContext from "../../hooks/useLocationContext";
 import useSaveTrack from "../../hooks/useSaveTrack";
 
 const TrackForm = () => {
-  const { state, startRecording, stopRecording, changeName } =
-    useLocationContext();
+  const {
+    state,
+    startRecording,
+    stopRecording,
+    changeDescription,
+    changeName,
+  } = useLocationContext();
   const [saveTrack] = useSaveTrack();
 
   return (
     <View>
       <Spacer />
       <Spacer />
-      <TextInput
+      {/* <TextInput
         value={state.name}
-        placeholder="Enter name"
+        placeholder='Name'
         onChangeText={changeName}
       />
-      {state.recording ? (
+      <TextInput
+        value={state.description}
+        placeholder='Description'
+        onChangeText={changeDescription}
+      /> */}
+      {/* {state.recording ? (
         <TouchableOpacity style={styles.button} onPress={stopRecording}>
           <Text style={styles.buttonText}>Stop Run</Text>
         </TouchableOpacity>
@@ -39,7 +49,7 @@ const TrackForm = () => {
         <TouchableOpacity style={styles.button} onPress={saveTrack}>
           <Text style={styles.buttonText}>Save Run</Text>
         </TouchableOpacity>
-      ) : null}
+      ) : null} */}
     </View>
   );
 };
@@ -48,13 +58,18 @@ export default TrackForm;
 
 const styles = StyleSheet.create({
   button: {
+    width: "100%",
     backgroundColor: "#D5A8F8",
+    borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
+    paddingVertical: 8,
+    // marginTop: "auto",
+    marginBottom: 15,
   },
   buttonText: {
-    color: "black",
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: "500",
     textAlign: "center",
+    justifyContent: "flex-end",
   },
 });
