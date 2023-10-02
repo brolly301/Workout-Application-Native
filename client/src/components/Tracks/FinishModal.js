@@ -25,23 +25,42 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.title}>Finish Workout</Text>
-            <Text style={styles.subTitle}>
-              Are you sure you are ready to finish?
-            </Text>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}>
-                <Text style={styles.closeButtonText}>No</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => saveTrack()}>
-                <Text style={styles.closeButtonText}>Yes</Text>
-              </TouchableOpacity>
-            </View>
+            {state.recording ? (
+              <>
+                <Text style={styles.subTitle}>
+                  Please stop your run before finishing.
+                </Text>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={styles.closeButton}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                    }}>
+                    <Text style={styles.closeButtonText}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            ) : (
+              <>
+                <Text style={styles.subTitle}>
+                  Are you sure you are ready to finish?
+                </Text>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={styles.closeButton}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                    }}>
+                    <Text style={styles.closeButtonText}>No</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.closeButton}
+                    onPress={() => saveTrack()}>
+                    <Text style={styles.closeButtonText}>Yes</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
           </View>
         </View>
       </Modal>

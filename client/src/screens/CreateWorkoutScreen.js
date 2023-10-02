@@ -77,7 +77,7 @@ const CreateWorkoutScreen = ({ route }) => {
       if (callback) {
         callback();
       }
-      navigation.navigate("Workout");
+      navigation.navigate("Workout", { workout: workoutData });
     });
   };
 

@@ -13,7 +13,7 @@ const Map = () => {
   }
 
   return (
-    <View style={{ borderWidth: 1, borderColor: "black" }}>
+    <View style={styles.mapContainer}>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -44,5 +44,10 @@ export default Map;
 const styles = StyleSheet.create({
   map: {
     height: 300,
+  },
+  mapContainer: {
+    borderColor: "black",
+    borderWidth: 1,
+    marginBottom: 15,
   },
 });

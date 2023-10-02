@@ -14,6 +14,8 @@ import useLocationContext from "../../hooks/useLocationContext";
 import useLocation from "../../hooks/useLocation";
 import CancelModal from "../../components/Tracks/CancelModal";
 import FinishModal from "../../components/Tracks/FinishModal";
+import Timer from "../../components/Workout/Timer";
+import useTimerContext from "../../hooks/useTimerContext.js";
 
 const TrackCreateScreen = () => {
   const {
@@ -28,6 +30,7 @@ const TrackCreateScreen = () => {
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [finishModalVisible, setFinishModalVisible] = useState(false);
   const isFocused = useIsFocused();
+  const { startStopTimer } = useTimerContext();
 
   const callback = useCallback(
     (location) => {
@@ -68,7 +71,12 @@ const TrackCreateScreen = () => {
           <Text style={styles.finishButton}>Finish</Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.title}>Track Run</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Track Run</Text>
+        <View style={{ marginBottom: 20 }}>
+          <Timer />
+        </View>
+      </View>
       <TextInput
         style={styles.nameInput}
         onChangeText={changeName}
@@ -82,12 +90,25 @@ const TrackCreateScreen = () => {
       <View style={{ marginBottom: 15 }} />
       {isFocused ? <Map /> : null}
       {err ? <Text>Please enable location services to continue.</Text> : null}
-      <TouchableOpacity style={styles.button} onPress={stopRecording}>
-        <Text style={styles.buttonText}>Stop Run</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={startRecording}>
-        <Text style={styles.buttonText}>Begin Run</Text>
-      </TouchableOpacity>
+      {state.recording ? (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            startStopTimer(false);
+            stopRecording();
+          }}>
+          <Text style={styles.buttonText}>Stop Run</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            startStopTimer(true);
+            startRecording();
+          }}>
+          <Text style={styles.buttonText}>Begin Run</Text>
+        </TouchableOpacity>
+      )}
     </HeaderPanel>
   );
 };
@@ -153,5 +174,11 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     justifyContent: "flex-end",
+  },
+  titleContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

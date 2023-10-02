@@ -11,7 +11,7 @@ const trackReducer = (state, action) => {
       return state.filter((track) => track._id !== action.payload);
     case "edit_track":
       return state.map((track) =>
-        track._id === action.payload._id ? action.payload : track
+        track._id === action.payload.id ? action.payload : track
       );
     default:
       return state;
@@ -33,7 +33,7 @@ const deleteTrack = (dispatch) => async (trackID, id) => {
 
 const editTrack = (dispatch) => async (id, name, description) => {
   const res = await Server.patch(`/track`, { id, name, description });
-  dispatch({ type: "edit_track", payload: res.data });
+  dispatch({ type: "edit_track", payload: { id, name, description } });
 };
 
 export const { Provider, Context } = createDataContext(
