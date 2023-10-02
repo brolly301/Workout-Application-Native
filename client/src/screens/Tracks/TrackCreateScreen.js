@@ -13,7 +13,6 @@ import HeaderPanel from "../../components/HeaderPanel";
 import useLocationContext from "../../hooks/useLocationContext";
 import useLocation from "../../hooks/useLocation";
 import CancelModal from "../../components/Tracks/CancelModal";
-import useSaveTrack from "../../hooks/useSaveTrack";
 import FinishModal from "../../components/Tracks/FinishModal";
 
 const TrackCreateScreen = () => {
@@ -22,7 +21,7 @@ const TrackCreateScreen = () => {
     state,
     startRecording,
     stopRecording,
-    changeDescription,
+    reset,
     changeName,
   } = useLocationContext();
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
@@ -50,6 +49,8 @@ const TrackCreateScreen = () => {
       <FinishModal
         modalVisible={finishModalVisible}
         setModalVisible={setFinishModalVisible}
+        state={state}
+        reset={reset}
       />
 
       <CancelModal
@@ -58,8 +59,7 @@ const TrackCreateScreen = () => {
       />
       <View style={styles.headerIcon}>
         <TouchableOpacity
-          onPress={() => setCancelModalVisible(!cancelModalVisible)}
-        >
+          onPress={() => setCancelModalVisible(!cancelModalVisible)}>
           <Text style={styles.cancelButton}>Cancel</Text>
         </TouchableOpacity>
 
@@ -70,8 +70,8 @@ const TrackCreateScreen = () => {
       <Text style={styles.title}>Track Run</Text>
       <TextInput
         style={styles.nameInput}
-        onPressIn={changeName}
-        placeholder='Name'
+        onChangeText={changeName}
+        placeholder="Name"
       />
       {/* <TextInput style={styles.descriptionInput} placeholder='Description' /> */}
       <View style={{ marginBottom: 15 }} />

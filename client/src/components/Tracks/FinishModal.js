@@ -1,18 +1,25 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import useSaveTrack from "../../hooks/useSaveTrack";
+import useTrackContext from "../../hooks/useTrackContext";
+import { useNavigation } from "@react-navigation/native";
 
-const FinishModal = ({ modalVisible, setModalVisible, handleSubmit }) => {
-  const [saveTrack] = useSaveTrack();
+const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
+  const { addTrack } = useTrackContext();
+  const navigation = useNavigation();
+
+  const saveTrack = async () => {
+    await addTrack(state.name, state.locations);
+    reset();
+    navigation.navigate("Workout");
+  };
 
   return (
     <View>
       <Modal
         visible={modalVisible}
-        animationType='fade'
+        animationType="fade"
         transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
+        onRequestClose={() => setModalVisible(!modalVisible)}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.title}>Finish Workout</Text>
@@ -24,11 +31,12 @@ const FinishModal = ({ modalVisible, setModalVisible, handleSubmit }) => {
                 style={styles.closeButton}
                 onPress={() => {
                   setModalVisible(!modalVisible);
-                }}
-              >
+                }}>
                 <Text style={styles.closeButtonText}>No</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.closeButton} onPress={saveTrack}>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => saveTrack()}>
                 <Text style={styles.closeButtonText}>Yes</Text>
               </TouchableOpacity>
             </View>
