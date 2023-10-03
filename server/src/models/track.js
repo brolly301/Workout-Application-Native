@@ -18,6 +18,9 @@ const TrackSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  trackID: {
+    type: String,
+  },
   name: {
     type: String,
     default: "",
@@ -28,7 +31,9 @@ const TrackSchema = new Schema({
   },
   date: {
     type: String,
-    default: Date.now(),
+  },
+  time: {
+    type: Number,
   },
   locations: [PointSchema],
 });

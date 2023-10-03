@@ -2,15 +2,28 @@ import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
 import useTrackContext from "../../hooks/useTrackContext";
 import { useNavigation } from "@react-navigation/native";
+import useTimerContext from "../../hooks/useTimerContext.js";
+import useUserContext from "../../hooks/useUserContext";
 
 const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
   const { addTrack } = useTrackContext();
+  const { state: user } = useUserContext();
   const navigation = useNavigation();
 
-  console.log(state);
+  const { time } = useTimerContext();
+
+  const trackData = {
+    userID: user.userDetails._id,
+    name: state.name,
+    trackID: user.userDetails._id + Date.now(),
+    description: state.description,
+    locations: state.locations,
+    date: new Date(),
+    time: time,
+  };
 
   const saveTrack = async () => {
-    await addTrack(state.name, state.description, state.locations);
+    await addTrack(trackData);
     reset();
     navigation.navigate("Workout");
   };
