@@ -13,7 +13,6 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
   const { time } = useTimerContext();
 
   const trackData = {
-    userID: user.userDetails._id,
     name: state.name,
     trackID: user.userDetails._id + Date.now(),
     description: state.description,

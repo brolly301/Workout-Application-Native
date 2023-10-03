@@ -14,7 +14,7 @@ const PointSchema = new Schema({
 });
 
 const TrackSchema = new Schema({
-  userId: {
+  userID: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },

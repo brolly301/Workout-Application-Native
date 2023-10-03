@@ -3,15 +3,13 @@ const router = express.Router();
 const requireAuth = require("../middlewares/requireAuth");
 const Track = require("../models/track");
 
-router.use(requireAuth);
-
-router.get("/", async (req, res) => {
-  const tracks = await Track.find({ userId: req.user._id });
+router.get("/", requireAuth, async (req, res) => {
+  const tracks = await Track.find({ userID: req.user._id });
   res.send(tracks);
 });
 
-router.post("/", async (req, res) => {
-  const { name, description, locations } = req.body;
+router.post("/", requireAuth, async (req, res) => {
+  const { name, locations } = req.body;
 
   console.log(req.body);
 
@@ -21,12 +19,7 @@ router.post("/", async (req, res) => {
       .send({ error: "You must provide a name, description and locations" });
   }
   try {
-    const track = new Track({
-      name,
-      description,
-      locations,
-      userId: req.user._id,
-    });
+    const track = new Track({ ...req.body, userID: req.user._id });
     await track.save();
     res.send(track);
   } catch (err) {
@@ -35,7 +28,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", requireAuth, async (req, res) => {
   try {
     await Track.findByIdAndDelete(req.params.id);
     res.send({ message: "Track deleted" });
@@ -44,7 +37,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.patch("/", async (req, res) => {
+router.patch("/", requireAuth, async (req, res) => {
   try {
     await Track.findByIdAndUpdate(req.body.id, { ...req.body });
   } catch (err) {
