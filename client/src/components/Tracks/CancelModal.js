@@ -1,41 +1,62 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import useTimerContext from "../../hooks/useTimerContext.js";
 
-const CancelModal = ({ modalVisible, setModalVisible }) => {
+const CancelModal = ({ modalVisible, setModalVisible, reset, state }) => {
   const navigation = useNavigation();
+  const { resetTimer } = useTimerContext();
 
   return (
     <View>
       <Modal
         visible={modalVisible}
-        animationType='fade'
+        animationType="fade"
         transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
+        onRequestClose={() => setModalVisible(!modalVisible)}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.title}>Cancel Run</Text>
-            <Text style={styles.subTitle}>
-              Are you sure you want to cancel?
-            </Text>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.closeButtonText}>No</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  navigation.navigate("Workout");
-                }}
-              >
-                <Text style={styles.closeButtonText}>Yes</Text>
-              </TouchableOpacity>
-            </View>
+
+            {state.recording ? (
+              <>
+                <Text style={styles.subTitle}>
+                  Please stop your run before cancelling.
+                </Text>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={styles.closeButton}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                    }}>
+                    <Text style={styles.closeButtonText}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            ) : (
+              <>
+                <Text style={styles.subTitle}>
+                  Are you sure you want to cancel?
+                </Text>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={styles.closeButton}
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <Text style={styles.closeButtonText}>No</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.closeButton}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                      resetTimer();
+                      reset();
+                      navigation.navigate("Workout");
+                    }}>
+                    <Text style={styles.closeButtonText}>Yes</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
           </View>
         </View>
       </Modal>

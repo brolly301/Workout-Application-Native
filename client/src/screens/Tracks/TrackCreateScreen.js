@@ -60,6 +60,8 @@ const TrackCreateScreen = () => {
       <CancelModal
         setModalVisible={setCancelModalVisible}
         modalVisible={cancelModalVisible}
+        state={state}
+        reset={reset}
       />
       <View style={styles.headerIcon}>
         <TouchableOpacity

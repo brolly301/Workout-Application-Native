@@ -5,6 +5,7 @@ import MapView, { Polyline, Circle } from "react-native-maps";
 import DeleteModal from "../DeleteModal";
 import useTrackContext from "../../hooks/useTrackContext";
 import { useNavigation } from "@react-navigation/native";
+import { formatDate } from "../DateTime";
 
 const TrackModal = ({ modalVisible, setModalVisible, item }) => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -66,6 +67,7 @@ const TrackModal = ({ modalVisible, setModalVisible, item }) => {
             </View>
             <View style={styles.titleContainer}>
               <Text style={styles.title}>{item?.name}</Text>
+              <Text style={styles.subTitle}>{formatDate(item?.date)}</Text>
             </View>
             <View style={styles.mapContainer}>
               <MapView

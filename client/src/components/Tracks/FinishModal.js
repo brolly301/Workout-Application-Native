@@ -10,7 +10,7 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
   const { state: user } = useUserContext();
   const navigation = useNavigation();
 
-  const { time } = useTimerContext();
+  const { time, resetTimer } = useTimerContext();
 
   const trackData = {
     name: state.name,
@@ -23,6 +23,7 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
 
   const saveTrack = async () => {
     await addTrack(trackData);
+    resetTimer();
     reset();
     navigation.navigate("Workout");
   };

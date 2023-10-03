@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import TrackModal from "./TrackModal";
+import { formatDate, formatTime } from "../DateTime";
 
 const TrackShow = ({ item }) => {
   // Function to calculate distance between two coordinates using Haversine formula
@@ -66,14 +67,12 @@ const TrackShow = ({ item }) => {
           <View style={styles.subContainer}>
             <View style={styles.textContainer2}>
               <Text style={styles.text}>{item.name}</Text>
-
-              <Text style={styles.text}></Text>
+              <Text style={styles.text}>{formatDate(item.date)}</Text>
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.text}></Text>
-              <Text style={styles.text}>Exercises</Text>
+              <Text style={styles.text}> {totalDistance.toFixed(2)} km</Text>
+              <Text style={styles.text}>{formatTime(item.time)}</Text>
             </View>
-            <Text> {totalDistance.toFixed(2)} km</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -98,8 +97,9 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "baseline",
-    justifyContent: "space-evenly",
-    width: "100%",
+    justifyContent: "space-between",
+    width: "75.5%",
+    marginLeft: 45,
   },
   textContainer: {
     display: "flex",
