@@ -16,6 +16,7 @@ import CancelModal from "../../components/Tracks/CancelModal";
 import FinishModal from "../../components/Tracks/FinishModal";
 import Timer from "../../components/Workout/Timer";
 import useTimerContext from "../../hooks/useTimerContext.js";
+import validation from "../../components/Tracks/TrackValidation";
 
 const TrackCreateScreen = () => {
   const {
@@ -31,6 +32,11 @@ const TrackCreateScreen = () => {
   const [finishModalVisible, setFinishModalVisible] = useState(false);
   const isFocused = useIsFocused();
   const { startStopTimer } = useTimerContext();
+  const [errors, setErrors] = useState({});
+
+  const handleValidation = () => {
+    setErrors(validation(state.name, state.locations));
+  };
 
   const callback = useCallback(
     (location) => {
@@ -55,6 +61,7 @@ const TrackCreateScreen = () => {
         setModalVisible={setFinishModalVisible}
         state={state}
         reset={reset}
+        handleValidation={handleValidation}
       />
 
       <CancelModal
@@ -65,7 +72,8 @@ const TrackCreateScreen = () => {
       />
       <View style={styles.headerIcon}>
         <TouchableOpacity
-          onPress={() => setCancelModalVisible(!cancelModalVisible)}>
+          onPress={() => setCancelModalVisible(!cancelModalVisible)}
+        >
           <Text style={styles.cancelButton}>Cancel</Text>
         </TouchableOpacity>
 
@@ -79,17 +87,21 @@ const TrackCreateScreen = () => {
           <Timer />
         </View>
       </View>
+      {errors.name && <Text style={styles.errors}>{errors.name}</Text>}
       <TextInput
         style={styles.nameInput}
         onChangeText={changeName}
-        placeholder="Name"
+        placeholder='Name'
       />
       <TextInput
         style={styles.descriptionInput}
-        placeholder="Description"
+        placeholder='Description'
         onChangeText={changeDescription}
       />
       <View style={{ marginBottom: 15 }} />
+      {errors.locations && (
+        <Text style={styles.errors}>{errors.locations}</Text>
+      )}
       {isFocused ? <Map /> : null}
       {err ? <Text>Please enable location services to continue.</Text> : null}
       {state.recording ? (
@@ -98,7 +110,8 @@ const TrackCreateScreen = () => {
           onPress={() => {
             startStopTimer(false);
             stopRecording();
-          }}>
+          }}
+        >
           <Text style={styles.buttonText}>Stop Run</Text>
         </TouchableOpacity>
       ) : (
@@ -107,7 +120,8 @@ const TrackCreateScreen = () => {
           onPress={() => {
             startStopTimer(true);
             startRecording();
-          }}>
+          }}
+        >
           <Text style={styles.buttonText}>Begin Run</Text>
         </TouchableOpacity>
       )}
@@ -182,5 +196,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  errors: {
+    color: "red",
+    marginBottom: 10,
   },
 });

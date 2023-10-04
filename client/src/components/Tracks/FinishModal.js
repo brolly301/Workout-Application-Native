@@ -5,7 +5,13 @@ import { useNavigation } from "@react-navigation/native";
 import useTimerContext from "../../hooks/useTimerContext.js";
 import useUserContext from "../../hooks/useUserContext";
 
-const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
+const FinishModal = ({
+  modalVisible,
+  setModalVisible,
+  reset,
+  state,
+  handleValidation,
+}) => {
   const { addTrack } = useTrackContext();
   const { state: user } = useUserContext();
   const navigation = useNavigation();
@@ -22,11 +28,14 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
   };
 
   const saveTrack = async () => {
-    await addTrack(trackData);
-    resetTimer();
-    reset();
-    navigation.navigate("Workout", { track: trackData });
+    await addTrack(trackData, () => {
+      navigation.navigate("Workout", { track: trackData });
+      resetTimer();
+      reset();
+    });
   };
+
+  console.log(state.locations);
 
   return (
     <View>
@@ -71,7 +80,15 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.closeButton}
-                    onPress={() => saveTrack()}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                      if (!handleValidation())
+                        try {
+                          saveTrack();
+                        } catch (e) {
+                          console.log(e);
+                        }
+                    }}
                   >
                     <Text style={styles.closeButtonText}>Yes</Text>
                   </TouchableOpacity>

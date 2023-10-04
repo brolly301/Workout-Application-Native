@@ -1,4 +1,4 @@
-export default validation = (name, description) => {
+export default validation = (name, locations) => {
   const errors = {};
 
   if (!name) {
@@ -7,10 +7,8 @@ export default validation = (name, description) => {
     errors.name = "Name must not exceed 30 characters.";
   }
 
-  if (!description) {
-    errors.description = "Description is required.";
-  } else if (description.length > 100) {
-    errors.description = "Description must not exceed 100 characters.";
+  if (!locations || !locations.length) {
+    errors.locations = "You must begin your run to proceed.";
   }
 
   return errors;

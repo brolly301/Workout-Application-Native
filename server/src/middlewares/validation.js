@@ -69,6 +69,14 @@ exports.routineValidator = (req, res, next) => {
   errors(req, res, next);
 };
 
+exports.trackValidator = (req, res, next) => {
+  req.check("name", "Track name is required").notEmpty();
+
+  req.check("locations", "You must begin your run to proceed.").notEmpty();
+
+  errors(req, res, next);
+};
+
 exports.authValidator = (req, res, next) => {
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   req.check("firstName", "Please enter your first name.").notEmpty();

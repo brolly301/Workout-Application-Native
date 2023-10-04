@@ -22,9 +22,16 @@ const getTracks = (dispatch) => async () => {
   const res = await Server.get("/track");
   dispatch({ type: "get_tracks", payload: res.data });
 };
-const addTrack = (dispatch) => async (trackData) => {
-  await Server.post("/track", { ...trackData });
-  dispatch({ type: "add_track", payload: { ...trackData } });
+const addTrack = (dispatch) => async (trackData, callback) => {
+  try {
+    const res = await Server.post("/track", { ...trackData });
+    dispatch({ type: "add_track", payload: { ...trackData } });
+    if (callback) {
+      callback();
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 const deleteTrack = (dispatch) => async (trackID, id) => {
   const res = await Server.delete(`/track/${id}`);
