@@ -8,35 +8,47 @@ import useRoutineContext from "../hooks/useRoutineContext";
 import HeaderPanel from "../components/HeaderPanel";
 import Spacer from "../components/Spacer";
 import WorkoutSummaryModal from "../components/Workout/Modals/WorkoutSummaryModal";
-import { useRoute } from "@react-navigation/native";
+import TrackSummaryModal from "../components/Tracks/TrackSummaryModal";
 
 export default function WorkoutDashboard({ route }) {
   const workout = route?.params?.workout;
+  const track = route?.params?.track;
 
   const { state } = useUserContext();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [workoutModalVisible, setWorkoutModalVisible] = useState(false);
   const [isWorkout, setIsWorkout] = useState(false);
+  const [trackModalVisible, setTrackModalVisible] = useState(false);
+  const [isTrack, setIsTrack] = useState(false);
   const { state: allRoutines } = useRoutineContext();
 
   useEffect(() => {
     if (workout) {
-      setModalVisible(true);
+      setWorkoutModalVisible(true);
+    } else if (track) {
+      setTrackModalVisible(true);
     }
-  }, [workout]);
+  }, [workout, track]);
 
   const closeModalAndResetWorkout = () => {
-    setModalVisible(false);
+    setWorkoutModalVisible(false);
     setIsWorkout(false);
+  };
+  const closeModalAndResetTrack = () => {
+    setTrackModalVisible(false);
+    setIsTrack(false);
   };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <WorkoutSummaryModal
-        modalVisible={modalVisible}
+        modalVisible={workoutModalVisible}
         setModalVisible={closeModalAndResetWorkout}
         routine={workout}
-        isWorkout={isWorkout}
-        setIsWorkout={setIsWorkout}
+      />
+      <TrackSummaryModal
+        modalVisible={trackModalVisible}
+        setModalVisible={closeModalAndResetTrack}
+        item={track}
       />
       <HeaderPanel>
         <View style={styles.spacer} />

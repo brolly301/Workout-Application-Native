@@ -25,16 +25,17 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
     await addTrack(trackData);
     resetTimer();
     reset();
-    navigation.navigate("Workout");
+    navigation.navigate("Workout", { track: trackData });
   };
 
   return (
     <View>
       <Modal
         visible={modalVisible}
-        animationType="fade"
+        animationType='fade'
         transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.title}>Finish Workout</Text>
@@ -48,7 +49,8 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
                     style={styles.closeButton}
                     onPress={() => {
                       setModalVisible(!modalVisible);
-                    }}>
+                    }}
+                  >
                     <Text style={styles.closeButtonText}>Close</Text>
                   </TouchableOpacity>
                 </View>
@@ -63,12 +65,14 @@ const FinishModal = ({ modalVisible, setModalVisible, reset, state }) => {
                     style={styles.closeButton}
                     onPress={() => {
                       setModalVisible(!modalVisible);
-                    }}>
+                    }}
+                  >
                     <Text style={styles.closeButtonText}>No</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.closeButton}
-                    onPress={() => saveTrack()}>
+                    onPress={() => saveTrack()}
+                  >
                     <Text style={styles.closeButtonText}>Yes</Text>
                   </TouchableOpacity>
                 </View>
