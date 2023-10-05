@@ -12,9 +12,10 @@ const SaveEditModal = ({
     <View>
       <Modal
         visible={modalVisible}
-        animationType="fade"
+        animationType='fade'
         transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.title}>Save {saveText}</Text>
@@ -24,7 +25,8 @@ const SaveEditModal = ({
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.closeButton}
-                onPress={() => setModalVisible(!modalVisible)}>
+                onPress={() => setModalVisible(!modalVisible)}
+              >
                 <Text style={styles.closeButtonText}>No</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -38,7 +40,8 @@ const SaveEditModal = ({
                     }
                   }
                   setModalVisible(!modalVisible);
-                }}>
+                }}
+              >
                 <Text style={styles.closeButtonText}>Yes</Text>
               </TouchableOpacity>
             </View>

@@ -18,7 +18,6 @@ const HistoryModalWorkouts = ({
 }) => {
   const navigation = useNavigation();
 
-  // i want the new date to display the day of the week, the month, the day, and the year
   const date = new Date(routine?.date).toLocaleDateString("en-US", {
     weekday: "short",
     year: "numeric",
@@ -33,33 +32,35 @@ const HistoryModalWorkouts = ({
           onPress={() => {
             setCancelModalVisible(!cancelModalVisible);
             setModalVisible(!modalVisible);
-          }}>
+          }}
+        >
           <EvilIcons
             style={styles.modalIconDelete}
-            name="trash"
+            name='trash'
             size={39}
-            color="red"
+            color='red'
           />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("EditWorkout", { workout: routine });
             setModalVisible(!modalVisible);
-          }}>
+          }}
+        >
           <EvilIcons
             style={styles.modalIconClose}
-            name="pencil"
+            name='pencil'
             size={39}
-            color="#D5A8F8"
+            color='#D5A8F8'
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
           <EvilIcons
             style={styles.modalIconClose}
-            name="close"
+            name='close'
             size={32}
-            color="black"
+            color='black'
           />
         </TouchableOpacity>
       </View>
@@ -70,7 +71,8 @@ const HistoryModalWorkouts = ({
       <View>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{ height: "72%" }}>
+          style={{ height: "72%" }}
+        >
           {routine?.exercises?.map((exercise, index) => {
             return (
               <View key={exercise._id}>

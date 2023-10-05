@@ -22,46 +22,49 @@ const TrackModal = ({ modalVisible, setModalVisible, item }) => {
         deleteText={"Run"}
         deleteFunction={deleteTrack}
         routine={item}
-        id={item._id}
+        id={item?._id}
       />
       <Modal
         visible={modalVisible}
-        animationType="fade"
+        animationType='fade'
         transparent={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.iconContainer}>
               <TouchableOpacity
                 onPress={() => {
                   setDeleteModalVisible(!deleteModalVisible);
-                }}>
+                }}
+              >
                 <EvilIcons
                   style={styles.modalIconDelete}
-                  name="trash"
+                  name='trash'
                   size={39}
-                  color="red"
+                  color='red'
                 />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setModalVisible(!modalVisible);
                   navigation.navigate("EditTrack", { item });
-                }}>
+                }}
+              >
                 <EvilIcons
                   style={styles.modalIconClose}
-                  name="pencil"
+                  name='pencil'
                   size={39}
-                  color="#D5A8F8"
+                  color='#D5A8F8'
                 />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <EvilIcons
                   style={styles.modalIconClose}
-                  name="close"
+                  name='close'
                   size={32}
-                  color="black"
+                  color='black'
                 />
               </TouchableOpacity>
             </View>
@@ -73,12 +76,13 @@ const TrackModal = ({ modalVisible, setModalVisible, item }) => {
               <MapView
                 style={styles.map}
                 initialRegion={{
-                  ...item.locations[0].coords,
+                  ...item?.locations[0].coords,
                   latitudeDelta: 0.01,
                   longitudeDelta: 0.01,
-                }}>
+                }}
+              >
                 <Polyline
-                  coordinates={item.locations.map(
+                  coordinates={item?.locations.map(
                     (location) => location.coords
                   )}
                 />

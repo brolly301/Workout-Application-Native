@@ -29,12 +29,12 @@ router.delete("/:id", requireAuth, async (req, res) => {
   }
 });
 
-router.patch("/", requireAuth, async (req, res) => {
-  try {
-    await Track.findByIdAndUpdate(req.body.id, { ...req.body });
-  } catch (err) {
-    res.status(422).send({ error: err.message });
-  }
+router.patch("/editTrack", requireAuth, trackValidator, async (req, res) => {
+  const track = await Track.findByIdAndUpdate(req.body.id, {
+    ...req.body,
+  });
+
+  res.send(track);
 });
 
 module.exports = router;

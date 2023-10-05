@@ -25,12 +25,20 @@ const EditTrackScreen = ({ route }) => {
   const [description, setDescription] = useState(item.description);
 
   const handleValidation = () => {
-    setErrors(validation(name, description));
+    setErrors(validation(name));
+  };
+
+  const trackData = {
+    ...item,
+    id: item._id,
+    name,
+    description,
   };
 
   const handleSubmit = () => {
-    editTrack(item._id, name, description);
-    navigation.pop();
+    editTrack(trackData, () => {
+      navigation.navigate("History");
+    });
   };
 
   return (
@@ -46,27 +54,30 @@ const EditTrackScreen = ({ route }) => {
         <TouchableOpacity
           onPress={() => {
             navigation.pop();
-          }}>
-          <Ionicons name="arrow-back" size={32} color="black" />
+          }}
+        >
+          <Ionicons name='arrow-back' size={32} color='black' />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             setModalVisible(!modalVisible);
-          }}>
+          }}
+        >
           <Text style={styles.finishButton}>Save</Text>
         </TouchableOpacity>
       </View>
       <View>
         <Text style={styles.title}>Tracks</Text>
         <Text style={styles.subTitle}>Edit Track</Text>
+        {errors.name && <Text style={styles.errors}>{errors.name}</Text>}
         <TextInput
-          placeholder="Name"
+          placeholder='Name'
           style={styles.nameInput}
           value={name}
           onChangeText={(text) => setName(text)}
         />
         <TextInput
-          placeholder="Description"
+          placeholder='Description'
           style={styles.descriptionInput}
           value={description}
           onChangeText={(text) => setDescription(text)}
@@ -79,7 +90,8 @@ const EditTrackScreen = ({ route }) => {
             ...item.locations[0].coords,
             latitudeDelta: 0.01,
             longitudeDelta: 0.01,
-          }}>
+          }}
+        >
           <Polyline
             coordinates={item.locations.map((location) => location.coords)}
           />
@@ -168,5 +180,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     borderColor: "black",
     borderWidth: 1,
+  },
+  errors: {
+    color: "red",
+    marginBottom: 10,
   },
 });
